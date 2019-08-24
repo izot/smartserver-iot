@@ -1,0 +1,5 @@
+name,deviceType,category,protocol,discoveryMethod,installationDate,uid,longitude,latitude,customerName,ownerMAC,timezone
+VAV-01,VAVsim6000,EDGE,lon,manual,8/6/2019,00D071125FAC,0.001,0.001,Customer 1,,America/Los_Angeles
+VAV-02,VAVsim6000,EDGE,lon,manual,8/6/2019,00D071125FB5,1.00001,1.00001,Customer 1,,America/Los_Angeles
+VAV-03,VAVsim6000,EDGE,lon,manual,8/6/2019,00D071125F68,1.00002,1.00002,Customer 1,,America/Los_Angeles
+DAC,DAC6000,EDGE,lon,manual,8/6/2019,00D071125FCA,-0.001,0.001,Customer 1,,America/Los_Angeles

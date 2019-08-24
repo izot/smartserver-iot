@@ -1,0 +1,4 @@
+#filetype,con,,,,,
+Rule ID,Area Scope,Zone Scope,Device Name,Device Type,Datapoint Name,Direction
+1,World,,myDev.1,,SpController/0/nvoDspSP,Source
+1,World,,DAC,,DAC/0/nviDuctStaticSP,Destination

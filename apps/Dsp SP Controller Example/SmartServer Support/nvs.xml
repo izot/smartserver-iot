@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml-stylesheet href="http://types.lonmark.org/templates/index.xsl" type="text/xsl"?>
+<!-- created by Report Generator 4.41.06 at Thu Jul 25 13:49:12 2019 -->
+<ldrf>
+	<control>
+		<xsl>index.xsl</xsl>
+		<self>nvs.xml</self>
+		<base>C:\Users\robg\Desktop\Test\DRF Report</base>
+		<folder>9000010600000000-4</folder>
+		<standard>http://types.lonmark.org</standard>
+		<tools>http://types.lonmark.org/templates</tools>
+		<set>Apollodev 90:00:01:06:00:00:00:00-4</set>
+		<html>index.html</html>
+		<generator>Report Generator 4.41.06</generator>
+		<group>Network Variables</group>
+		<selector>4</selector>
+		<data-version>1.06</data-version>
+		<format-version>6.00</format-version>
+		<timestamp>7/25/2019 14:6:17</timestamp>
+		<url>suppport@echelon.com</url>
+		<description id="4-1"/>
+		<creator id="4-2"/>
+	</control>
+	<items>
+		<nvt id="UNVTdataAll" idx="1" stlp_std="no">
+			<obsolete>no</obsolete>
+			<size>18</size>
+			<aggregate cat="struct">
+				<members>
+					<member>
+						<scalar>
+							<nc-type>unsigned quad</nc-type>
+							<min>0</min>
+							<max>4294967295</max>
+							<scaling>
+								<a>1</a>
+								<b>0</b>
+								<c>0</c>
+								<s>1</s>
+							</scaling>
+							<array-size>4</array-size>
+						</scalar>
+						<p-name>counter</p-name>
+					</member>
+					<member>
+						<scalar>
+							<nc-type>unsigned long</nc-type>
+							<min>0</min>
+							<max>65535</max>
+							<scaling>
+								<a>1</a>
+								<b>0</b>
+								<c>0</c>
+								<s>1</s>
+							</scaling>
+						</scalar>
+						<p-name>faultCounter</p-name>
+					</member>
+				</members>
+			</aggregate>
+			<p-name>UNVTdataAll</p-name>
+			<formats>
+				<format id="UNVTdataAll">text(&quot;%d %d %d %d %d&quot;,  counter[0], counter[1], counter[2], counter[3], faultCounter)</format>
+			</formats>
+			<refs>
+				<ref href="9000010600000000-4/fps.xml">UFPTnodeModel</ref>
+				<ref href="9000010600000000-4/fps.xml">UFPTnodeModelMonitor</ref>
+			</refs>
+		</nvt>
+		<nvt id="UNVTdevHandle" idx="2" stlp_std="no">
+			<obsolete>no</obsolete>
+			<size>31</size>
+			<aggregate cat="struct">
+				<members>
+					<member>
+						<scalar>
+							<nc-type>unsigned short</nc-type>
+							<min>0</min>
+							<max>255</max>
+							<scaling>
+								<a>1</a>
+								<b>0</b>
+								<c>0</c>
+								<s>1</s>
+							</scaling>
+						</scalar>
+						<p-name>index</p-name>
+					</member>
+					<member>
+						<scalar>
+							<nc-type>unsigned char</nc-type>
+							<min>0</min>
+							<max>255</max>
+							<scaling>
+								<a>1</a>
+								<b>0</b>
+								<c>0</c>
+								<s>1</s>
+							</scaling>
+							<array-size>30</array-size>
+						</scalar>
+						<p-name>devHandle</p-name>
+					</member>
+				</members>
+			</aggregate>
+			<p-name>UNVTdevHandle</p-name>
+			<formats>
+				<format id="UNVTdevHandle">text(&quot;%d %s&quot;, index,devHandle)</format>
+			</formats>
+			<refs>
+				<ref href="9000010600000000-4/fps.xml">UFPTDspSPcontroller</ref>
+			</refs>
+		</nvt>
+	</items>
+	<strings>
+		<string id="4-1">This file is a scope 4 type file. It contains user network variable types, configuration property types, and the enumeration types that support them.</string>
+		<string id="4-2">This LonMark Device Resource TYP file was created by Echelon Corporation. Contact us at 408-938-5200 or at www.echelon.com on the internet.</string>
+	</strings>
+</ldrf>

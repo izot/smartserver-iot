@@ -1,0 +1,551 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml-stylesheet href="http://types.lonmark.org/templates/index.xsl" type="text/xsl"?>
+<!-- created by Report Generator 4.41.06 at Thu Jul 25 13:49:12 2019 -->
+<ldrf>
+	<control>
+		<xsl>index.xsl</xsl>
+		<self>fps.xml</self>
+		<base>C:\Users\robg\Desktop\Test\DRF Report</base>
+		<folder>9000010600000000-4</folder>
+		<standard>http://types.lonmark.org</standard>
+		<tools>http://types.lonmark.org/templates</tools>
+		<set>Apollodev 90:00:01:06:00:00:00:00-4</set>
+		<html>index.html</html>
+		<generator>Report Generator 4.41.06</generator>
+		<group>Functional Profiles</group>
+		<selector>4</selector>
+		<data-version>1.06</data-version>
+		<format-version>5.00</format-version>
+		<timestamp>7/25/2019 14:7:11</timestamp>
+		<url>suppport@echelon.com</url>
+		<description id="4-3"/>
+		<creator id="4-4"/>
+	</control>
+	<items>
+		<fpt id="UFPTDspSPcontroller" idx="5" key="20004" stlp_std="no">
+			<obsolete>no</obsolete>
+			<inheriting>
+				no
+				<literal>no</literal>
+			</inheriting>
+			<f-nvs>
+				<f-nv id="nviEnable" idx="1">
+					<member>1</member>
+					<mandatory>yes</mandatory>
+					<name id="0-346"/>
+					<comment id="4-7"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_switch</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoDspSP" idx="2">
+					<member>2</member>
+					<mandatory>yes</mandatory>
+					<name id="0-69"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_press_p</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoMaxDemand" idx="3">
+					<member>3</member>
+					<mandatory>yes</mandatory>
+					<name id="0-233"/>
+					<comment id="0-2134"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_lev_percent</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoMinDemand" idx="4">
+					<member>4</member>
+					<mandatory>yes</mandatory>
+					<name id="0-233"/>
+					<comment id="0-2134"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_lev_percent</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoAvgDemand" idx="5">
+					<member>5</member>
+					<mandatory>yes</mandatory>
+					<name id="0-233"/>
+					<comment id="0-2134"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_lev_percent</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoRougeCount" idx="6">
+					<member>6</member>
+					<mandatory>yes</mandatory>
+					<name id="0-19"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_count</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nviAddRouge" idx="7">
+					<member>7</member>
+					<mandatory>yes</mandatory>
+					<name id="0-78"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_str_asc</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nviRemoveRouge" idx="8">
+					<member>8</member>
+					<mandatory>yes</mandatory>
+					<name id="0-78"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_str_asc</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nviShowRouge" idx="9">
+					<member>9</member>
+					<mandatory>yes</mandatory>
+					<name id="0-19"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_count</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoRougeReport" idx="10">
+					<member>10</member>
+					<mandatory>yes</mandatory>
+					<ref href="9000010600000000-4/nvs.xml">UNVTdevHandle</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+			</f-nvs>
+			<f-cps>
+				<f-cp id="cpDelay" idx="1">
+					<member>1</member>
+					<mandatory>yes</mandatory>
+					<name id="0-722"/>
+					<comment id="0-723"/>
+					<ref href="0000000000000000-0/cps.xml">SCPTdelayTime</ref>
+					<default>0.0</default>
+					<applies>UFPTDspSPcontroller</applies>
+					<array>not permitted</array>
+				</f-cp>
+				<f-cp id="cpDefaultDspSP" idx="2">
+					<member>2</member>
+					<mandatory>yes</mandatory>
+					<name id="0-1265"/>
+					<comment id="0-1266"/>
+					<ref href="0000000000000000-0/cps.xml">SCPTductStaticPressureSetpoint</ref>
+					<default>2.01085</default>
+					<applies>UFPTDspSPcontroller</applies>
+					<array>not permitted</array>
+				</f-cp>
+				<f-cp id="cpMaxDspSP" idx="3">
+					<member>3</member>
+					<mandatory>yes</mandatory>
+					<name id="0-1267"/>
+					<comment id="0-1268"/>
+					<ref href="0000000000000000-0/cps.xml">SCPTmaxDuctStaticPressureSetpoint</ref>
+					<default>0</default>
+					<applies>UFPTDspSPcontroller</applies>
+					<array>not permitted</array>
+				</f-cp>
+				<f-cp id="cpMinDspSP" idx="4">
+					<member>4</member>
+					<mandatory>yes</mandatory>
+					<name id="0-1269"/>
+					<comment id="0-1270"/>
+					<ref href="0000000000000000-0/cps.xml">SCPTminDuctStaticPressureSetpoint</ref>
+					<default>0.40217</default>
+					<applies>UFPTDspSPcontroller</applies>
+					<array>not permitted</array>
+				</f-cp>
+				<f-cp id="cpLoopInterval" idx="5">
+					<member>5</member>
+					<mandatory>yes</mandatory>
+					<name id="0-5183"/>
+					<comment id="0-5184"/>
+					<ref href="0000000000000000-0/cps.xml">SCPTmeasurementInterval</ref>
+					<default>0.0</default>
+					<applies>UFPTDspSPcontroller</applies>
+					<array>not permitted</array>
+				</f-cp>
+			</f-cps>
+		</fpt>
+		<fpt id="UFPTdisplayController" idx="1" key="20000" stlp_std="no">
+			<obsolete>no</obsolete>
+			<inheriting>
+				no
+				<literal>no</literal>
+			</inheriting>
+			<principal>nviLine1msg</principal>
+			<f-nvs>
+				<f-nv id="nviLine1msg" idx="1">
+					<member>1</member>
+					<mandatory>yes</mandatory>
+					<name id="0-78"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_str_asc</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nviLine2msg" idx="2">
+					<member>2</member>
+					<mandatory>yes</mandatory>
+					<name id="0-78"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_str_asc</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nviLine3msg" idx="3">
+					<member>3</member>
+					<mandatory>yes</mandatory>
+					<name id="0-78"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_str_asc</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoMyNid" idx="4">
+					<member>4</member>
+					<mandatory>yes</mandatory>
+					<name id="0-78"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_str_asc</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+			</f-nvs>
+			<f-cps>
+				<f-cp id="cpLine1Default" idx="1">
+					<member>1</member>
+					<mandatory>yes</mandatory>
+					<ref href="9000010600000000-4/cps.xml">UCPTmsgDefault</ref>
+					<default>00*31</default>
+					<applies>nviLine1msg</applies>
+					<array>not permitted</array>
+				</f-cp>
+				<f-cp id="cpLine2Default" idx="2">
+					<member>2</member>
+					<mandatory>yes</mandatory>
+					<ref href="9000010600000000-4/cps.xml">UCPTmsgDefault</ref>
+					<default>00*31</default>
+					<applies>nviLine2msg</applies>
+					<array>not permitted</array>
+				</f-cp>
+				<f-cp id="cpLine3Default" idx="3">
+					<member>3</member>
+					<mandatory>yes</mandatory>
+					<ref href="9000010600000000-4/cps.xml">UCPTmsgDefault</ref>
+					<default>00*31</default>
+					<applies>nviLine3msg</applies>
+					<array>not permitted</array>
+				</f-cp>
+			</f-cps>
+		</fpt>
+		<fpt id="UFPTdisplayController2" idx="2" key="20001" stlp_std="no">
+			<obsolete>no</obsolete>
+			<inheriting>
+				no
+				<literal>no</literal>
+			</inheriting>
+			<principal>nviLine1msg</principal>
+			<f-nvs>
+				<f-nv id="nviLine1msg" idx="1">
+					<member>1</member>
+					<mandatory>yes</mandatory>
+					<name id="0-78"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_str_asc</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nviLine2msg" idx="2">
+					<member>2</member>
+					<mandatory>yes</mandatory>
+					<name id="0-78"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_str_asc</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nviLine3msg" idx="3">
+					<member>3</member>
+					<mandatory>yes</mandatory>
+					<name id="0-78"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_str_asc</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoMyNid" idx="4">
+					<member>4</member>
+					<mandatory>yes</mandatory>
+					<name id="0-78"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_str_asc</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoWinkCount" idx="5">
+					<member>5</member>
+					<mandatory>yes</mandatory>
+					<name id="0-19"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_count</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoSimpleUpDown" idx="6">
+					<member>6</member>
+					<mandatory>yes</mandatory>
+					<name id="0-19"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_count</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+			</f-nvs>
+			<f-cps>
+				<f-cp id="cpLine1Default" idx="1">
+					<member>1</member>
+					<mandatory>yes</mandatory>
+					<ref href="9000010600000000-4/cps.xml">UCPTmsgDefault</ref>
+					<default>00*31</default>
+					<applies>nviLine1msg</applies>
+					<array>not permitted</array>
+				</f-cp>
+				<f-cp id="cpLine2Default" idx="2">
+					<member>2</member>
+					<mandatory>yes</mandatory>
+					<ref href="9000010600000000-4/cps.xml">UCPTmsgDefault</ref>
+					<default>00*31</default>
+					<applies>nviLine2msg</applies>
+					<array>not permitted</array>
+				</f-cp>
+				<f-cp id="cpLine3Default" idx="3">
+					<member>3</member>
+					<mandatory>yes</mandatory>
+					<ref href="9000010600000000-4/cps.xml">UCPTmsgDefault</ref>
+					<default>00*31</default>
+					<applies>nviLine3msg</applies>
+					<array>not permitted</array>
+				</f-cp>
+			</f-cps>
+		</fpt>
+		<fpt id="UFPTnodeModel" idx="3" key="20002" stlp_std="no">
+			<obsolete>no</obsolete>
+			<inheriting>
+				no
+				<literal>no</literal>
+			</inheriting>
+			<f-nvs>
+				<f-nv id="nviDataSeed" idx="1">
+					<member>1</member>
+					<mandatory>yes</mandatory>
+					<name id="0-19"/>
+					<comment id="0-3327"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_count_32</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoCount1" idx="2">
+					<member>2</member>
+					<mandatory>yes</mandatory>
+					<name id="0-19"/>
+					<comment id="0-3327"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_count_32</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoCount2" idx="3">
+					<member>4</member>
+					<mandatory>yes</mandatory>
+					<name id="0-19"/>
+					<comment id="0-3327"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_count_32</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoCount3" idx="4">
+					<member>5</member>
+					<mandatory>yes</mandatory>
+					<name id="0-19"/>
+					<comment id="0-3327"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_count_32</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoCount4" idx="5">
+					<member>6</member>
+					<mandatory>yes</mandatory>
+					<name id="0-19"/>
+					<comment id="0-3327"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_count_32</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nviEnable" idx="6">
+					<member>7</member>
+					<mandatory>yes</mandatory>
+					<name id="0-346"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_switch</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoFaults" idx="7">
+					<member>8</member>
+					<mandatory>yes</mandatory>
+					<name id="0-19"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_count</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoCounterData" idx="8">
+					<member>9</member>
+					<mandatory>yes</mandatory>
+					<ref href="9000010600000000-4/nvs.xml">UNVTdataAll</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+			</f-nvs>
+			<f-cps>
+				<f-cp id="cpMaxSendTime" idx="1">
+					<member>1</member>
+					<mandatory>yes</mandatory>
+					<name id="0-448"/>
+					<comment id="0-449"/>
+					<ref href="0000000000000000-0/cps.xml">SCPTmaxSendTime</ref>
+					<default>60.0</default>
+					<applies>UFPTnodeModel</applies>
+					<array>not permitted</array>
+				</f-cp>
+				<f-cp id="cpMaxRcvTime" idx="2">
+					<member>2</member>
+					<mandatory>yes</mandatory>
+					<name id="0-446"/>
+					<comment id="0-669"/>
+					<ref href="0000000000000000-0/cps.xml">SCPTmaxRcvTime</ref>
+					<default>80.0</default>
+					<applies>UFPTnodeModel</applies>
+					<array>not permitted</array>
+				</f-cp>
+				<f-cp id="cpRandDelay" idx="3">
+					<member>3</member>
+					<mandatory>yes</mandatory>
+					<name id="0-722"/>
+					<comment id="0-723"/>
+					<ref href="0000000000000000-0/cps.xml">SCPTdelayTime</ref>
+					<min>10.0</min>
+					<default>0.0</default>
+					<applies>UFPTnodeModel</applies>
+					<array>not permitted</array>
+				</f-cp>
+				<f-cp id="cpIsMaster" idx="4">
+					<member>4</member>
+					<mandatory>yes</mandatory>
+					<name id="0-724"/>
+					<comment id="0-725"/>
+					<ref href="0000000000000000-0/cps.xml">SCPTmasterSlave</ref>
+					<default>0</default>
+					<applies>UFPTnodeModel</applies>
+					<array>not permitted</array>
+				</f-cp>
+			</f-cps>
+		</fpt>
+		<fpt id="UFPTnodeModelMonitor" idx="4" key="20003" stlp_std="no">
+			<obsolete>no</obsolete>
+			<inheriting>
+				no
+				<literal>no</literal>
+			</inheriting>
+			<f-nvs>
+				<f-nv id="nvoDataSeed" idx="1">
+					<member>1</member>
+					<mandatory>yes</mandatory>
+					<name id="0-19"/>
+					<comment id="0-3327"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_count_32</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nviCount1" idx="2">
+					<member>2</member>
+					<mandatory>yes</mandatory>
+					<name id="0-19"/>
+					<comment id="0-3327"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_count_32</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nviCount2" idx="3">
+					<member>4</member>
+					<mandatory>yes</mandatory>
+					<name id="0-19"/>
+					<comment id="0-3327"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_count_32</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nviCount3" idx="4">
+					<member>5</member>
+					<mandatory>yes</mandatory>
+					<name id="0-19"/>
+					<comment id="0-3327"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_count_32</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nviCount4" idx="5">
+					<member>6</member>
+					<mandatory>yes</mandatory>
+					<name id="0-19"/>
+					<comment id="0-3327"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_count_32</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoEnable" idx="6">
+					<member>7</member>
+					<mandatory>yes</mandatory>
+					<name id="0-346"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_switch</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nviFaults" idx="7">
+					<member>8</member>
+					<mandatory>yes</mandatory>
+					<name id="0-19"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_count</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nviCounterData" idx="8">
+					<member>9</member>
+					<mandatory>yes</mandatory>
+					<ref href="9000010600000000-4/nvs.xml">UNVTdataAll</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+			</f-nvs>
+		</fpt>
+	</items>
+	<strings>
+		<string id="4-3">This is a scope 4 FPT file. It contains functional profile templates.</string>
+		<string id="4-4">This LonMark Device Resource FPT file was created by Echelon Corporation. Contact us at 408-938-5200 or at www.echelon.com on the internet.</string>
+		<string id="0-346">Switch</string>
+		<string id="4-7">Enables controller after delay expirtes.</string>
+		<string id="0-69">Pressure (gauge)</string>
+		<string id="0-233">Percentage level.</string>
+		<string id="0-2134">
+			Level percent. SNVT_switch should be used instead of SNVT_lev_percent, with the exception of network variables that are used to communicate a percentage value and that require the additional resolution provided by SNVT_lev_percent; or for network variable members of functional profiles that are designed primarily for interfacing with SNVT_lev_percent members of other profiles.
+		</string>
+		<string id="0-19">Absolute count.</string>
+		<string id="0-78">Character string (30 characters max)</string>
+		<string id="0-722">Delay time, default to scene.</string>
+		<string id="0-723">The delay time, default to scene.</string>
+		<string id="0-1265">Duct static pressure.</string>
+		<string id="0-1266">Setpoint for default duct static pressure.</string>
+		<string id="0-1267">Maximum duct static pressure.</string>
+		<string id="0-1268">Setpoint for maximum duct static pressure.</string>
+		<string id="0-1269">Minimum duct static pressure.</string>
+		<string id="0-1270">Setpoint for minimum duct static pressure.</string>
+		<string id="0-5183">Measurement interval.</string>
+		<string id="0-5184">Time period used for a measurement.</string>
+		<string id="0-3327">A 32-bit counter.</string>
+		<string id="0-448">Maximum send time.</string>
+		<string id="0-449">The maximum period of time between consecutive transmissions of the current value.</string>
+		<string id="0-446">Maximum receive time.</string>
+		<string id="0-669">
+			The maximum period of time that may expire with no updates on the associated input network variables before the object goes into heartbeat failure mode. A zero value disables the mechanism.
+		</string>
+		<string id="0-724">Master-slave operation.</string>
+		<string id="0-725">Used to select master clock or slave clock, non-zero indicates this is master clock.</string>
+	</strings>
+</ldrf>
