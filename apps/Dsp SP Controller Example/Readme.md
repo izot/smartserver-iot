@@ -1,3 +1,4 @@
+This folder contains Example code and support resources for SmartServer IoT Internal Applicatoin development.  Here is the roadmap of the apps directory.
 #DSP SP Controller Example
 This project contains the source and support files for SmartServer IoT documentation 
 *"Creating Internal Apps and Drivers"* section.

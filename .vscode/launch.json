@@ -8,8 +8,7 @@
             "type": "node",
             "request": "launch",
             "name": "Launch Program",
-            "program": "${workspaceFolder}\\dsp-sp-cntl_B.js",
-            "env":{"DEV_TARGET":"10.1.129.7"}
+            "program": "${workspaceFolder}\\apps\\Dsp SP Controller Example\\dspSPController\\dsp-sp-cntl_B.js"
         }
     ]
 }

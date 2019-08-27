@@ -1,0 +1,14 @@
+{
+  "name": "point-monitor",
+  "version": "1.0.0",
+  "description": "Training example IAP/MQ application for SmartServer IoT",
+  "main": "pointmonitor.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "RTG",
+  "license": "ISC",
+  "dependencies": {
+    "mqtt": "3.0.0"
+  }
+}

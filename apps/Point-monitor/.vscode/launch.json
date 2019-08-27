@@ -8,8 +8,9 @@
             "type": "node",
             "request": "launch",
             "name": "Launch Program",
-            "program": "${workspaceFolder}\\dsp-sp-cntl_B.js",
+            "program": "${workspaceFolder}\\pointmonitor.js",
             "env":{"DEV_TARGET":"10.1.129.7"}
+
         }
     ]
 }

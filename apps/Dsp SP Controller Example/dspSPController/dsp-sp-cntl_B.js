@@ -205,10 +205,10 @@ function handleMyPointUpdates (updateEvent){
     if (updateEvent.datapoint.search("nvo") !== -1)
         return;
     // Record value in the Interface map
-    myInputs.set(updateEvent.datpoint, updateEvent.value);
+    myInputs.set(updateEvent.datapoint, updateEvent.value);
     // If required, at check for nvi and CPs values that require generate a event driven response
     if (updateEvent.datapoint === "nviEnable")
-        DspSP = updateEvent.datpoint.value.state == 1 ? myInputs.get("cpDefaultDspSP") : myInputs.get("cpMinDspSP");
+        myAppIf.nvoDspSP = updateEvent.value.state == 1 ? myInputs.get("cpDefaultDspSP") : myInputs.get("cpMinDspSP");
     if (updateEvent.datapoint === "cpLoopInterval") {
         clearInterval(myAppTimer);
         myAppTimer = setInterval(calculateDspSP, updateEvent.value * 1000);
@@ -352,17 +352,21 @@ client.on(
             }
         }
         // The IAP channel ../ev/updated will carry updates for NVs/CPs for internal Lon Devices.
-        // note that more than one instance could exist.  The Updated event has different
+        // Note that more than one instance could exist.  The Updated event has different
         // structure than a data event.
         if (topic.endsWith (`/ev/updated/dev/lon/type/${myAppIf.myAppPID}`)) {
             if (payload.handle == myAppIf.myDeviceHandle) {
                 // The values published in calculateDspSP() will generate updated events
                 if (payload.datapoint.search("nvo"))
                     return;
-                // If required, at checks for nvi values that must generate a event driven response
-                if (payload.datapoint === "nviEnable")
-                    DspSP = payload.datpoint.value.state == 1 ? myInputs.get("cpDefaultDspSP") : myInputs.get("cpMinDspSP");    
-
+                // If required, checks for nvi values that must generate a event driven response
+                if (payload.datapoint === "nviEnable") {
+                    myAppIf.nvoDspSP = payload.datapoint.value.state == 1 ? myInputs.get("cpDefaultDspSP") : myInputs.get("cpMinDspSP");    
+                    client.publish(
+                        `${glpPrefix}/rq/dev/lon/${myAppIf.myDeviceHandle}/if/${myAppIf.myFbName}/0/nvoDspSP/value`,
+                        JSON.stringify(myAppIf.nvoDspSP)
+                    )   
+                }
                 console.log(`${payload.datapoint}: ${JSON.stringify(payload.value)}`);
             }
         }
@@ -389,7 +393,7 @@ function calculateDspSP() {
             sumDemand += value;
             if (value < minVal)
                 minVal = value;
-            if (value > maxVal);
+            if (value > maxVal)
                 maxVal = value;    
         });
         myAppIf.nvoMaxDemand = maxVal;
