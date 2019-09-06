@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>Simple Sensor</title> <!-- *** Custom Web page #1  *** -->
+	<link rel="stylesheet" type="text/css" href="css/simple.css">	<!-- app-wide styles -->
+	<script src="scripts/simpledriver.js"></script> <!-- javaScript used by multiple Web pages  -->
+	<script src="scripts/simplesensor.js"></script> <!-- Javascript - unique for this Web page -->
+</head>
+<body onload="init()"> 
+<div><a class="logout" id="logout">Log out</a></div>
+<br>
+<!-- Begin *** Custom Web page #2  *** -->
+<h1>Simple Sensor</h1>
+SwitchIn: <input id="Sensor1/Lamp/0/nviValue" >
+<button type="button" onclick="writeValue(0,0)">Write</button>
+<br><br>
+SwitchOut:<span style="margin-right:150px;" id="Sensor1/Lamp/0/nvoValueFb">...</span>Fields = State:
+<span id="Sensor1/Lamp/0/nvoValueFb/state">...</span>Value: <span id="Sensor1/Lamp/0/nvoValueFb/value">...</span>
+<br><br>
+Lux: <span id="Sensor1/LightSensor/0/nvoLuxLevel">...</span>
+<!-- End *** Custom Web page #2  *** -->
+</body>
+</html>
