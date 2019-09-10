@@ -1,5 +1,5 @@
 {
-  "name": "point-monitor",
+  "name": "pointlogger",
   "version": "1.0.0",
   "description": "Training example IAP/MQ application for SmartServer IoT",
   "main": "pointmonitor.js",
@@ -10,5 +10,14 @@
   "license": "ISC",
   "dependencies": {
     "mqtt": "3.0.0"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/izot/smartserver-iot.git"
+  },
+  "bugs": {
+    "url": "https://github.com/izot/smartserver-iot/issues"
+  },
+  "homepage": "https://github.com/izot/smartserver-iot#readme"
 }
