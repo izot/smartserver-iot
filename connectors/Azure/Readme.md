@@ -1,0 +1,3 @@
+**connectors/Azure**
+The Node.js application azure_proxy.js is a sample application for a SmartServer IoT that that publishes telemetry data via MQTT up to an Azure IoT Hub.  This requires an Azure Cloud account.  A free account (30 days) can be created for this purpose.  This sample application is based on using two FT 6050 Evaluation Boards.  The application publishes light level (nvoLexLevel), temperature (nvoHVACTemp), power (nvoPowerF), and energy (nvoEPpos) up to a specified Azure IoT Hub.  However the sample can be easily modified to support different data points or devices.  Complete details on the application and how to deploy this can be found on Microsoft’s Azure IoT Device Catalog site under the device name SmartServer IoT.
+ 
