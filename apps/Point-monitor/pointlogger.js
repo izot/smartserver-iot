@@ -103,7 +103,7 @@ function reportDeviceState () {
 }
 // Scheduling copy to the transfer folder every 5m (300s)
 setInterval(() => {
-    nowTs = new Date();
+    let nowTs = new Date();
     fs.copyFile(`${eloggerDataDir}/eloggerdata/point-data.csv`, 
         `${eloggerDataDir}/transfer/${sid}-${parseInt(nowTs/1000)}.csv`,
         (err) => {

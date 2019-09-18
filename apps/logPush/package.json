@@ -1,0 +1,15 @@
+{
+  "name": "logpush",
+  "version": "1.0.0",
+  "description": "FTP Log transport service",
+  "main": "push-logsFtp.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "RTG",
+  "license": "ISC",
+  "dependencies": {
+    "config": "3.2.2",
+    "ftp": "0.3.10"
+  }
+}

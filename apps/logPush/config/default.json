@@ -1,0 +1,12 @@
+{
+    "App": {
+        "host-address" : "10.1.128.223",
+        "ftpPort": 21,
+        "fptUser":"smartserver",
+        "ftpPwd" :"elon550",
+        "retain" : false,
+        "compress" : false,
+        "destFolder": "./"
+    },
+    "debugFlag": false
+}
