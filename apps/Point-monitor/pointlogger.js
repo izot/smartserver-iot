@@ -3,7 +3,7 @@ const mqtt = require('mqtt');
 const fs = require('fs'); 
 const util = require('util');
 
-const appVersion = '1.00.001';
+const appVersion = '1.01.002';
 const devStates = new Map();
 const nameMap = new Map();
 
@@ -14,6 +14,9 @@ let  subscribtionsActive = false;
 let  recordCount = 0;
 let stagedRecords = 0;
 let testLimit = -1;  // -1 means no limit
+// Using the prefix 'A' and 'B' to toggle the active log file to 
+// avoid contention between logging and copies to the transfer folder
+let filePrefix = 'A';
 
 // Edit monitorSpecs object array according to your requirements to monitor the targets data points of interest
 // Review the IAP/MQ documentation on the use of event: true.  This can only be done in DMM managed systems
@@ -73,13 +76,13 @@ console.log (`PointMonitor applicaiton rateOverride: ${rateOverride}`);
 if (rateOverride === -2)
     console.log ('An active DLA file must be use to start monitoring');
 
-// Openloop exit after 40s operation, assuming all the targeted monitor points get set to 0
+// Openloop exit after 300s operation, assuming all the targeted monitor points get set to 0
 if (rateOverride === 0)
     setTimeout(() => { 
             console.log ('Exitting point monitor application. Monitor rates set to 0.');
             process.exit();
         }, 
-        40000
+        300000
     );
 // Determine available FS assets.  Using SD card on SmartServer if available
 const eloggerDataDir = process.env.hasOwnProperty('APOLLO_DATA') ? '/media/sdcard' : '.';
@@ -89,6 +92,14 @@ const eloggerDataDir = process.env.hasOwnProperty('APOLLO_DATA') ? '/media/sdcar
 // 3. sudo chown apollo:apollo /media/sdcard/eloggerdata
 // 4. sudo chown apollo:apollo /media/sdcar/transfer
 
+// Creating the B file place hoder
+fs.writeFile(`${eloggerDataDir}/eloggerdata/Bpoint-data.csv`, ``,  {flag: 'w'}, 
+    (err) => {
+        if (err) {
+            console.error(err);
+        return;
+    }
+});
 function reportDeviceState () {
     let upDeviceList = '';
     let downDeviceList = '';
@@ -104,7 +115,7 @@ function reportDeviceState () {
 // Scheduling copy to the transfer folder every 5m (300s)
 setInterval(() => {
     let nowTs = new Date();
-    fs.copyFile(`${eloggerDataDir}/eloggerdata/point-data.csv`, 
+    fs.copyFile(`${eloggerDataDir}/eloggerdata/${filePrefix}point-data.csv`, 
         `${eloggerDataDir}/transfer/${sid}-${parseInt(nowTs/1000)}.csv`,
         (err) => {
             if (err) 
@@ -112,11 +123,26 @@ setInterval(() => {
             else {
                 console.log(`${nowTs.toLocaleString()} Transfer Staged. Monitored Devices: ${devStates.size}. Staged Records: ${stagedRecords}`);
                 stagedRecords = 0;
-                logTruncate = true;
+                if (filePrefix === 'A')
+                    fs.truncate(`${eloggerDataDir}/eloggerdata/Bpoint-data.csv`, 
+                        (err) => {
+                            if (err) 
+                                console.error(err);
+                        });
+                else
+                    fs.truncate(`${eloggerDataDir}/eloggerdata/Apoint-data.csv`, 
+                        (err) => {
+                            if (err) 
+                                console.error(err);
+                    });
+                //logTruncate = true;
             }
         }
-    );    
+    );
+    // toggle files
+    filePrefix = filePrefix === 'A' ? 'B' : 'A';   
 }, 300000);    
+  
 
 
 const sidTopic = 'glp/0/././sid'
@@ -266,15 +292,12 @@ client.on('message', (topic, message) => {
             devHandle =  payload.topic.split('/')[6];
             // Only looking for data events from targed devices. Just sending to the console in this example
             if (devStates.has(devHandle)) {
-                /*dpState = devStates.get(devHandle) == 'normal' ? 'ONLINE' : 'OFFLINE';
-                pointPath = `${payload.topic.split('/')[7]}/${payload.topic.split('/')[8]}/${payload.topic.split('/')[9]}/${payload.message.split('/')[0]}`;
-                logRecord = `${nowTs.toLocaleString()};\"${devHandle}/${pointPath}\";\"${dpState}\";\"${JSON.stringify(payload.data)}\"`; 
-                console.log(logRecord);*/
                 dpState = devStates.get(devHandle) === 'normal' ? 'ONLINE' : 'OFFLINE';
-                //pointPath = `${payload.topic.split('/')[7]}/${payload.topic.split('/')[8]}/${payload.topic.split('/')[9]}/${payload.message.split('/')[0]}`
                 pointPath = `${nameMap.get(devHandle)}/${payload.message.split('/')[0]}`
-                logRecord = `${nowTs.toLocaleString()};\"${pointPath}\";\"${dpState}"\;\"`; 
-                // The application has knowledge of the payload data to only log the relavent values.  The SNVT_trans_table values are useing
+                // Use the Timestamp from the inside data event  MQTT client process the message
+                // This timestamp is in UTC. The back end should convert to the site's local timezone
+                logRecord = `${payload.ts},\"${pointPath}\",\"${dpState}"\,\"`; 
+                // The application has knowledge of the payload data to only log the relavent values.  The SNVT_trans_table values are using
                 // 3 or 4 floats depending on the network variable.  If a data event 
                 if (payload.message === 'nvoP/value') 
                     logRecord += `${payload.data.point[0]} ${payload.data.point[1]} ${payload.data.point[2]} ${payload.data.point[3]}\"`;
@@ -301,7 +324,7 @@ client.on('message', (topic, message) => {
                 else // The application could be designed to ONLY filter on the 5 key network variables, and might abort loging the data at this point
                     logRecord += `${JSON.stringify(payload.data)}\"`;
                 
-                fs.writeFile(`${eloggerDataDir}/eloggerdata/point-data.csv`, `${logRecord}\r\n`, logTruncate ? {flag: 'w'} :
+                fs.writeFile(`${eloggerDataDir}/eloggerdata/${filePrefix}point-data.csv`, `${logRecord}\r\n`, logTruncate ? {flag: 'w'} :
                     {flag:'a+'}, (err) => {
                         if (err) {
                             console.error(err);
