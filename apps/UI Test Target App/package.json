@@ -1,0 +1,18 @@
+{
+  "name": "dsp-sp-cntl",
+  "version": "1.0.0",
+  "description": "SmartServer Interal Application exaample to implement a duct static setpoint controller",
+  "main": "dsp-sp-cntrl-B.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "RTG",
+  "license": "ISC",
+  "engines": {
+    "node": "10.16.0"
+  },
+  "dependencies": {
+    "mqtt": "3.0.0"
+  },
+  "devDependencies": {}
+}
