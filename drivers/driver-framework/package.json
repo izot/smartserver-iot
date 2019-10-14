@@ -1,0 +1,20 @@
+{
+  "name": "driver-framework",
+  "version": "1.0.0",
+  "description": "Generic driver framework",
+  "main": "driver-framework.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "IAP/MQ"
+  ],
+  "author": "Adesto Technologies",
+  "license": "Copyright (c) 2019 Adesto Technologies",
+  "dependencies": {
+    "glp-toolkit": "file:glp",
+    "jsdoc": "^3.6.2",
+    "leveldown": "^5.0.1",
+    "moment-timezone": "^0.5.23"
+  }
+}
