@@ -6,3 +6,7 @@ apps/logPush/T1/*
 apps/UI Test Target App/node_modules/*
 apps/Point-monitor/transfer/*
 apps/Point-monitor/eloggerdata/*
+apps/Point-monitor/pointlogger_LH2.js
+apps/Point-monitor/pointlogger_LHx.js
+apps/Point-monitor/pointlogger_LHx2.js
+apps/Point-monitor/test.js
