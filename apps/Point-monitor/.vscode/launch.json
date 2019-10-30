@@ -8,8 +8,9 @@
             "type": "node",
             "request": "launch",
             "name": "Launch Program",
-            "program": "${workspaceFolder}\\pointmonitor.js",
-            "env":{"DEV_TARGET":"10.1.129.7"}
+            "program": "${workspaceFolder}\\pointlogger.js",
+            "env":{"DEV_TARGET":"10.1.129.7"},
+            "args": ["-1","false"],
 
         }
     ]

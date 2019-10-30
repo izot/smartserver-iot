@@ -1,11 +1,13 @@
 "use strict";
 const mqtt = require('mqtt');
 const fs = require('fs'); 
-const util = require('util');
+const child_process = require('child_process');
 
-const appVersion = '1.01.002';
+const appVersion = '1.03.002';
 const devStates = new Map();
 const nameMap = new Map();
+const msToSet = new Map();
+const monitorSetRequestDelay = 2000;
 
 let glpPrefix='glp/0';  // this will include the sid once determined 
 let sid='';
@@ -14,40 +16,32 @@ let  subscribtionsActive = false;
 let  recordCount = 0;
 let stagedRecords = 0;
 let testLimit = -1;  // -1 means no limit
+let delayStart = true;
 // Using the prefix 'A' and 'B' to toggle the active log file to 
 // avoid contention between logging and copies to the transfer folder
 let filePrefix = 'A';
 
-// Edit monitorSpecs object array according to your requirements to monitor the targets data points of interest
-// Review the IAP/MQ documentation on the use of event: true.  This can only be done in DMM managed systems
+// Edit monitorSpecs object array according to your requirements to monitor the target data points of interest
+// Review the IAP/MQ documentation on the use of event: true.  This can only be used in DMM managed systems.
+// the ms object below is used to set the monitoring objects of multiple points with one IAP/MQ request
 var monitorSpecs = [
     {
-        pid: '9FFFFF0501840460',
-        nvList: [
-            {ptPath: 'LightSensor/0/nvoLuxLevel', ms:{rate: 20, report: 'any', threshold:0, infeedback:false, event:false}}, 
-            {ptPath: 'TempSensor/0/nvoHVACTemp', ms:{rate: 20, report: 'any', threshold:0, infeedback:false, event:false}},
-            {ptPath: 'Switch/0/nvoValue', ms:{rate: 20, report: 'any', threshold:0, infeedback:false, event:false}},
-        ]
-    },
-    {
-        pid: '9FFFFF0501840450',
-        nvList: [
-            {ptPath: 'LightSensor/0/nvoLuxLevel', ms:{rate: 20, report: 'change', threshold:1, inFeedback:false, event:false}}, 
-            {ptPath: 'TempSensor/0/nvoHVACTemp', ms:{rate: 20, report: 'any', threshold:0, infeedback:false, event:false}},
-            {ptPath: 'Switch/0/nvoValue', ms:{rate: 20, report: 'change', threshold:1, inFeedback:false, event:false}},
-        ]
-    },
-    {
-        pid: '90000106000B0401',
-        nvList: [
-            {ptPath: 'nodeModel/0/nvoCount1', ms:{rate: 15, report: 'change', threshold:1, inFeedback:false, event:false}}, 
-            {ptPath: 'nodeModel/0/nvoCount2', ms:{rate: 15, report: 'change', threshold:1, inFeedback:false, event:false}}, 
-            {ptPath: 'nodeModel/0/nvoCount3', ms:{rate: 15, report: 'change', threshold:1, inFeedback:false, event:false}}, 
-            {ptPath: 'nodeModel/0/nvoCount4', ms:{rate: 15, report: 'change', threshold:1, inFeedback:false, event:false}}, 
-            {ptPath: 'nodeModel/0/nvoCounterData', ms:{rate: 15, report: 'threshold-any', 
-                threshold:{'counter[0]':1,'counter[1]':1,'counter[2]':1,'counter[3]':1,'faultCounter':1}, inFeedback:false, event:false}},
-        ]
-    },
+        pid: '9000011503020465',
+        ptPath: 'device/0',
+        ms:{ 
+            nvoPF: { monitor: {rate: 60, report: 'any', inFeedback:false, event:false}},
+            nvoI: {monitor: {rate: 60, report: 'any', inFeedback:false, event:false}}, 
+            nvoU_F: {monitor: {rate: 60, report: 'any', inFeedback:false, event:false}},
+            nvoP: {monitor: {rate: 60, report: 'any', inFeedback:false, event:false}},
+            nvoEPpos: {monitor: {rate: 60, report: 'any', inFeedback:false, event:false}}
+            //nvoPF_2: {monitor: {rate: 60, report: 'any', inFeedback:false, event:false}},
+            //nvoI_2: {monitor: {rate: 60, report: 'any', inFeedback:false, event:false}},
+            //nvoU_F_2: {monitor: {rate: 60, report: 'any', inFeedback:false, event:false}},
+            //nvoP_2: {monitor: {rate: 60, report: 'any', inFeedback:false, event:false}},
+            //nvoEPapos: {monitor: {rate: 60, report: 'any', inFeedback:false, event:false}}
+        }
+    }
+    
 ];
 // environ returns the value of a named environment variable, if it exists, or returns the default value otherwise.
 function environ(variable, defaultValue) {
@@ -58,34 +52,40 @@ function environ(variable, defaultValue) {
 const client = mqtt.connect(`mqtt://${environ('DEV_TARGET', '127.0.0.1')}:1883`);
 
 let logTruncate = true;
-   
 let rateOverride = -1;  // -2 means DLA managed polling. -1 means use monitor spec value. >= 0 set as the monitor rate
-
-let  args = process.argv.slice(2);
-// rateOverride of -1 uses the rate defined in MonitorSpecs Object array, -2 assumes the DLA file was used to define
-// the monitor rate.  0 will stop monitoring and the the application will exit
+let  args = process.argv.slice(2);  
 if (args.length === 1)
     rateOverride = parseInt(args[0]);
 
 if (args.length === 2){
     rateOverride = parseInt(args[0]);
-    testLimit = parseInt(args[1]);
+    delayStart = JSON.parse(args[1]) ;
 }
-console.log (`Pointlogger version: ${appVersion}`);
-console.log (`PointMonitor applicaiton rateOverride: ${rateOverride}`);
-if (rateOverride === -2)
-    console.log ('An active DLA file must be use to start monitoring');
 
-// Openloop exit after 300s operation, assuming all the targeted monitor points get set to 0
-if (rateOverride === 0)
-    setTimeout(() => { 
-            console.log ('Exitting point monitor application. Monitor rates set to 0.');
-            process.exit();
-        }, 
-        300000
-    );
-// Determine available FS assets.  Using SD card on SmartServer if available
+// The first argument is used to override the monitorSpec polling rate. 
+if (rateOverride >= 0) {
+    monitorSpecs.forEach(target => {
+        for (let point in target.ms) {
+            target.ms[point].monitor.rate = rateOverride;
+        };
+    });
+}
+let nowTs = new Date();
+console.log (`${nowTs.toLocaleString()} Pointlogger version: ${appVersion}`);
+console.log (`Pointlogger applicaiton rateOverride: ${rateOverride}`);
+
+// Blocking delay to hold off until the rest of the SIOT services are running
+if (delayStart) {
+    console.log(`Allowing SIOT processes to settle`);
+    child_process.execSync("sleep 300");  // Pause for 5 minutes!
+}
+
+// Determine available file system assets.  Using SD card on SmartServer if available
+// See Integration TODO:
 const eloggerDataDir = process.env.hasOwnProperty('APOLLO_DATA') ? '/media/sdcard' : '.';
+if (rateOverride === -2)
+    console.log ('An active DLA file must be used to start monitoring');
+
 // Integration TODO:
 // 1. On Apollo target: sudo mkdir /media/sdcard/eloggerdata
 // 2. sudo mkdir /media/sdcard/transfer
@@ -143,8 +143,6 @@ setInterval(() => {
     filePrefix = filePrefix === 'A' ? 'B' : 'A';   
 }, 300000);    
   
-
-
 const sidTopic = 'glp/0/././sid'
 
 // Subscribe to the segment ID topic.
@@ -196,59 +194,50 @@ function qualifiedDevice (stsMsg) {
 // Function enables point monitoring for provisioned targeet devices that are healthy
 // returning true if monitoring is setup
 function handleDeviceSts (devHandle, stsMsg, monSpecIndex) {
-    let dpTopic;
+    let setMs = false;
     let nowTs = new Date(); // Seconds TS good enough
 
-    if (stsMsg.state === "provisioned") {
-        // define the monitorObj assuming provisioned and healthy devices
-        let monitorObj = {}; 
-   
+    if (stsMsg.state === "deleted") {
+        devStates.delete(devHandle);
+        nameMap.delete(devHandle);
+        console.log(`${nowTs.toLocaleString()} - Device: ${devHandle} deleted [sts].`);
+        return false;
+    }
+
+    if (stsMsg.state === "provisioned" ) {
         // To track the health of monitored devices the devState map is used to determine if the monitoring has be set
-        let setMonitorParams = false;
         if (stsMsg.health === "normal") {
             if (!devStates.has(devHandle)) { // First time through, set up monitoring
                 devStates.set(devHandle,"normal");
-                setMonitorParams = true;
+                msToSet.set(devHandle, monSpecIndex);
+                setMs = true;
             } else { // Transistion from down or unknown to normal, set monitoring
                 if(devStates.get(devHandle) !== "normal") {
-                    devStates.set(devHandle, "normal");
-                    setMonitorParams = true;                            
+                    devStates.set(devHandle, "normal");   
+                    msToSet.set(devHandle, monSpecIndex);
+                    setMs = true;                    
                 }
             } 
-            console.log(`${nowTs.toLocaleString()} - Device: ${devHandle} (S/N: ${stsMsg.addr.domain[0].subnet}/${stsMsg.addr.domain[0].nodeId}) is Up.`);
-        } else { 
-            devStates.set(devHandle, stsMsg.health);
             console.log(`${nowTs.toLocaleString()} - Device: ${devHandle} (S/N: ${stsMsg.addr.domain[0].subnet}/${stsMsg.addr.domain[0].nodeId}) is ${stsMsg.health}.`);
-            return;
+        } else {
+            if (stsMsg.health === "unknown")
+                devStates.delete (devHandle);
+            else     
+                devStates.set(devHandle, stsMsg.health);
+            console.log(`${nowTs.toLocaleString()} - Device: ${devHandle} (S/N: ${stsMsg.addr.domain[0].subnet}/${stsMsg.addr.domain[0].nodeId}) is ${stsMsg.health}.`);
+            return false;
         }
-        if (rateOverride == -2)
-            return;
-        // Setup monitoring if 
-        monitorSpecs[monSpecIndex].nvList.forEach(function(dp) {
-            // setMonitorRate is true at the health transitions and at startup.  
-            if (setMonitorParams) {             
-                monitorObj = dp.ms;
-                if (rateOverride >= 0)
-                    monitorObj.rate = rateOverride;
-                dpTopic = `${glpPrefix}/rq/dev/lon/${devHandle}/if/${dp.ptPath}/monitor`;
-                console.log (`${nowTs.toLocaleString()} - Set Monitor: ${dpTopic}, Interval: ${monitorObj.rate}`);
-                client.publish (
-                    dpTopic, 
-                    JSON.stringify(monitorObj), 
-                    {qos:2,retain: false}, 
-                    (err) => {
-                        if (err != null)
-                            console.error(`${nowTs.toLocaleString()} - Failed to update Nv`);
-                    }     
-                );
-            }                   
-        });
-        return;
+        if (rateOverride == -2 || !setMs) {
+            if (!setMs)
+                console.log(`${nowTs.toLocaleString()} - Monitor Object already set.`);
+            return false;
+        }
+        return true;
     } else {
         devStates.delete(devHandle);  // If not provisioned, drop all consideration
-        console.log(`${nowTs.toLocaleString()} - Device: ${devHandle} (S/N: ${stsMsg.addr.domain[0].subnet}/${stsMsg.addr.domain[0].node}) is ${stsMsg.state}`);
+        console.log(`${nowTs.toLocaleString()} - Device: ${devHandle} (S/N: ${stsMsg.addr.domain[0].subnet}/${stsMsg.addr.domain[0].nodeId}) is ${stsMsg.state}`);
     }   
-    return;
+    return false;
 }
 function handleDeviceCfg (devHandle, cfgMsg) {
     let devPath = cfgMsg.name.split('.')
@@ -260,9 +249,25 @@ function handleDeviceCfg (devHandle, cfgMsg) {
 // IAP/MQ. MQTT message handler. 
 client.on('message', (topic, message) => {
     try {
-        const payload = JSON.parse(message);
         let devHandle;  
-        var nowTs = new Date(); // Seconds TS good enough
+        var nowTs = new Date();  // Seconds TS good enough
+        // When net export deletes a device, IAP/MQ sends a [../cfg] topic with no message
+        // that is delt with here.  Local catch maps entries are deleted as well
+        if (message.length == 0 && topic.endsWith('/cfg')) {
+            devHandle = topic.split('/')[6];
+            nameMap.delete(devHandle);
+            devStates.delete(devHandle);
+            console.log(`${nowTs.toLocaleString()} - Device: ${devHandle} deleted [cfg].`);
+            return;
+        }
+        let payload;
+        try {
+            payload = JSON.parse(message);
+        } catch(error) {
+            console.log (`Error parsing JSON: ${message}`);
+            return;
+        }
+
         if (topic === sidTopic) {
             // Assuming the SID topic is a string payload
             handleSid(payload);
@@ -273,7 +278,33 @@ client.on('message', (topic, message) => {
             if (monSpecIndex == -1)
                 return;
             devHandle = topic.split('/')[6];
-            handleDeviceSts (devHandle, payload, monSpecIndex);    
+            if (handleDeviceSts (devHandle, payload, monSpecIndex)) {
+                // Setting the monitor object is a intensive operation that is being throttled
+                // here to reduce conjestion on the message bus.
+                if (msToSet.size == 1) {
+                    let msPaceInt = setInterval (() => {
+                        let dpTopic;
+                        let nowTs = new Date();
+                        let firstKey = msToSet.keys().next().value;
+                        let firstValue = msToSet.values().next().value;
+                        dpTopic = `${glpPrefix}/rq/dev/lon/${firstKey}/if/${monitorSpecs[firstValue].ptPath}`;
+                        client.publish (
+                            dpTopic, 
+                            JSON.stringify(monitorSpecs[monSpecIndex].ms), 
+                            {qos:1}, 
+                            (err) => {
+                                if (err != null)
+                                    console.error(`${nowTs.toLocaleString()} - Failed to update Monitoring`);
+                            }     
+                        );
+                        console.log (`${nowTs.toLocaleString()} - MonitorSet update: ${dpTopic}`);
+                        msToSet.delete(firstKey);
+                        // If the polulation has be touched, shut this down
+                        if (msToSet.size == 0)
+                            clearInterval(msPaceInt);
+                    }, monitorSetRequestDelay);
+                }
+            };   
         }   
         if (topic.endsWith('/cfg')) {
             devHandle = topic.split('/')[6];
@@ -287,8 +318,7 @@ client.on('message', (topic, message) => {
 
             // <TS>,'<PointPath>','','','PointState,'','<value>'
             // Build up the to the <value>.  Making a log record that matches
-            // SmartServer 2 log format
-            
+            // SmartServer 2 log format           
             devHandle =  payload.topic.split('/')[6];
             // Only looking for data events from targed devices. Just sending to the console in this example
             if (devStates.has(devHandle)) {

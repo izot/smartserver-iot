@@ -4,4 +4,5 @@ apps/Point-monitor/pointlogger_LH.js
 apps/logPush/node_modules/*
 apps/logPush/T1/*
 apps/UI Test Target App/node_modules/*
-
+apps/Point-monitor/transfer/*
+apps/Point-monitor/eloggerdata/*
