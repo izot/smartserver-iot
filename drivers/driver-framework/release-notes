@@ -1,0 +1,6 @@
+Release Notes
+--------------
+- 01-May-2019: Implemented create, provision, delete, setting a datapoint, 
+enable monitoring, setting a datapoint value
+- 10-May-2019: Implemented deprovision, reprovision, point to point connections
+- 30-May-2019: Implemented datapoint get, load action, replace actions
