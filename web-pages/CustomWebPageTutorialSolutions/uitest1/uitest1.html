@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>uitest</title> <!-- *** Custom Web page #1  *** -->
+	<link rel="stylesheet" type="text/css" href="css/simple.css">	<!-- app-wide styles -->
+	<script src="scripts/simpledriver.js"></script> <!-- javaScript used by multiple Web pages  -->
+	<script src="scripts/uitest.js"></script> <!-- Javascript - unique for this Web page -->
+</head>
+<body onload="init()"> 
+<div><a class="logout" id="logout">Log out</a></div>
+<br>
+<!-- Begin *** Custom Web page #2  *** -->
+<h1>UI Test Target</h1>
+<br><br>
+
+Lamp SwIn:&nbsp&nbsp&nbsp
+&nbsp&nbsp state<input  id="opcDev.1/uiTestTarget2/0/nviLampSw/state">
+value<input  id="opcDev.1/uiTestTarget2/0/nviLampSw/value">
+<button onclick="writeLampSwIn('opcDev.1/uiTestTarget2/0/nviLampSw')">Send</button>
+<br><br>
+Lamp SwOut: 
+&nbsp&nbsp state<span  id="opcDev.1/uiTestTarget2/0/nvoLampFb/state">---</span>
+value<span  id="opcDev.1/uiTestTarget2/0/nvoLampFb/value">---</span>
+<img id="opcDev.1/uiTestTarget2/0/nvoLampFb/state_2" onclick="imageStateClicked(this,'opcDev.1/uiTestTarget2/0/nviLampSw')" src="images/switchTradGreenOn.gif" style="height:25px;width:25px">
+<img  src="images/switchTradOff.gif" style="display:none">
+<br><br>
+<br><br>
+Sum: 
+&nbsp&nbsp <span  id="sum">---</span>
+<!-- End *** Custom Web page #2  *** -->
+</body>
+</html>

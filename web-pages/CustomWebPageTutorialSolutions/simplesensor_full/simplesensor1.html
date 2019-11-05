@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>Simple Sensor</title> <!-- *** Custom Web page #1  *** -->
+	<link rel="stylesheet" type="text/css" href="css/simple.css">	<!-- app-wide styles -->
+	<script src="scripts/simpledriver.js"></script> <!-- javaScript used by multiple Web pages  -->
+	<script src="scripts/simplesensor.js"></script> <!-- Javascript - unique for this Web page -->
+</head>
+<body onload="init()"> 
+<div><a class="logout" id="logout">Log out</a></div>
+<br>
+<!-- Begin *** Custom Web page #2  *** -->
+<h1>Simple Sensor</h1>
+LampIn 1: State <input id="Sensor1/Lamp/0/nviValue/state" > Value <input id="Sensor1/Lamp/0/nviValue/value" >
+<button type="button" onclick="writeValue('Sensor1/Lamp/0/nviValue')">Write</button>
+<br><br>
+LampOut 1: State <span id="Sensor1/Lamp/0/nvoValueFb/state">...</span>Value <span id="Sensor1/Lamp/0/nvoValueFb/value">...</span>
+<img id="Sensor1/Lamp/0/nvoValueFb/state_2" onclick="imageStateClicked(this,'Sensor1/Lamp/0/nviValue')" src="images/switchTradGreenOn.gif" style="height:25px;width:25px">
+<img  src="images/switchTradOff.gif" style="display:none;">
+<br><br>
+LampIn 2: State <input id="Sensor1/Lamp/1/nviValue/state" > Value <input id="Sensor1/Lamp/1/nviValue/value" >
+<button type="button" onclick="writeValue('Sensor1/Lamp/1/nviValue')">Write</button>
+<br><br>
+LampOut 2: State <span id="Sensor1/Lamp/1/nvoValueFb/state">...</span>Value <span id="Sensor1/Lamp/1/nvoValueFb/value">...</span>
+<img id="Sensor1/Lamp/1/nvoValueFb/state_2" onclick="imageStateClicked(this,'Sensor1/Lamp/1/nviValue')" src="images/switchTradGreenOn.gif" style="height:25px;width:25px">
+<img  src="images/switchTradOff.gif" style="display:none;">
+
+<br><br>
+Lux: <span id="Sensor1/LightSensor/0/nvoLuxLevel">...</span>
+<br><br>
+Sum: &nbsp&nbsp <span  id="sum">---</span>
+<!-- End *** Custom Web page #2  *** -->
+</body>
+</html>

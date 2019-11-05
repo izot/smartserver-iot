@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>uitest</title> <!-- *** Custom Web page #1  *** -->
+	<link rel="stylesheet" type="text/css" href="css/simple.css">	<!-- app-wide styles -->
+	<script src="scripts/simpledriver.js"></script> <!-- javaScript used by multiple Web pages  -->
+	<script src="scripts/uitest.js"></script> <!-- Javascript - unique for this Web page -->
+</head>
+<body onload="init()"> 
+<div><a class="logout" id="logout">Log out</a></div>
+<br>
+<!-- Begin *** Custom Web page #2  *** -->
+<h1>UI Test Target</h1>
+<br><br>
+HVAC Mode
+<select id= "opcDev.1/uiTestTarget2/0/nviHvacMode">
+			<option value="_nochange_">---</option>
+			<option value="HVAC_AUTO">HVAC_AUTO</option>
+			<option value="HVAC_HEAT">HVAC_HEAT</option>
+			<option value="HVAC_COOL">HVAC_COOL</option>
+			<option value="HVAC_OFF">HVAC_OFF</option>
+</select>
+<br><br>
+HVAC Status:
+&nbsp&nbsp mode<span id="opcDev.1/uiTestTarget2/0/nvoHvacStatus/mode">---</span> 
+Heat Output<span id="opcDev.1/uiTestTarget2/0/nvoHvacStatus/heat_output_primary">---</span>
+Cool Output<span id="opcDev.1/uiTestTarget2/0/nvoHvacStatus/cool_output">---</span> 
+
+<br><br>
+Occupancy Input:
+			<select id="opcDev.1/uiTestTarget2/0/nviOccupancy">
+				<option value="_nochange_">---</option>
+				<option value="OC_OCCUPIED">OCCUPIED</option>
+				<option value="OC_UNOCCUPIED">UNOCCUPIED</option>
+			</select>
+<br><br>
+Temp Set Points:
+&nbsp&nbsp Occupied Heat<input  id="opcDev.1/uiTestTarget2/0/nviTempSP/occupied_heat">
+Occupied Cool<input  id="opcDev.1/uiTestTarget2/0/nviTempSP/occupied_cool"></td>
+<button onclick="writeSetPoints('opcDev.1/uiTestTarget2/0/nviTempSP')">Send</button>
+<br><br>
+Effective Set Point: <span id="opcDev.1/uiTestTarget2/0/nvoEffectiveSP">---</span>
+<br><br>
+Lamp SwIn:&nbsp&nbsp&nbsp
+&nbsp&nbsp state<input  id="opcDev.1/uiTestTarget2/0/nviLampSw/state">
+value<input  id="opcDev.1/uiTestTarget2/0/nviLampSw/value">
+<button onclick="writeLampSwIn('opcDev.1/uiTestTarget2/0/nviLampSw')">Send</button>
+<br><br>
+Lamp SwOut: 
+&nbsp&nbsp state<span  id="opcDev.1/uiTestTarget2/0/nvoLampFb/state">---</span>
+value<span  id="opcDev.1/uiTestTarget2/0/nvoLampFb/value">---</span>
+<img id="opcDev.1/uiTestTarget2/0/nvoLampFb/state_2" onclick="imageStateClicked(this,'opcDev.1/uiTestTarget2/0/nviLampSw')" src="images/switchTradGreenOn.gif" style="height:25px;width:25px">
+<img  src="images/switchTradOff.gif" style="display:none">
+<br><br>
+Lamp SwIn 2: 
+&nbsp&nbsp state <select id= "opcDev.1/uiTestTarget2/0/nviLampSw_2/state">
+	<option value="_nochange_">---</option>
+	<option value="SW_SET_ON">SW_SET_ON</option>
+	<option value="SW_SET_OFF">SW_SET_OFF</option>
+	<option value="SW_RECALL_SCENE">SW_RECALL_SCENE</option>
+</select>
+
+Scene #<select id= "opcDev.1/uiTestTarget2/0/nviLampSw_2/scene_number">
+	<option value="_nochange_">---</option>
+	<option value="1">High</option>
+	<option value="2">Medium</option>
+	<option value="3">Mid</option>
+	<option value="4">Low</option>
+	<option value="255">Off</option>
+	<option value="invalid">invalid</option>
+</select>
+
+<!--
+Setting<input  id="opcDev.1/uiTestTarget2/0/nviLampSw_2/setting" style="width: 650px">
+-->
+<button onclick="writeSw2('opcDev.1/uiTestTarget2/0/nviLampSw_2')">Send</button>
+<br><br>
+Lamp SwOut 2: 
+&nbsp&nbsp state<span  id="opcDev.1/uiTestTarget2/0/nvoLampFb_sw2/state">---</span>
+Scene #<span  id="opcDev.1/uiTestTarget2/0/nvoLampFb_sw2/scene_number">---</span>
+Setting<span  id="opcDev.1/uiTestTarget2/0/nvoLampFb_sw2/setting">---</span>
+
+<br>
+<!-- End *** Custom Web page #2  *** -->
+</body>
+</html>
