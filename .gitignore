@@ -10,3 +10,10 @@ apps/Point-monitor/pointlogger_LH2.js
 apps/Point-monitor/pointlogger_LHx.js
 apps/Point-monitor/pointlogger_LHx2.js
 apps/Point-monitor/test.js
+apps/Point-monitor/Test.json
+apps/Point-monitor/Test.json
+apps/Point-monitor/pointloggerC.js
+apps/Point-monitor/pointloggerB.js
+loggerSetup.sh
+apps/Point-monitor/test.js
+apps/Point-monitor/.vscode/launch.json

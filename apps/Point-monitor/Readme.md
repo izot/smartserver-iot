@@ -24,3 +24,5 @@ Release 1.30.002 of pointlogger.js has several important design changes to limit
 1. Monitor objects are modified in a single IAP/MQ message on the rq channel for each device.
 2. The updates to monitor objects are paced at 2s.  Previously, there was no pacing to this action which at startup would flood the message bus.
 3. The detection of device deletion is tied to the [../cfg] topic for which deletion is assocaited the arrival of an empty message.  This may need to change with future releases because one expects to see messages with the state:"delete" on the [../sts] topic.  
+
+Release 1.30.003 of pointlogger.js includes an option in line 15 that when set to true, will source the timestamp in an import ready raw millisecs from the Jan 1, 1970 datum in GMT.

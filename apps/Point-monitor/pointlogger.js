@@ -3,11 +3,16 @@ const mqtt = require('mqtt');
 const fs = require('fs'); 
 const child_process = require('child_process');
 
-const appVersion = '1.03.002';
+const appVersion = '1.03.003';
 const devStates = new Map();
 const nameMap = new Map();
 const msToSet = new Map();
 const monitorSetRequestDelay = 2000;
+
+// Reords are timestamped in a combined ISO 8601 format in GMT time
+// YYYY-MM-DDTHH:MM:SS.mmmZ.  ImportReadyTimestamps use the javascript
+// Date.valueOf() which represents the milliseconds since Jan 1, 1970
+const importReadyTimestamps = false;
 
 let glpPrefix='glp/0';  // this will include the sid once determined 
 let sid='';
@@ -326,7 +331,17 @@ client.on('message', (topic, message) => {
                 pointPath = `${nameMap.get(devHandle)}/${payload.message.split('/')[0]}`
                 // Use the Timestamp from the inside data event  MQTT client process the message
                 // This timestamp is in UTC. The back end should convert to the site's local timezone
-                logRecord = `${payload.ts},\"${pointPath}\",\"${dpState}"\,\"`; 
+                // Added a constant to force conversion to the local time in release 1.30.003 
+                // importReadyTimeSt
+
+                if (importReadyTimestamps) {
+                    let timeStamp = `${payload.ts}`;
+                    let localTs = new Date(timeStamp);
+                    logRecord = `${localTs.valueOf()},\"${pointPath}\",\"${dpState}"\,\"`; 
+                } else { 
+                    logRecord = `${payload.ts},\"${pointPath}\",\"${dpState}"\,\"`; 
+                }    
+
                 // The application has knowledge of the payload data to only log the relavent values.  The SNVT_trans_table values are using
                 // 3 or 4 floats depending on the network variable.  If a data event 
                 if (payload.message === 'nvoP/value') 
