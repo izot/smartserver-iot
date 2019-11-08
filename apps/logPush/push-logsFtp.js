@@ -17,9 +17,8 @@ const compress = config.get('App.compress');  // Note Compression not supported 
 
 var toTransfer = new Set();
 const cFtp = new ftpClient();
-let cFtpState = 'disconnected';
 let sendPending = false;
-const appVersion= '1.00.002';
+const appVersion= '1.00.003';
 
 let filesSent = 0;
 let fileErrors = 0;
@@ -47,8 +46,7 @@ function processTransferDir () {
                     toTransfer.add(fname)
                     sendPending = true;
                 });
-                if (sendPending && cFtpState === 'disconnected') {
-                    cFtpState = 'connecting';
+                if (sendPending && cFtp.connected === false) {
                     cFtp.connect({host: hostAddr, port: ftpPort, user: fptUser, password: ftpPwd, keepalive: 2000});
                 };
             };
@@ -74,7 +72,6 @@ function sendFile (fname) {
                 });
             };
             if (toTransfer.size == 0) {
-                cFtpState = 'disconnected';
                 sendPending = false;
                 cFtp.end();
                 //console.log ('disonnected from FTP server');
@@ -86,7 +83,7 @@ function sendFile (fname) {
 // This will fire when a file for transfer is moved to the transferDir
 fs.watchFile(transferDir,  (curr, prev) => {
     // When a file is removed from the transfer folder, we want to not 
-    // process it while other files for sending may be in the qure
+    // process it while other files for sending may be in the queue
     if (!sendPending)
         processTransferDir();
     //console.log(`Files to send. The current mtime is : ${curr.mtime}`);
@@ -95,21 +92,18 @@ fs.watchFile(transferDir,  (curr, prev) => {
 
 cFtp.on ('end', () =>  {
     let nowTs = new Date();
-    cFtpState = 'disconnected';
     console.log(`${nowTs.toLocaleString()} - File transfered: ${filesSent}. File send errors: ${fileErrors}`);
-    //console.log (`${nowTs} - FTP end.`);  
+    console.log (`${nowTs} - FTP end.`);  
 });
 
 cFtp.on('ready', () => {
     let nowTs = new Date();
     //console.log (`${nowTs} - FTP Ready.`);  
-    cFtpState = 'ready';
     let sendOk = true;
     if (sendPending) {
         for (let fname of toTransfer) {
-            //console.log(`Staged: ${fname}`);
-            if (cFtpState == 'ready')
-                sendOk = sendFile(fname);
+            //console.lcFtpStateog(`Staged: ${fname}`);
+            sendOk = sendFile(fname);
             if(sendOk !== undefined && !sendOk)
                 break ;   
         };
@@ -120,6 +114,7 @@ cFtp.on ('error', (err) => {
     if (err && (err.message !== "read ECONNRESET")) {
         var nowTs = new Date(); // Seconds TS good enough
         console.log(`${nowTs.toLocaleString()} - FTP Error event: ${err}`);
+        sendPending = false;
         cFtp.end();
     }
 });
