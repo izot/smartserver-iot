@@ -1,0 +1,8 @@
+#filetype,dla
+Protocol,Device Type,Datapoint,Polled,Poll Interval,Publish Interval,Publish Min_Delta_Time,Publish Min Delta Value,Initial Value,Log Interval 1,Log Interval 2,Log Interval 3,Log Retention 1,Log Retention 2,Log Retention 3,Log Min Delta Time,Log Min Delta Value,Alarm Name,High Warning,Low Warning,High Error,Low Error,Visible
+lon,FT 6000 EVB Multisensor,Lamp/0/nvoValueFb,No,,,,any,,0,0,0,14,60,730,,,,,,,,Yes
+lon,FT 6000 EVB Multisensor,Lamp/1/nvoValueFb,No,,,,any,,0,0,0,14,60,730,,,,,,,,Yes
+lon,FT 6000 EVB Multisensor,LightSensor/0/nvoLuxLevel,No,,,,any,,0,0,0,14,60,730,,,,,,,,Yes
+lon,FT 6000 EVB Multisensor,Switch/0/nvoValue,No,,,,any,,0,0,0,14,60,730,,,,,,,,Yes
+lon,FT 6000 EVB Multisensor,Switch/1/nvoValue,No,,,,any,,0,0,0,14,60,730,,,,,,,,Yes
+lon,FT 6000 EVB Multisensor,TempSensor/0/nvoHVACTemp,No,,,,any,,0,0,0,14,60,730,,,,,,,,Yes

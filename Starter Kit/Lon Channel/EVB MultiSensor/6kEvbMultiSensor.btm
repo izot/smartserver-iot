@@ -1,0 +1,12 @@
+#filetype,bacnet_type_map
+#version,v6.0.0
+#product_name,6kEvbMultiSensor
+Technology,BlockType,BlockHandle,Point Name,bacnet_type,instance,name,description,units,scale_a,scale_b,scale_c,SNVT field
+lon,TempSensor,0,nvoHVACTemp,AI,1,SpaceTemp,Temperature,DegC,1,0,0,value
+lon,LightSensor,0,nvoLuxLevel,AI,2,LightLevel,Light Level,Lux,1,0,0,value
+lon,Switch,0,nvoValue,BI,3,Switch State 1,State,ON/OFF,1,0,0,state
+lon,Switch,1,nvoValue,BI,4,Switch State 2,State,ON/OFF,1,0,0,state
+lon,Lamp,0,nviValue,BO,5,Lamp State 1,State,ON/OFF,1,0,0,state
+lon,Lamp,1,nviValue,BO,6,Lamp State 2,State,ON/OFF,1,0,0,state
+lon,Lamp,0,nvoValueFb,BI,7,Lamp FB 1,State,ON/OFF,1,0,0,state
+lon,Lamp,1,nvoValueFb,BI,8,Lamp FB 2,State,ON/OFF,1,0,0,state
