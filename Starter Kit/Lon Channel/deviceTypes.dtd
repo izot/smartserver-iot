@@ -1,0 +1,5 @@
+#filetype,dtd
+"Device Type",Protocol,"Program ID","Default App","Default Sys","Auto App Load","Auto Sys Load","Graphics File",Default
+SC100-MP,lon,90000F0501EF0407,0530v200.APB,,true,false,SC_logo.png,false
+6kEvbMultiSensor,lon,9FFFFF0501840460,6kEvbMultiSensor.APB,,true,false,TS.png,false
+VAV_sim,lon,9000015502040402,VAV_sim.APB,,true,false,vavbox.png,false
