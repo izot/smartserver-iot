@@ -24,7 +24,7 @@
     "json-file": "^0.1.0",
     "level": "^5.0.1",
     "level-jobs": "^2.1.0",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.19",
     "modern-syslog": "^1.1.4",
     "moment-timezone": "^0.5.25",
     "mqtt": "^2.18.8",
