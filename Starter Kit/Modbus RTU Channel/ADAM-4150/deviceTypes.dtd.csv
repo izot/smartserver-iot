@@ -1,0 +1,3 @@
+#filetype,dtd
+"Device Type",Protocol,"Program ID","Default App","Default Sys","Auto App Load","Auto Sys Load","Graphics File",Default
+ADAM-4150,modbus,B00096052804DB00,,,false,false,adam.png,false
