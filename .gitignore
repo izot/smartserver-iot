@@ -17,3 +17,7 @@ apps/Point-monitor/pointloggerB.js
 loggerSetup.sh
 apps/Point-monitor/test.js
 apps/Point-monitor/.vscode/launch.json
+Starter Kit/BACnet Channel/Viconics/test/Viconics7200-3/VT7200F5031B.dtd
+Starter Kit/BACnet Channel/Viconics/test/Viconics7200-3/Viconics7200-3.dla.csv
+Starter Kit/BACnet Channel/Viconics/test/Viconics7200-3/ViconicsLogo.png
+Starter Kit/BACnet Channel/Viconics/test/Viconics7200-3/VT7200f5031B-3.bac
