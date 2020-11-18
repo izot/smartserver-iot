@@ -1,0 +1,2 @@
+The Node.js application lora_gw.js is a sample application for a SmartServer IoT that receives data from LoRaWAN sensors through a LoRaWAN gateway via MQTT and publishes the data as output datapoints on an internal LON device.  The data is then made available via a virtual BACnet device to a BACnet network.
+ 

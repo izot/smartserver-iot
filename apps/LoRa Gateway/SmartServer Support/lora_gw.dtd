@@ -1,0 +1,4 @@
+#filetype,dtd
+"Device Type",Protocol,"Program ID","Default App","Default Sys","Auto App Load","Auto Sys Load","Graphics File",Default
+"Lora LON GW",lon,9000010A0A048500,,,false,false,lora.png,false
+
