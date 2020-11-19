@@ -11,5 +11,5 @@
 //@IzoT option addresses(15)
 //@IzoT option aliases(15)
 
-UFPTLoRaGateway(lora_gw) lora_gw; //@Izot block (location="./P9000010000000000_3") external("LoraGateway") 
+UFPTLoRaGateway(lora_gw) lora_gw; //@Izot block (location="./P9000010000000000_3") external("LoRaGateway") 
 

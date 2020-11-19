@@ -26,8 +26,8 @@ const mqtt = require("mqtt");
 // The device interface
 // Add or change DP references here for other LoRa configurations
 let myAppIf = {
-    myAppPID : "9000010A0A048501",    // This must match the PID for the XIF which defines this application
-    myFbName : "LoRaGateway",
+    myAppPID : "9000010A0A048500",    // This must match the PID for the XIF which defines this application
+    myFbName : "LoRaGateway",         // This must match the FB name in the XIF which define this application
     myDeviceHandle : "LoRaGateway",   // Must not already exist on your target SmartServer 
     nvoCO2 : 0,                       // SNVT_ppm_f
     nvoLux : 0,                       // SNVT_lux
@@ -159,14 +159,7 @@ client.subscribe(
     }
 );
 
-client.subscribe(
-    lora_application_topic,
-    (error) => {
-        if (error) {
-            console.log(error);
-        }
-    }
-);
+
 
 // This function will fire if the internal device for this application does not exist.
 // This is the case the very first time this application runs on the target SmartServer.  
@@ -208,8 +201,7 @@ function handleSid (sidMsg) {
                 client.subscribe (`${glpPrefix}/ev/updated/dev/lon/type/${myAppIf.myAppPID}`);
                 // This IAP/MQ topic reports the status of all devices on the lon channel                      
                 client.subscribe (`${glpPrefix}/fb/dev/lon/+/sts`);
-                // Subscribe to ALL data events
-                client.subscribe (`${glpPrefix}/ev/data`,{qos : 0})               
+                // Unsubscribe from SID topic
                 client.unsubscribe (sidTopic);
                 subscribtionsActive = true;
             } else {
@@ -249,6 +241,14 @@ client.on(
                     client.unsubscribe(`${glpPrefix}/fb/dev/lon/${myAppIf.myDeviceHandle}/if/#`); 
                     initializeInputs(payload);
                     myAppIf.initialized = true;
+                    client.subscribe(
+                        lora_application_topic,
+                        (error) => {
+                            if (error) {
+                                console.log(error);
+                            }
+                        }
+                    );
                     console.log(nowTs.toISOString() + " - LoRaGateway internal device interface is ready");
                 }
             }
