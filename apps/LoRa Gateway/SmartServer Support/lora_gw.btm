@@ -1,0 +1,9 @@
+#filetype,bacnet_type_map,,,,,,,,,,,
+#version,v0.0.0,,,,,,,,,,,
+#product_name,LoRa,,,,,,,,,,,
+#program_ID,9000010A0A048500,,,
+Technology,BlockType,BlockHandle,Point Name,bacnet_type,instance,name,description,units,scale_a,scale_b,scale_c,SNVT field
+lon,LoRaGateway,0,nvoTemp,AI,1,Temperature,Ambient Temperature,degrees-celsius,1,0,0,value
+lon,LoRaGateway,0,nvoRH,AI,2,Humidity,Ambient Humidity,percent-relative-humidity,1,0,0,value
+lon,LoRaGateway,0,nvoLux,AI,3,Illuminance,Illuminance,luxes,1,0,0,value
+lon,LoRaGateway,0,nvoCO2,AI,4,CO2,CO2 ppm,parts-per-million,1,0,0,value

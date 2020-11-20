@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- 
+Do NOT delete this file.
+The supplementary usage hints are optional, 
+but the file itself must be part of the resource report. 
+See your Resource Report Generator documentation for more details
+ -->
+<usage>
+	<!-- {{RRG-Generated}}
+    Make sure to edit the control node data as appropriate
+     -->
+	<control>
+		<title>R00001xxxxxxxxxx 90:00:01:00:00:00:00:00-3</title>
+		<version>1.0</version>
+	</control>
+	<hints>
+		<!-- {{RRG-Generated}}
+        This is an example entry that provides additional guidance and information
+        about the entire set.
+         -->
+		<hint id="set"/>
+		<!-- {{RRG-Generated}}
+        This is an example entry that provides additional guideance and information
+        about an individual NVT, CPT, enumeration, FPT, FPT member, 
+        or aggregate (structured type) member. 
+        Use a double-colon as a separator for
+        nested names in 'id' attributes, e.g. SFPTopenLoopSensor::nvoValue.
+        Refer to the Resource Report Generator documentation for
+        more details about the syntax used in the 'id' attribute that is used
+        to identify this hint in the related report.
+         -->
+		<hint id="replace_this"/>
+	</hints>
+</usage>
