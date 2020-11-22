@@ -1,0 +1,14 @@
+#filetype,bacnet_type_map
+#version,v6.0.0
+#product_name,Echlon VAV Sim
+#program_ID,9000015502040402
+Technology,BlockType,BlockHandle,Point Name,bacnet_type,instance,name,description,units,scale_a,scale_b,scale_c,SNVT field,TypeDefinition
+lon,8502sccVAV,0,nviSpaceTemp,AO,1,SpaceTemp,Space Temp,degrees-celsius,1,0,0,,
+lon,8502sccVAV,0,nviSetptOffset,AO,2,SetpointOffset,Setpoint Offset,degrees-celsius,1,0,0,,
+lon,8502sccVAV,0,nviApplicMode,MSO,1,Mode,Mode,,1,0,0,,SNVT_hvac_mode
+lon,8502sccVAV,0,nviOccSensor,MSO,2,Occupancy,Occupancy,,1,0,0,,SNVT_occupancy
+lon,8502sccVAV,0,nviOutdoorTemp,AO,3,OAT,Outdoor Air Temp,degrees-celsius,1,0,0,,
+lon,8502sccVAV,0,nvoAirflow,AI,1,Air Flow,Air Flow,liters-per-second,1,0,0,,
+lon,8502sccVAV,0,nvoSpaceTemp,AI,2,SpaceTempOut,Space Temp Reported,degrees-celsius,1,0,0,,
+lon,8502sccVAV,0,nvoUnitStats_mode,MSI,1,UnitStatus,Unit Stats mode,,1,0,0,mode,SNVT_hvac_mode
+lon,8502sccVAV,0,nvoUnitStatus_cool,AI,3,CoolingLoad,Cooling load,percent,1,0,0,cool_output,

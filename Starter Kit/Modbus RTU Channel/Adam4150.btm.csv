@@ -3,9 +3,9 @@
 #product_name,Adam-4150
 #program_ID,9F0096052804DB00
 Technology,BlockType,BlockHandle,Point Name,bacnet_type,instance,name,description,units,scale_a,scale_b,scale_c,SNVT field
-modbus,DI,0,DI_1,BI,1,Switch 1,Input 0,ON/OFF,1,0,0,
-modbus,DI,0,DI_2,BI,2,Switch 2,Input 1,ON/OFF,1,0,0,
-modbus,DI,0,DI_3,BI,3,Switch 3,Input 2,ON/OFF,1,0,0,
-modbus,DO,0,DO_1,BO,4,Coil 1,Output 0,ON/OFF,1,0,0,
-modbus,DO,0,DO_2,BO,5,Coil 2,Output 1,ON/OFF,1,0,0,
-modbus,DO,0,DO_3,BO,6,Coil 3,Output 2,ON/OFF,1,0,0,
+modbus,DI,0,DI_0,BI,1,Switch 1,Input 0,,1,0,0,
+modbus,DI,0,DI_1,BI,2,Switch 2,Input 1,,1,0,0,
+modbus,DI,0,DI_2,BI,3,Switch 3,Input 2,,1,0,0,
+modbus,DO,0,DO_0,BO,4,Coil 1,Output 0,,1,0,0,
+modbus,DO,0,DO_1,BO,5,Coil 2,Output 1,,1,0,0,
+modbus,DO,0,DO_2,BO,6,Coil 3,Output 2,,1,0,0,
