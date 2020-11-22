@@ -50,13 +50,15 @@ let lora_deveui_2 = "a81758fffe04ab14"; // Device DEVEUI a81758fffe04ab14 ERS CO
 let lora_up_topic_1 = "application/" + lora_app_id + "/device/" + lora_deveui_1 + "/event/up"; // Specific uplink message from sensor #1
 let lora_up_topic_2 = "application/" + lora_app_id + "/device/" + lora_deveui_2 + "/event/up"; // Specific uplink message from sensor #2
 
-function initializeInputs (interfaceObj) {
+function initializeOutputs (interfaceObj) {
     // This function must not be called before the MQTT connection to the SmartServer has be established, 
     // and the Internal device has been created and provision by IAP/MQ
     clearTimeout (myDevCreateTmo); // Cancel the auto internal device create
 
     const pointDriverProps = {
-        rate: 10,                     // Set monitor rate to non-zero value so that just in case DLA file is not loaded that BACnet will work
+        rate: 10,                     // Set monitor rate to non-zero 
+                                      // value so that just in case a DLA 
+                                      // file is not loaded that BACnet will work
         "lon.cfg" : {
             propagationHeartbeat: 180,
             propagationThrottle: 0,
@@ -239,7 +241,7 @@ client.on(
                 //     
                 if (!myAppIf.initialized) {  
                     client.unsubscribe(`${glpPrefix}/fb/dev/lon/${myAppIf.myDeviceHandle}/if/#`); 
-                    initializeInputs(payload);
+                    initializeOutputs(payload);
                     myAppIf.initialized = true;
                     client.subscribe(
                         lora_application_topic,
