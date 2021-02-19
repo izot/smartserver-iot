@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=9 IE=10" />
+	<title>Building Control</title>
+	<style>
+		body {
+			font-size:large;
+		}
+		.adminButton {
+			
+			margin-right:50px;
+		}
+		.backgroundImgDiv {
+			margin:0 auto;
+			width: 700px;
+			height: 300px; z-index: 1;
+			background-color:white;
+			background-image: url(/images/building_outside.jpg);
+			background-repeat:no-repeat"
+		}
+		.companyTitle {
+			margin-top:30px;
+			padding:20px;
+			width:100%;
+			font-size:5em;
+			color:blue;
+			border: 3px solid blue;
+			text-align:center;
+		}
+		.footer {
+			color:white;
+			border: 2px solid blue;
+			background-color:blue;
+			text-align:center;
+			position:fixed;
+			bottom:0;left:0;
+			right:0
+		}
+		.footerSpan {
+			float:right;
+			margin-right:30px;
+			margin-top:4px
+
+		}
+		.logoutButton {
+			float:right;
+			margin-right:20px;
+			background:none;
+			border:none;
+		}
+		.mainDiv {
+			width:100%;
+			margin-top:50px;
+			text-align:center;
+		}
+		.userButton {
+			
+		}
+		/************** Media queries: target specific devices ********/
+		@media screen and (max-device-width: 480px) {
+			body {
+				font-size:50px;
+			}
+			button {
+				font-size:60px;
+				
+			}
+			.adminButton {
+				margin-right:80px;
+				margin-top:150px;
+			}
+			.cmsButton {
+				margin-right:120px;
+				margin-top:150px;
+			}			
+			.companyTitle {
+				font-size:3em;
+				border: 6px solid blue;
+				
+			}
+			.backgroundImgDiv {
+				margin-top: 150px;
+			}
+			.userButton {
+				margin-right:160px;			
+				margin-top:150px;
+			}
+		}
+		
+	</style>
+	
+</head>
+<body>
+<br>
+<div class="companyTitle"><i>Company XYZ</i></div>
+
+<br>
+<div class="mainDiv">
+<div class="backgroundImgDiv"></div><br><br>
+<button type="button" class="adminButton" onclick="location.href='/config/network.php'">SmartServer Configuration</button>
+<button type="button"  class="adminButton" onclick="gotoCMS()">CMS</button>
+<button type="button"  class="userButton" onclick="location.href='browser/browser.html'">Browser</button>
+</div>
+<br>
+<div class="footer">
+<i><span class="footerSpan">Powered by XYZ</span></i>
+</div>
+
+</body>
+<script>
+	function gotoCMS() {
+		var cmsStr =  "https://" + window.location.hostname + "/cms"; //":8443/cms";
+		window.open(cmsStr,'_self',false);
+	}
+</script>
+</html>
