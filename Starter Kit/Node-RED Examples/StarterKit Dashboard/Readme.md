@@ -11,16 +11,18 @@ Add all the Starter Kit devices to the SmartServer using the CMS Web pages prior
 
 
 # Installation
-1. Import the Starter Kit Dashboard
+1. SFTP the starterkit_medium_black.jpg to the following SmartServer folder
+      /var/apollo/www/images 
+2. Import the Starter Kit Dashboard
     - Go to the CMS Sequence Widget and import the StarterKit_NodeRedflow_webflow_xxxx.json file 
-2. Change the Dashboard Theme (background colors) 
+3. Change the Dashboard Theme (background colors) 
     - Click the dropdown in the sidebar and select Dashboard
     - Click the "Theme" tab
     - Change Style to "Dark" and color to teal Red:9, Green:116, Blue:121
     - Click the "Deploy" button to save the changes
-3. Re-assign all the IAP-Input and IAP-Output nodes (green nodes) for the datapoints on your Starter Kit
+4. Re-assign all the IAP-Input and IAP-Output nodes (green nodes) for the datapoints on your Starter Kit
     - Double-click each green node and re-assign the datapoint - you must de-select the current datapoint and select the new datapoint
     - Click "Deploy" button to save your work
-4.  Click the "Dashbord" button (upper-right hand corner of the Widget) to see all the Dashboards.
+5.  Click the "Dashbord" button (upper-right hand corner of the Widget) to see all the Dashboards.
     - If more than one Dashboard Web page then use the Dashboard navigation button to go to the StarterKit Dashboard
     - Click the export to new tab button (upper-right hand corner of Widget, rectangle with up arrow) to open Dashboard in a new tab 
