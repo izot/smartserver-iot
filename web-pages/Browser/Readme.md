@@ -8,8 +8,6 @@ The Browser Web page provides the SmartServer data in a different format then th
 
 When you first go to the Browser Web page it will read all the planning contexts (same as CMS Planning Widget) and all the devices with two REST commands (no pagination). You can navigate between views.  When you leave a view the data and settings are saved  temporarily so when you go back to a previous view you will start off where you left off.  The saved settings are lost do due a Web browser refresh (F5) or starting a new browser session or logging into the Web page.
 
-The Browser Web page caches most of the data so you can go back and forth between views, though polling is always turned off (except for the Dashboard View) when going back to the new view. The Dashboard View is not cached so everytime you go to this view it will rebuild itself.
-
 When you first go into the Browser Web page, it will read all the devices and Planning Context data so it can take some time on a SmartServer with a lot of devices and Context. In the bottom left-hand corner the status of all devices are listed.  Use the Planning View *Refresh All* button to reload all the Devices and context data. Use the Planning View to see which contexts have problem devices.
 
 The Browser Web page displays the SmartServer version, Current Events per second (EPS), and SmartServer CPU (requires you to go to CMS Web page first -- only CMS Web page can enable this feature).
