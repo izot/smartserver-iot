@@ -38,10 +38,12 @@ When polling datapoints, the Browser polls no faster than 10 datapoints every tw
 
 # Typical Use Cases
 1. **See up and down devices** - Go to Planning View to see navigation tree and which context has problem devices
-2. **Look at a device's datapoints** - Go to Devices View, use device list or filter on devices, and then click on Menu "..." button for specific device and select *Show Dashboard* or *Show Datapoints*.
-3. **Look at at a subset of datapoints from multiple devices** - go to Datapoints View, and use *Get DPs by Filter* to see list of datapoints, check the FAV checkbox for all datapoints you want to look at. Keep changing filter and checking the Datapoint checkboxes for datapoints you want to look at.  Once done go to Favorite DPs View to see list. You can save the Favorite DPs list to the CMS favorites so that you can access these same datapoints later. 
-4. **Look at CMS Favorite Datapoints list** - Go to **Favorite DPs** view and click the *FAVs Menu* to see all Favorites in CMS.
-5. **Look at data logs** - Go to the Planning, Devices, Datapoints or Favorite DPs Views click the menu and select *Dashboard*. This will take you to the Dashboard View with the Datapoints textbox filled out. Select the time frame you are interested in and click the "GET" button. You must configure logging in the CMS Datapoint Properties Widget for these datapoints before logs will be available.
+2. **Look at a device's datapoints** 
+  - Go to Planning View, naviagte to device or datapoint and click device or datapoint. Click *Dashboard* button to see a dashboard of datapoints, or select the FAV datapoints and click the *FAV Dashboard* to see a dashboard of FAV datapoints from one or more devices.
+  - Go to Devices View, use device list or filter on devices, and then click on Menu "..." button for specific device and select *Show Dashboard* or *Show Datapoints*.
+4. **Look at at a subset of datapoints from multiple devices** - go to Datapoints View, and use *Get DPs by Filter* to see list of datapoints, check the FAV checkbox for all datapoints you want to look at. Keep changing filter and checking the Datapoint checkboxes for datapoints you want to look at.  Once done go to Favorite DPs View to see list. You can save the Favorite DPs list to the CMS favorites so that you can access these same datapoints later. 
+5. **Look at CMS Favorite Datapoints list** - Go to **Favorite DPs** view and click the *FAVs Menu* to see all Favorites in CMS.
+6. **Look at data logs** - Go to the Planning, Devices, Datapoints or Favorite DPs Views click the menu and select *Data Logs* or *Logs* button. This will take you to the Data Log View with the Datapoints textbox filled out. Select the time frame you are interested in and click the "GET" button. You must configure logging in the CMS Datapoint Properties Widget for these datapoints before logs will be available.
 
 # Summary of Browser Views (Sidebar Buttons)
 1.	**Planning** – provides a navigation tree and shows if any problem devices for a specific context
@@ -49,15 +51,16 @@ When polling datapoints, the Browser polls no faster than 10 datapoints every tw
 3.	**Devices** – shows device list based on Device Filter. *Refresh All* gets information for all devices. 
 4.	**Datapoints** – similar to CMS Datapoint Browser, check FAV checkbox to select which datapoints show up in Favorite DPs View. 
 5.	**Favorite DPs** – Used to show a subset of datapoints. Use Datapoint View or CMS FAVs to select datapoints to view. 
-6.	**Show DP Info** – Shows how a datapoint or a devices datapoint is used in the SmartServer. 
+6.	**Show DP Info** – Shows how a datapoint or a devices datapoint is used in the SmartServer.
 7.	**Active Alarms** – shows active alarms
 8.	**Data Logs** – Chart and table for logged data. Once you get initial data log, you can click the poll checkbox in order to get constant data log updates 
 9.	**Schedules** – shows schedule events
 10.	**Device Types** – Shows Device’s Device types
 11.	**Configured DPs (DLA)** – Shows all Datapoint Properties (DLA settings)
-12.	**Connections** – Shows connections (CON) file
-13.	**Service Pin Messages** – LON Devices only - Shows Service pin messages received by SmartServer while in this view
-14.	**API Tester** – Used to test REST API requests (can’t be used to see WebSocket updates). 
+12.	**Node-RED** - Shows what IAP or MQTT Input and Output nodes are used.
+13.	**Connections** – Shows connections (CON) file
+14.	**Service Pin Messages** – LON Devices only - Shows Service pin messages received by SmartServer while in this view
+15.	**API Tester** – Used to test REST API requests (can’t be used to see WebSocket updates). 
 
 
 
