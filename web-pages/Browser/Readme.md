@@ -7,7 +7,7 @@ The Browser Web page provides the SmartServer data in a different format then th
 
 *The Browser Web page shouldn’t be used as your primary tool on a production site as it doesn't go through extensive testing*.  Additionally, this version doesn't use pagination for REST request which may be necessary for large networks. 
 
-When you first go to the Browser Web page it will read all the planning contexts (same as CMS Planning Widget) and all the devices with two REST commands (no pagination). You can navigate between views.  When you leave a view the data and settings are saved  temporarily so when you go back to a previous view you will start off where you left off.  The saved settings are lost do due a Web browser refresh (F5) or starting a new browser session or logging into the Web page.
+When you first go to the Browser Web page it will read all the planning contexts (same as CMS Planning Widget) and all the devices with two REST commands (no pagination). You can navigate between views.  When you leave a view the data and settings are saved  temporarily so when you go back to a previous view you will start off where you left off.  The saved settings are lost do due a Web browser refresh (F5), starting a new browser session or logging into the Web page.
 
 When you first go into the Browser Web page, it will read all the devices and Planning Context data so it can take some time on a SmartServer with a lot of devices and Context. In the bottom left-hand corner the status of all devices are listed.  Use the Planning View *Refresh All* button to reload all the Devices and context data. Use the Planning View to see which contexts have problem devices.
 
