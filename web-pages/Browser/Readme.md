@@ -16,7 +16,7 @@ The Browser Web page displays the SmartServer version, Current Events per second
 The Planning and Dashboard Views are more like what an end user UI would look like. The Other Views provide more indepth information and are more useful for troubleshooting.
 
 # Adding devices to the SmartServer
-Setup your SmartServer with the CMS (adding devices, datapoint properties, schedules, data log, and alarms) and then you can use the Browser Web page to monitor and control datapoints.
+Setup your SmartServer with the CMS Web page (adding devices, datapoint properties, schedules, data log, and alarms) and then you can use the Browser Web page to monitor and control datapoints.
 
 # Issues using Multiple WebSockets Web Pages (two or more CMS or Custom Web pages) at the same time
 The Browser Web page uses WebSockets like the CMS Web page for datapoint filtering (CMS Datapoint Browser Widget). When you have two WebSocket Web pages (whether two CMS or one CMS and one Browser Web page) open they will interfere with each other as there is only one WebSocket datapoint subscribe per user login.  This same issue also occurs when using two CMS Web pages at the same time for a single user login. To get one page to work properly, you need to re-subscribe to the datapoint list (though the other Web pages may then have an issue). In the CMS Datapoint Browser, click the datapoint filter apply button to re-subscribe the datapoint list. In the Browser Web page, click the re-subscribe button to re-subscribe the datapoint list.  In the CMS, the Datapoint Browser Widget uses WebSockets, and in the Browser Web page the Dashboard, Datapoints and Favorites Views use WebSockets. *The workaround to this issue is to use a different login for each WebSocket Web page*
@@ -45,6 +45,7 @@ When polling datapoints, the Browser polls no faster than 10 datapoints every tw
 4. **Look at at a subset of datapoints from multiple devices** - go to Datapoints View, and use *Get DPs by Filter* to see list of datapoints, check the FAV checkbox for all datapoints you want to look at. Keep changing filter and checking the Datapoint checkboxes for datapoints you want to look at.  Once done go to Favorite DPs View to see list. You can save the Favorite DPs list to the CMS favorites so that you can access these same datapoints later. 
 5. **Look at CMS Favorite Datapoints list** - Go to **Favorite DPs** view and click the *FAVs Menu* to see all Favorites in CMS.
 6. **Look at data logs** - Go to the Planning, Devices, Datapoints or Favorite DPs Views click the menu and select *Data Logs* or *Logs* button. This will take you to the Data Log View with the Datapoints textbox filled out. Select the time frame you are interested in and click the "GET" button. You must configure logging in the CMS Datapoint Properties Widget for these datapoints before logs will be available.
+7. **Help** - Click the help "?" button for user documention and version information.
 
 # Summary of Browser Views (Sidebar Buttons)
 1.	**Planning** – provides a navigation tree and shows if any problem devices for a specific context
