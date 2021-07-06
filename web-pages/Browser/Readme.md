@@ -5,7 +5,7 @@ The Smartserver IoT Browser Web page is a testing tool for the SmartServer IoT (
 
 The Browser Web page provides the SmartServer data in a different format then the CMS, and has features that are not implemented in the CMS (for example, the Data Log view shows datapoint data logs for multiple datapoints and datapoints with fields on a single chart, and the Dashaboard View shows sample dashboard UI for the listed datapoints). Both the Dashboard and Data Log views can show logged data plus live data.
 
-*The Browser Web page shouldn’t be used as your primary tool on a production site as it doesn't goe through limited testing*.  Additionally, this version doesn't use pagination for REST request which may be necessary for large networks. 
+*The Browser Web page shouldn’t be used as your primary tool on a production site as it doesn't go through extensive testing*.  Additionally, this version doesn't use pagination for REST request which may be necessary for large networks. 
 
 When you first go to the Browser Web page it will read all the planning contexts (same as CMS Planning Widget) and all the devices with two REST commands (no pagination). You can navigate between views.  When you leave a view the data and settings are saved  temporarily so when you go back to a previous view you will start off where you left off.  The saved settings are lost do due a Web browser refresh (F5) or starting a new browser session or logging into the Web page.
 
