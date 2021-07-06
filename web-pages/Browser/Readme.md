@@ -11,7 +11,7 @@ When you first go to the Browser Web page it will read all the planning contexts
 
 When you first go into the Browser Web page, it will read all the devices and Planning Context data so it can take some time on a SmartServer with a lot of devices and Context. In the bottom left-hand corner the status of all devices are listed.  Use the Planning View *Refresh All* button to reload all the Devices and context data. Use the Planning View to see which contexts have problem devices.
 
-The Browser Web page displays the SmartServer version, Current Events per second (EPS), and SmartServer CPU (requires you to go to CMS Web page first -- only CMS Web page can enable this feature).
+The Browser Web page displays the SmartServer version, Current Events per second (EPS), and SmartServer CPU (requires you to go to CMS Web page first -- only CMS Web page can enable this feature) at the top of the Web page, and the device status and the number of active alarms at the bottom of the Web page.
 
 The Planning and Dashboard Views are more like what an end user UI would look like. The Other Views provide more indepth information and are more useful for troubleshooting.
 
