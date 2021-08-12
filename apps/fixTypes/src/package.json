@@ -1,0 +1,15 @@
+{
+  "name": "typFix",
+  "version": "1.0.2",
+  "description": "Applies UNVT types is and XML export file to the IAP/MQ tree",
+  "main": "typeFix.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "RTG",
+  "license": "ISC",
+  "dependencies": {
+    "mqtt": "^4.2.6",
+    "xml2js": "^0.4.23"
+  }
+}
