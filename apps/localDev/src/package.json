@@ -9,7 +9,7 @@
   "author": "RTG",
   "license": "ISC",
   "dependencies": {
-    "mqtt": "^4.2.6",
+    "mqtt": "^4.2.8",
     "xml2js": "^0.4.23"
   }
 }
