@@ -1,0 +1,15 @@
+{
+  "name": "localdev",
+  "version": "1.0.0",
+  "description": "Creates lon.attach local device instance",
+  "main": "localDev.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "RTG",
+  "license": "ISC",
+  "dependencies": {
+    "mqtt": "^4.2.6",
+    "xml2js": "^0.4.23"
+  }
+}
