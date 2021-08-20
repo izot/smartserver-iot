@@ -1,0 +1,14 @@
+{
+  "name": "astroclock",
+  "version": "1.0.0",
+  "description": "Provides sunrise/sunset times to edge devices for dusk/dawn scheduling at the edge.",
+  "main": "astroClock.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "RTG",
+  "license": "MIT",
+  "dependencies": {
+    "solar-calc": "^1.1.0"
+  }
+}

@@ -21,3 +21,18 @@ Starter Kit/BACnet Channel/Viconics/test/Viconics7200-3/VT7200F5031B.dtd
 Starter Kit/BACnet Channel/Viconics/test/Viconics7200-3/Viconics7200-3.dla.csv
 Starter Kit/BACnet Channel/Viconics/test/Viconics7200-3/ViconicsLogo.png
 Starter Kit/BACnet Channel/Viconics/test/Viconics7200-3/VT7200f5031B-3.bac
+apps/astroClock/node_modules/solar-calc/.eslintrc
+apps/astroClock/node_modules/solar-calc/.npmignore
+apps/astroClock/node_modules/solar-calc/.travis.yml
+apps/astroClock/node_modules/solar-calc/index.d.ts
+apps/astroClock/node_modules/solar-calc/index.js
+apps/astroClock/node_modules/solar-calc/LICENSE
+apps/astroClock/node_modules/solar-calc/package.json
+apps/astroClock/node_modules/solar-calc/README.md
+apps/astroClock/node_modules/solar-calc/lib/moon.js
+apps/astroClock/node_modules/solar-calc/lib/solarCalc.js
+apps/astroClock/node_modules/solar-calc/lib/sun.js
+apps/astroClock/node_modules/solar-calc/test/test.js
+apps/astroClock/node_modules/solar-calc/types/moon.d.ts
+apps/astroClock/node_modules/solar-calc/types/solarCalc.d.ts
+apps/astroClock/node_modules/solar-calc/types/sun.d.ts
