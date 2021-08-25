@@ -4,7 +4,9 @@ This application provides time, sunrise, sunset, dusk, and dawn times to share w
 1.00.002 - Initial application release.  08/25/2021
 ## UFPTastroClock
 This UFPT provides data points intended to align with Lon devices that understand SNVT_time_stamp, and SNVT_switch for direct control.  This functional block provides the functionality of the UCPTrealtimeClock found in SmartServer 2. The resources defining this interface are part of ApolloDev.typ 1.31 or higher.
+
 ![UFPTastroClock](images/AstroClock%20UFPT.png)
+
 | Network Variable | Type | Notes |
 |--- | --- | ---|
 |nvoAfterDark|SNVT_switch|Set to {value:100,State:0} between civil dusk and civil dawn|
@@ -66,6 +68,7 @@ apollo@smartserver-17q5t6a:/media/usb0/astroClock$
 5. If you login to the SmartServer CMS, you will see the astro-1 device in the CMS Device widget.
 
 ![Installed AstroClock](images/AstroClockInstalled.png)
+
 5. Reboot your SmartServer.  
 6. Allow 3 minutes and verify operation of the astroClock application by connecting by SSH and typing: `tail -f /var/log/supervisor/astroClock.log` You should expect output similar to this:
 ```
