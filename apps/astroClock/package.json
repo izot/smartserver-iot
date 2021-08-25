@@ -9,6 +9,7 @@
   "author": "RTG",
   "license": "MIT",
   "dependencies": {
+    "mqtt": "^4.2.8",
     "solar-calc": "^1.1.0"
   }
 }
