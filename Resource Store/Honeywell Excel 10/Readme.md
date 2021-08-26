@@ -4,21 +4,19 @@ Readme - Honeywell Excel 10 Device Type Package Files
 
 # Table of Contents
 
-- [Readme - Honeywell Excel 10 Device Type Package Files](#readme---honeywell-excel-10-device-type-package-files)
-  - [===](#)
-- [Table of Contents](#table-of-contents)
-- [Overview](#overview)
-- [Excel 10 Variable Air Volume II Controller](#excel-10-variable-air-volume-ii-controller)
-- [Excel 10 Chilled Ceiling Controller](#excel-10-chilled-ceiling-controller)
-- [Excel 10 Fan Coil Unit Controller](#excel-10-fan-coil-unit-controller)
-- [Excel 10 Hydronic Controller](#excel-10-hydronic-controller)
-
-
+-   [Overview](#Overview)
+-   [Excel 10 Variable Air Volume II Controller](#VAVController)
+-   [Excel 10 Chilled Ceiling Controller](#ChilledCeilingController)
+-   [Excel 10 Fan Coil Unit Controller](#FanCoilController)
+-   [Excel 10 Hydronic Controller](#HydronicController)
+-   [T7350 Commercial Thermostat](#T7350Thermostat)
+-   [Excel 10 Constant Volume AHU Controller](#CVAHUController)
+-   [Excel 10 Unit Ventilator Controller](#UVController)
 
 <a name="Overview"></a>
 # Overview
 
-Honeywell has a series of LonWorks controllers in the Excel 10 family that have various inconsistencies in their XIF and resource files.  These irregularities lead to both missing and incorrect type information for many of the data points available on these devices, in particular when these devices are used with the SmartServer IoT.  Some naming conflicts in the associated resource files also create database issues when importing these native files into a SmartServer IoT.  These device type package files posted to our github repository include corrected XIF and corrected (XML) resource files for these devices, which allow them to be used properly with the SmartServer IoT.
+Honeywell has a series of LonWorks controllers, many in the Excel 10 family, that have various inconsistencies in their XIF and resource files.  These irregularities lead to both missing and incorrect type information for many of the data points available on these devices, in particular when these devices are used with the SmartServer IoT.  Some naming conflicts in the associated resource files also create database issues when importing these native files into a SmartServer IoT.  These device type package files posted to our github repository include corrected XIF and corrected (XML) resource files for these devices, which allow them to be used properly with the SmartServer IoT.
 
 <a name="VAVController"></a>
 # Excel 10 Variable Air Volume II Controller
@@ -78,3 +76,46 @@ About this device type package file
 -   **Device Manufacturer:** Honeywell
 -   **Device Model Number:** W7762A, B
 -   **Modified Resource Files:** HYD2 Resource Files (modified).zip
+
+<a name="T7350Thermostat"></a>
+# T7350 Commercial Thermostat
+
+The Honeywell T7350 Commercial Thermostat is based on a scope 6 resource file set installed with Honeywell's T7350 LNS plugin.  The XIF file and resource file set installed with Honeywell's T7350 LNS plugin has some errors regarding member number type references to manufacturer added network variable types in the inherited NodeObject.
+
+This complete device type package file includes a corrected XIF as well as corrected XML resource files based on an updated resource file set which resolves these issues.  Since the resource file set itself was also updated, an independent zip file containing the modified resource files has also been posted for reference.  While these files aren't required for integration with the SmartServer IoT, they can be used with IzoT CT / IzoT Net Server if desired.
+
+About this device type package file
+
+-   **File Name:** T7350CS.dtp
+-   **Program ID:** 80:00:0C:55:04:03:04:2E
+-   **Device Manufacturer:** Honeywell
+-   **Device Model Number:** T7350H1009, T7350H1017
+-   **Modified Resource Files:** T7350 Resource Files (modified).zip
+
+<a name="CVAHUController"></a>
+# Excel 10 Constant Volume AHU Controller
+
+The Excel 10 series of LonWorks Constant Volume AHU Controllers are based on a scope 6 resource file set installed with Honeywell's CVAHU LNS plugin.  The XIF file installed with Honeywell's CVAHU LNS plugin has some errors regarding member number type references to manufacturer added network variable types.
+
+This complete device type package file includes a corrected XIF file as well as the required XML resource files which resolves these issues.
+
+About this device type package file
+
+-   **File Name:** cvahu.dtp
+-   **Program ID:** 80:00:0C:50:1E:03:04:01
+-   **Device Manufacturer:** Honeywell
+-   **Device Model Number:** W7750A, B
+
+<a name="UVController"></a>
+# Excel 10 Unit Ventilator Controller
+
+The Excel 10 series of LonWorks Unit Ventilator Controllers are based on a scope 6 resource file set installed with Honeywell's UV LNS plugin.  The XIF file installed with Honeywell's UV LNS plugin has some errors regarding member number type references to manufacturer added network variable types.
+
+This complete device type package file includes a corrected XIF file as well as the required XML resource files which resolves these issues.
+
+About this device type package file
+
+-   **File Name:** uv.dtp
+-   **Program ID:** 80:00:0C:50:50:03:04:13
+-   **Device Manufacturer:** Honeywell
+-   **Device Model Number:** W7753A
