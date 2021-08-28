@@ -8,11 +8,12 @@ const child_process = require('child_process');
 // Provides UFPTrealtimeClock capabilities related to reporting dusk/dawn control points on
 // an internal device.  Based on UFPTastroClock defined ApolloDev.typ 1.31 or higher.  Calculations
 // occur at 3:15 AM to avoid any confussion related to daylight savings clock adjustments.
-// PID: 90:00:01:06:00:0A:85:11 Handle: rtc-1 must be created using localDev.js 
-// 
+// PID: 90000106000A8511 Handle: astro-1 must be created using localDev.js 
+// 08/25/2021 - 1.00.003, Fixed up issue with stacking timers on nvoAfterDark transistion.
+
 // SolarCalc(date,lat,long)
 var solar = new SolarCalc(new Date(),34.15157,-118.64777);
-const version = '1.00.002';
+const version = '1.00.003';
 const scheduleTm = 3*3600000 + 15*60000;
 let args = process.argv.slice(2);
 let startupPause = 180;
@@ -21,6 +22,7 @@ const points = new Map();
 let delayStart = true;
 
 let eventHb = 60 * 1000;
+let timeCheck;
 
 let myAppIf = {
     appPID : '90000106000A8511',
@@ -43,7 +45,8 @@ let myAppIf = {
 };
 
 function cmdBanner (){
-    console.log(`astroClock.js - version: ${version}`); 
+    let now = new Date()
+    console.log(`\n${now.toLocaleString()} - astroClock.js - version: ${version}`); 
     console.log(`Sunrise: ${solar.sunrise.toLocaleTimeString('en-us')}, Sunset: ${solar.sunset.toLocaleTimeString('en-us')}`);
     console.log(`Dawn: ${solar.civilDawn.toLocaleTimeString('en-us')}, Dusk: ${solar.civilDusk.toLocaleTimeString('en-us')}`);
 }
@@ -109,12 +112,11 @@ function handleSid (sidMsg) {
                 client.unsubscribe (sidTopic);
                 subscribtionsActive = true;
             } else {
-                console.log(`${nowTs.toISOString()} - Redundant SID topic message`);
+                console.log(`${nowTs.toLocaleString()} - Redundant SID topic message`);
             }
         } else {
             // We are not provisioned.
-                //sid = undefined;
-                cosole.log(`${nowTs.toISOString()} -  Problem with SID payload.`);
+            cosole.log(`${nowTs.toLocaleString()} -  Problem with SID payload.`);
         }
     } else {
         console.error('The sid topic returned an unexpected payload type.')
@@ -127,6 +129,7 @@ let hb2Tmo;
 let hb3Tmo
 let hb4Tmo;
 let hbAdTmo;
+let AdTmo;
 
 // The solar events are set at 3:15AM each day to avoid conflict with DST changes 
 // that happen twice each year at 2:00 AM.  
@@ -139,9 +142,9 @@ function scheduleNextDay () {
     } else {
         delayToSchedule = (23*3600000 + 59 * 60000 + 60*1000) - msToday + scheduleTm;
     }
-    console.log(`${tsNow.toLocaleString()} - delayToSchedule: ${delayToSchedule}ms.`)
+    console.log(`${tsNow.toLocaleString()} - Scheduled Solar event calc in: ${delayToSchedule/1000}s.`)
     return delayToSchedule;
-}
+
 
 function sendPoint (dpName) {
     client.publish (
@@ -154,28 +157,28 @@ function sendPoint (dpName) {
         }
     );  
     if (dpName == 'nvoDawn') {
-        clearInterval(hb1Tmo);
-        hb1Tmo = setInterval (sendPoint, myAppIf.solarEvtHb, 'nvoDawn');
+        clearTimeout(hb1Tmo);
+        hb1Tmo = setTimeout (sendPoint, myAppIf.solarEvtHb, 'nvoDawn');
         return; 
     }    
     if (dpName == 'nvoSunrise') {
-        clearInterval(hb2Tmo);
-        hb2Tmo = setInterval (sendPoint, myAppIf.solarEvtHb, 'nvoSunrise');
+        clearTimeout(hb2Tmo);
+        hb2Tmo = setTimeout (sendPoint, myAppIf.solarEvtHb, 'nvoSunrise');
         return; 
     }   
     if (dpName == 'nvoDusk') {
-        clearInterval(hb3Tmo);
-        hb3Tmo = setInterval (sendPoint, myAppIf.solarEvtHb, 'nvoDusk');
+        clearTimeout(hb3Tmo);
+        hb3Tmo = setTimeout (sendPoint, myAppIf.solarEvtHb, 'nvoDusk');
         return; 
     } 
     if (dpName == 'nvoSunset') {
-        clearInterval(hb4Tmo);
-        hb4Tmo = setInterval (sendPoint, myAppIf.solarEvtHb, 'nvoSunset');
+        clearTimeout(hb4Tmo);
+        hb4Tmo = setTimeout (sendPoint, myAppIf.solarEvtHb, 'nvoSunset');
         return; 
     }   
     if (dpName == 'nvoAfterDark') {
-        clearInterval(hbAdTmo);
-        hbAdTmo = setInterval (sendPoint, myAppIf.solarEvtHb, 'nvoAfterDark');
+        clearTimeout(hbAdTmo);
+        hbAdTmo = setTimeout (sendPoint, myAppIf.solarEvtHb, 'nvoAfterDark');
         return; 
     } 
 }
@@ -200,6 +203,17 @@ function setSnvtTime(solarEvent) {
     return timeStamp;
 }
 
+function checkForTimeJump () {
+    let now = new Date();
+    // if time changes by more than 5m recaclulate solar events
+    if (timeCheck && (Math.abs(now.getTime() - timeCheck) > 300000)) {
+        console.log(`${now.toLocaleString()} - Time has changed. Force calculation of solar events.`)
+        setAstroTimes(true);
+    }
+    timeCheck = now.getTime() + 60000;
+}
+setInterval(checkForTimeJump, 60000);
+
 function setAfterDark (sendNow) {
     let now = new Date();
     let solar = new SolarCalc(now ,myAppIf.lat,myAppIf.lng);
@@ -216,15 +230,17 @@ function setAfterDark (sendNow) {
             {qos:0},
             (err) => {
                 if(err != null)
-                    console.error(`Failed to update nvoLocalTime: ${err}`);
+                    console.error(`${now.toLocaleString()} - Failed to update nvoAfterDark: ${err}`);
             }
         );
-        console.log(`${now.toLocaleString()} Send nvoAfterDark.state: ${adValue.state}`)
+        console.log(`${now.toLocaleString()} - Send nvoAfterDark.state: ${adValue.state}`)
     }
     // Solar events trigger nvoAfterDark state changes to the ms.
     if (adValue.state == 0) { // schedule send at dusk
+        clearTimeout(AdTmo);
         setTimeout(setAfterDark, myAppIf.dusk.getTime() - now.getTime(), true);  
     } else if (now.getTime() < myAppIf.dawn) { 
+        clearTimeout(AdTmo);
         setTimeout(setAfterDark, myAppIf.dawn.getTime() - now.getTime(), true);
     }
 }
@@ -253,16 +269,16 @@ function setAstroTimes (newDay) {
     if (myAppIf.initialized) {
         clearTimeout(calcTmo);
         calcTmo = setTimeout(setAstroTimes, scheduleNextDay(), true );
-        clearTimeout(hb1Tmo);
-        hb1Tmo = setTimeout (sendPoint, 100, 'nvoDawn');
-        clearTimeout(hb2Tmo);
-        hb2Tmo = setTimeout (sendPoint, myAppIf.isPowerline ? updatePace * 1000 : 100, 'nvoSunrise');
-        clearTimeout(hb3Tmo);
-        hb3Tmo = setTimeout (sendPoint, myAppIf.isPowerline ? updatePace * 2 * 1000 : 200, 'nvoDusk');
-        clearTimeout(hb4Tmo);
-        hb4Tmo = setTimeout (sendPoint, myAppIf.isPowerline ? updatePace * 3 * 1000 : 300, 'nvoSunset');
         clearTimeout(hbAdTmo);
-        hbAdTmo = setTimeout(sendPoint, myAppIf.isPowerline ? updatePace * 4 * 1000 : 400, 'nvoAfterDark');
+        hbAdTmo = setTimeout(sendPoint, 100, 'nvoAfterDark');
+        clearTimeout(hb1Tmo);
+        hb1Tmo = setTimeout (sendPoint, myAppIf.isPowerline ? updatePace * 1000: 100, 'nvoDawn');
+        clearTimeout(hb2Tmo);
+        hb2Tmo = setTimeout (sendPoint, myAppIf.isPowerline ? updatePace * 2 *1000 : 100, 'nvoSunrise');
+        clearTimeout(hb3Tmo);
+        hb3Tmo = setTimeout (sendPoint, myAppIf.isPowerline ? updatePace * 3 * 1000 : 200, 'nvoDusk');
+        clearTimeout(hb4Tmo);
+        hb4Tmo = setTimeout (sendPoint, myAppIf.isPowerline ? updatePace * 4 * 1000 : 300, 'nvoSunset');
     }
     
 }
@@ -288,13 +304,12 @@ function sendRtc () {
         {qos:0},
         (err) => {
             if(err != null)
-                console.error(`Failed to update nvoLocalTime: ${err}`);
+                console.error(`${now.toLocaleString} - Failed to update nvoLocalTime: ${err}`);
         }
     );
     clearTimeout(clkHbTmo);
     clkHbTmo = setTimeout (sendRtc, myAppIf.timeHb);
 }
-
 
 // IAP/MQ. MQTT message handler. 
 client.on(
@@ -317,7 +332,7 @@ client.on(
                 setAstroTimes (true);
         }
         // On the first run, we need to confirm the device status is provisioned prior
-        // to setting the monitor in attributees
+        // looking for the interface.
         if (topic.endsWith(`${myAppIf.devHandle}/sts`)) {
             let gmState;
             if (payload.state != 'deleted')
@@ -326,10 +341,7 @@ client.on(
             if (myAppIf.state != 'deleted')
                 gmState = payload.health;
             console.log (`${myAppIf.devHandle} - State: ${myAppIf.state} - Health: ${gmState} `);    
-            //if (myAppIf.state == 'provisioned')
-            //    sendRtc();
-            client.subscribe (`${glpPrefix}/fb/dev/lon/${myAppIf.devHandle}/if/${myAppIf.fbName}/0`);
-    
+            client.subscribe (`${glpPrefix}/fb/dev/lon/${myAppIf.devHandle}/if/${myAppIf.fbName}/0`);    
         }
         if (topic.endsWith(`${myAppIf.devHandle}/if/${myAppIf.fbName}/0`)) {
             myAppIf.duskOffset = payload.cpDuskAdjust.value * 60000;
@@ -342,7 +354,6 @@ client.on(
             client.unsubscribe(`${glpPrefix}/fb/dev/lon/${myAppIf.devHandle}/if/${myAppIf.fbName}/0`);
             client.subscribe (`${glpPrefix}/ev/data`);
             setAstroTimes (true);
-            //let now = new Date();
             sendRtc();
         }
         if (topic.endsWith('ev/data')) {
