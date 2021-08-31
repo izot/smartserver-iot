@@ -13,7 +13,7 @@ const child_process = require('child_process');
 
 // SolarCalc(date,lat,long)
 var solar = new SolarCalc(new Date(),34.15157,-118.64777);
-const version = '1.00.003';
+const version = '1.00.004';
 const scheduleTm = 3*3600000 + 15*60000;
 let args = process.argv.slice(2);
 let startupPause = 180;
@@ -144,7 +144,7 @@ function scheduleNextDay () {
     }
     console.log(`${tsNow.toLocaleString()} - Scheduled Solar event calc in: ${delayToSchedule/1000}s.`)
     return delayToSchedule;
-
+}
 
 function sendPoint (dpName) {
     client.publish (
@@ -353,6 +353,7 @@ client.on(
             console.log (`${now.toLocaleString()} - DawnOffset: ${myAppIf.dawnOffset} DuskOffset: ${myAppIf.duskOffset} timeHb: ${myAppIf.timeHb/1000}s SolarEvtHb: ${myAppIf.solarEvtHb/1000}`)
             client.unsubscribe(`${glpPrefix}/fb/dev/lon/${myAppIf.devHandle}/if/${myAppIf.fbName}/0`);
             client.subscribe (`${glpPrefix}/ev/data`);
+            client.unsubscribe (`${glpPrefix}/ev/error`);
             setAstroTimes (true);
             sendRtc();
         }
