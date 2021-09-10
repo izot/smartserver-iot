@@ -1,19 +1,40 @@
 # Modbus Shadow Lon Device
 ---
-This example uses localDev.exe to create an internal device that is used to shadow Modbus device datapoints as Lon datapoints on an internal device that is managed using IzoT CT.  You need the supporting files in the https://github.com/izot/smartserver-iot/tree/master/apps/localDev to follow these steps as well as files found in this folder.
+This example uses `localDev.exe` to create an internal device that is used to shadow Modbus device datapoints as Lon datapoints on an internal device that is managed using IzoT CT.  You need the supporting files in the https://github.com/izot/smartserver-iot/tree/master/apps/localDev to follow these steps as well as files found in this folder.
 
 ## Prepare the SmartServer IoT
 
-1. Import the `ApolloDevXML_1_30.zip` resources using the Device Type widget.
+1. Import the `ApolloDevXML_1_30.zip` resources using the Device Type widget. You need to do this once and the file resources will survive a `System.Reset to Default.Reset Databases` but not a re-image, or `System.Restore Factory Settings`
 2. Import the XIF file `NM_dynamicC.xif` using the Device Type widget.
-3. Asssuming you have installed localDev.exe in your `lonWorks/bin` folder, open a Windows command box and run this: `localdev  9000010600828582 dyn-1 192.168.10.201`
-4. Assuming you have enabled the IP70 RNI feature and have created an RNI interface in the LonWorks Interfaces 32 control panel applet.  Use this as your network interface when creating a network in IzoT CT.
-5. Rename the default channel in IzoT CT to IP70, and set its type to be IP-70.
-6. In IzoT CT, create a device based on the `NM_dynamicC.xif` file imported in Step 2.  Name this device `dyn-1`
-7. Open the stencil `Modbus Shawdow Dev.vss` and drag the lone mastershape from this stencil on to your drawing.  Select the webServer[0] block.  You could build up from scratch using an empty webServer FB, and dynamic NVs as long as you match the names exactly (`SNVT_count data` types).
+3. Asssuming you have installed `localDev.exe` in your `lonWorks/bin` folder, open a Windows command box and run this: `localdev  9000010600828582 dyn-1 192.168.10.201`.  The frist argument is the PID of the `NM_dynamicC.xif`.  The second argument (`dyn-1`) is the device handle/name that will by used for the internal Lon device.  This device will appear in the Devices widget in the CMS.
+4. In the CMS device widget, set your SmartServer to be in IMM mode.
+5. Assuming you have enabled the IP70 RNI feature and have created an RNI interface in the LonWorks Interfaces 32 control panel applet.  Use this as your network interface when creating a network in IzoT CT.
+6. Rename the default channel in IzoT CT to IP70, and set its type to be IP-70.
+7. In IzoT CT, create a subsystem that will hold the shadow interface devices.
+8. In IzoT CT, inside the subsystem creaed in step 7, create a device based on the `NM_dynamicC.xif` file imported to the CMS in Step 2.  Name this device `dyn-1`.  The exact match for the localDev device created in step 4 above.
+9. Open the stencil `Modbus Shawdow Dev.vss` and drag the lone mastershape from this stencil on to your drawing.  Select the webServer[0] block.  You could build up from scratch using an empty webServer FB, and dynamic NVs as long as you match the names exactly (`SNVT_count data` types). This FB name must be an exact match for the Modbus device that is to be shadowed
    
     ![CT Drawing](./images/Shadow%20Dev%20Example.png)
 
-8.  The file `shawdow4150-con.csv` is connects  the Modbus data points on the device DIO-1 to the Lon points on the webServer block.  What you need to know is the datapoint names on the webServer block have a sufix _nnn where _001 is webServer/0 in the IAP/MQ path.  If you use other webServer FBs to shadow addtional Modbus points, you need to add the connections to the connection file.
+10. The file `shadowConnect.exe` is utility that automates the generation of a connection file to connect the Modbus points to the shadowed Lon data points.  Copy this file to your `../Lonworks/bin folder`. To work you must.
+   - Name the webServer FB to exactly match the name of the Modbus device.
+   - The Modbus interface is flat with all points under `../if/device/0`.
+   - All Inputs and outputs have names that are limited to 12 characters.
+11. While in the subsystem created in step 7 above, right-click on the drawing sheet and launch the `Echelon XML Subsystem Report` plug-in.
 
-If you are using the SmartServer IoT starter kit, the top to switches to the right of the Adam 4150 module are connected to `../DI/0/DI_0` and `../DI/0/DI_1`.  The outputs `../DO/DO_0` and `../DO/DO_1` are hardwired to `1../DI/DO_2` and `../DO/DO_3`.  If the NVs `nviDo0_001` (`nviDo0` in the Datapoint Browser widget) is modified, `../DI/DI_2` will follow.  If `../DI/DI_3` will follow.
+![Plug-in Launch](images/Subsytem%20Report.png)
+
+12. Use the settings shown here:
+
+![XML Subsystem Report](images/XML%20Report%20Settings.png)
+
+13. In this step, the connection file will be generated using `shadowConnect.exe`.  Use Windows explorer to navigate to the folder where the export file is saved and type `cmd` in the address bar to open a command box.
+14. Type `shadowConnect [XML Export filname] [internal device]`.  Here is an example:
+ `shadowConnect Export.xml dyn-1`.  The result will be a file: `shadowConnect.csv`
+15. Import this file using the Device Type widget in the CMS.
+
+The result is point-point connections will be formed between the Modbus output and the shadow FB input points and Modbus inputs to shadow FB outputs.  To work correctly, there must be datapoint properties to define polling for all Modbus points involved in the connection.       
+
+![Connection File](images/CSV%20Result.png) 
+
+
