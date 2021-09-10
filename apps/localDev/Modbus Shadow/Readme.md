@@ -33,7 +33,7 @@ This example uses `localDev.exe` to create an internal device that is used to sh
  `shadowConnect Export.xml dyn-1`.  The result will be a file: `shadowConnect.csv`
 15. Import this file using the Device Type widget in the CMS.
 
-The result is point-point connections will be formed between the Modbus output and the shadow FB input points and Modbus inputs to shadow FB outputs.  To work correctly, there must be datapoint properties to define polling for all Modbus points involved in the connection.       
+The steps above create the point-point connections to have a Lon device shadow a Modbus device.  To work correctly, there must be datapoint properties to define polling for all Modbus points being shadowed.       
 
 ![Connection File](images/CSV%20Result.png) 
 
