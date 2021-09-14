@@ -1,6 +1,8 @@
 # Modbus Shadow Lon Device
 ---
-This example uses `localDev.exe` to create an internal device that is used to shadow Modbus device datapoints as Lon datapoints on an internal device that is managed using IzoT CT.  You need the supporting files in the https://github.com/izot/smartserver-iot/tree/master/apps/localDev to follow these steps as well as files found in this folder.
+This example uses `localDev.exe` to create an internal device that is used to shadow Modbus device datapoints as Lon datapoints on an internal device that is managed using IzoT CT.  You need the supporting files in the https://github.com/izot/smartserver-iot/tree/master/apps/localDev to follow these steps as well as files found in this folder.  
+
+Before starting you need to understand a limitation of this solution.  All datapoints in a Modbus or BACnet interface file must be assigned to the `if/device/0` functional block.  The example used in this `Readme.md` document targets the Advantec Adam-4150 Digital Input/ouput device.  The orginal .mod file assigned the Digital Inputs to the `if/DI/0`, and the digital output points to `if/DO/0` which violates the limitaion mentioned here.  You will find a package that is suitable for this solution here: https://github.com/izot/smartserver-iot/blob/master/Starter%20Kit/Modbus%20RTU%20Channel/Adam-4150v20-Flat.dtp  
 
 ## Prepare the SmartServer IoT
 
