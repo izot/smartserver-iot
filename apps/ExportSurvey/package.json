@@ -1,0 +1,15 @@
+{
+  "name": "exportsurvey",
+  "version": "1.0.0",
+  "description": "Reports resources required to export an IzoT CT project to SmartServer IoT.",
+  "main": "exportSurvey.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "RTG",
+  "license": "MIT",
+  "dependencies": {
+    "mqtt": "^4.2.8",
+    "xml2js": "^0.4.23"
+  }
+}
