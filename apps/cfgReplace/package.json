@@ -1,0 +1,14 @@
+{
+  "name": "cfgreplace",
+  "version": "1.0.0",
+  "description": "Manages CPs value during Lon device replacement.",
+  "main": "cfgReplace.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "RTG",
+  "license": "MIT",
+  "dependencies": {
+    "mqtt": "^4.2.8"
+  }
+}
