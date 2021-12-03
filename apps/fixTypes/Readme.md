@@ -22,5 +22,9 @@ Here is an example of an fixTypes.exe command line:
 
 ## Release Notes
 8/10/2021 - Initial release, 1.00.001
+
 8/11/2021 - 1.00.002
-    Added support for extenal device type fixes.  Use '*' as a wildcard device handle 
+Added support for extenal device type fixes.  Use '*' as a wildcard device handle 
+
+12/03/2021 - 1.00.003a 
+Fixed issue with function block index and file path.    

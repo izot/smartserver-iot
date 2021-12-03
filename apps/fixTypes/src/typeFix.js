@@ -3,7 +3,7 @@ let fs = require('fs');
 let xml2js = require('xml2js');
 const mqtt = require('mqtt');
 
-const appVersion = '1.00.002';
+const appVersion = '1.00.003a';
 // File: typeFix.js
 // Input file is the output of an IzoT CT XML export this is executed from the subsystem that includes
 // the intennal device supporting a dynamic interface.  In this workflow, the internal device IAP handle
@@ -25,10 +25,10 @@ let targetFound = false;
 function cmdBanner (){
     console.log(`typeFix.js - version: ${appVersion}  - Uses a IzoT CT export file to set UNVT types.`);
     if (args.length < 3) {
-        console.log(`\tAccepts 3 commandline arguments:`); 
+        console.log(`\tAccepts 3 command line arguments:`); 
         console.log(`\t(1) XML export filename.`);
         console.log(`\t(2) Target Internal device. Use '*' to fixType on all devices in the Export.`);     
-        console.log(`\t(3) IP address of the tartget SmartServer IoT.`);     
+        console.log(`\t(3) IP address of the target SmartServer IoT.`);     
         process.exit(0);
     }
 }
@@ -117,7 +117,7 @@ function updateIAP () {
             process.exit(0);         
         }
     }
-    console.log(`Setting UVNT types in IAP/MQ tree. `);
+    console.log(`Setting UNVT types in IAP/MQ tree. `);
     let pointIterator = points.entries();
     points.forEach (point => {
         let topic = `${glpPrefix}/rq/dev/lon/${pointIterator.next().value[0]}`;
@@ -163,9 +163,17 @@ function pushDevice (AppDev) {
     return;
 }
 
-fs.readFile(__dirname + `/${fileName}`, function(err, data) {
+fs.readFile(/*__dirname +*/ `./${fileName}`, function(err, data) {
+    if (err != null) {
+        console.log(`Export File error: ${err.message}`);
+        process.exit(1);
+    }
     parser.parseString(data, function (err, result) {
         //Assuming the XML export includes the targeted internal device with the dynamic interface 
+        if (err != null) {
+            console.log(`Export file parsing error: ${err.message}`);
+            process.exit(1);
+        }
         let root = result.LonWorksNetwork.Subsystems;
 
         // Creating a flat collecitons of Devices
@@ -232,7 +240,7 @@ fs.readFile(__dirname + `/${fileName}`, function(err, data) {
                     if (nvs == null) 
                         continue;
                     fbName = fb.IsVirtualFb._ == 'True' ? 'device' : fb.ProgrammaticName.replace(/[^a-z,^A-Z]/g,'');    
-                    fbIndex = fb.IsVirtualFb ? '0' : $j.toString() 
+                    fbIndex = fb.IsVirtualFb._ == 'True' ? '0' : j.toString() 
                     nvs.forEach(nv => {
                         let topicTail = `${thisHndl}/if/${fbName}/${fbIndex}/${nv.ProgrammaticName}`;
                         let fmtSpec = {
