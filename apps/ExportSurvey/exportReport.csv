@@ -1,0 +1,11 @@
+LNS Template,PID,XIF Path,Custom Resource,DevFb
+HSIS599K_RTU_CR1,'900013FFFF030114',C:\Program Files (x86)\Schneider Electric\TAC Menta 5.1.9\Projects\HSIS599KMenta\HSIS599K_RTU_CR1,0,0
+X410w03,'900013021C04040C',C:\Program Files (x86)\LonWorks\Import\TAC\IO Modules\X410w03,0,0
+X420Aw01,'800013053C060401',C:\Program Files (x86)\LonWorks\Import\TAC\IO Modules\X420Aw01,5,0
+X450Aw01,'800013050A060401',C:\Program Files (x86)\LonWorks\Import\TAC\IO Modules\X450Aw01,5,0
+X450Aw01,'800013050A060401',C:\Program Files (x86)\LonWorks\Import\TAC\IO Modules\X450Aw01,5,0
+X490w01,'9000130519060400',C:\Program Files (x86)\LonWorks\Import\TAC\IO Modules\X490w01,0,0
+X450Aw01,'800013050A060401',C:\Program Files (x86)\LonWorks\Import\TAC\IO Modules\X450Aw01,5,0
+SmartServer_IoT,'8000010102818501',C:\Users\PS599\Desktop\Richmar Controls\Common\SmartServerIoT_2020_01_08\SSIoTfiles_XIF\SmartServerIoT_v3.1\SmartServer_IoT_XIF\SmartServer_IoT,0,0
+PChWP2_VFD,'8000083C0A840411',addhoc,0,0
+ABB_FLON,'8000203C0A040426',addhoc,0,0

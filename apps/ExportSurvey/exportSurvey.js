@@ -4,7 +4,7 @@ let xml2js = require('xml2js');
 const mqtt = require('mqtt');
 const { cpuUsage } = require('process');
 
-const appVersion = '1.00.002';
+const appVersion = '1.00.003';
 // File: exportSurvey.js
 // Input file is the output of an IzoT CT XML export for an existing IzoT CT project. This utility
 // will summarize the resources that need to be added to the SmartServer IoT prior to running
@@ -14,7 +14,8 @@ const appVersion = '1.00.002';
 //   fixed path issues for input file.
 //   Fixed bugs discovered in more complex device definitions from NYC example db
 //   Added support for dtd file generation.
-
+// 12/13/2021: 1.00.003
+//   Added resource use summary to console output   
 let parser = new xml2js.Parser({explicitArray:false});       
 
 let args = process.argv.slice(2); //cmdline parameter start at index 2
@@ -41,6 +42,7 @@ if (args.length >= 1) {
 }
 
 let AppDevCollection = new Array();
+let typesInPlay = new Set();
 let templateCollection = new Map();
 let userTypesSet = new Set();
 let connectionCount = 0;
@@ -123,17 +125,17 @@ fs.readFile(`${fileName}`, function(err, data) {
         dtdStream.write(`\"Device Type\",Protocol,\"Program ID\",\"Default App\",\"Default Sys\",\"Auto App Load\",\"Auto Sys Load\",\"Graphics File\",Default\n`);
         reportS.write(`LNS Template,PID,XIF Path,Custom Resource,DevFb\n`);
 
-        for (let appDev of AppDevCollection) {
+        for (var appDev of AppDevCollection) {
             let reportRowStr;
             if (!appDev.hasOwnProperty('NeuronId'))
                 continue; 
-            let devTmp = templateCollection.get(appDev.Template);
+            var devTmp = templateCollection.get(appDev.Template);
  
             //let fbCollection = appDev.FunctionalBlocks.FunctionalBlock.length == null ? [appDev.FunctionalBlocks.FunctionalBlock] : appDev.FunctionalBlocks.FunctionalBlock;
             //let fbs = appDev.FunctionalBlocks;
             if (devTmp == null)
                 continue;
-            let fbs = devTmp.FunctionalBlocks;
+            var fbs = devTmp.FunctionalBlocks;
             if (fbs == null || typeof(fbs) == 'string')
                 continue;
             if (devTmp != null) {
@@ -142,7 +144,7 @@ fs.readFile(`${fileName}`, function(err, data) {
             } else {
                 continue;
             }              
-            let fbCollection = devTmp.FunctionalBlocks.FunctionalBlock;
+            var fbCollection = devTmp.FunctionalBlocks.FunctionalBlock;
             // Need to promote an object to an array for Interfaces with a single FB.
             if (fbCollection.$ != null)
                 fbCollection = [fbCollection];
@@ -161,21 +163,28 @@ fs.readFile(`${fileName}`, function(err, data) {
                     continue;
                 if (fb.hasOwnProperty('ConfigProperties')) {
                     let cps = fb.ConfigProperties.ConfigProperty;
+                    let userResource = new Object();
                     if (cps == null || cps.length == 0)
                         continue;
                     if (cps.hasOwnProperty('Name')) {
                         if(cps.Name.includes('UCPT')) {
                             ++ucptCount;
                             userTypesSet.add(cps.Name);
+                            typesInPlay.add(`${devTmp.Classification.ManufacturerId}:${cp.Name}`);
                         };
                         continue;
-                    }    
-                    cps.forEach(cp => {
+                    }  
+                    for (let i = 0; i < cps.length; i++) {
+                        let cp = cps[i];
                         if(cp.Name.includes('UCPT')) {
                             ++ucptCount;
                             userTypesSet.add(cp.Name);
+                            typesInPlay.add(`${devTmp.Classification.ManufacturerId}:${cp.Name}`);
                         }
-                    });
+                    }  
+
+
+
                 };    
                 fbProgName = fb.IsVirtualFb._ == 'True' ? 'device' : fb.ProgrammaticName.replace(/[^a-z,^A-Z]/g,'');    
                 fbName = fb.Name;
@@ -187,15 +196,19 @@ fs.readFile(`${fileName}`, function(err, data) {
                             ++unvtDevCount; 
                         }
                         userTypesSet.add(nv.TypeSpec.TypeName);
+                        typesInPlay.add(`${devTmp.Classification.ManufacturerId}:${nv.TypeSpec.TypeName}`);
                     }
                     if (nv.hasOwnProperty('ConfigProperty')) {
                         let nvcps = nv.ConfigProperties.ConfigProperty;
-                        nvcps.forEach(nvcp => {
-                            if(cp.Name.includes('UCPT')) {
+                        for (let i=0; i < nvcps.length; i++) {
+                            let nvcp = nvcps[i];
+                            if(nvcp.Name.includes('UCPT')) {
                                 ++ucptCount;
                                 userTypesSet.add(cp.Name);
+                                typesInPlay.add(`${devTmp.Classification.ManufacturerId}:${nv.TypeSpec.TypeName}`);
                             }
-                        })
+
+                        }
                     }
                 }    
             }
@@ -209,6 +222,10 @@ fs.readFile(`${fileName}`, function(err, data) {
         }
         reportS.end();
         dtdStream.end();
+        console.log('These user types need XML resource definitions:');
+        typesInPlay.forEach (userType => {
+            console.log(`${userType}`);
+        })
     });
     //console.dir(result);
 
