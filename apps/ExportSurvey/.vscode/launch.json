@@ -12,7 +12,7 @@
                 "<node_internals>/**"
             ],
             "program": "${workspaceFolder}\\exportSurvey.js",
-            "args": ["Export.XML"]
+            "args": ["Exportx.XML"]
         }
     ]
 }
