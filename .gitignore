@@ -1754,3 +1754,4 @@ apps/fixTypes/src/node_modules/xtend/package.json
 apps/fixTypes/src/node_modules/xtend/README.md
 apps/fixTypes/src/node_modules/xtend/test.js
 apps/fixTypes/.vscode/launch.json
+apps/ExportSurvey/Export_ALL.XML

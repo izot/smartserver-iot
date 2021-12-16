@@ -33,6 +33,6 @@ The exportSurvey also generates the file `deviceTypes.dtd` in the same folder.  
 2. Fixed bugs found when working with more complex actual projects.
 3. Added the dtd file generation feature. 
 
-**12/15/2021 - Release 1.00.003**:
-1. Added user type summary to the console output.
+**12/15/2021 - Release 1.00.003**: Added user type summary to the console output.
 
+**12/15/2021 - Release 1.00.004**: Fixed issue with duplicate device type reporting.

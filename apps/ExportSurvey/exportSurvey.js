@@ -4,7 +4,7 @@ let xml2js = require('xml2js');
 const mqtt = require('mqtt');
 const { cpuUsage } = require('process');
 
-const appVersion = '1.00.003';
+const appVersion = '1.00.004';
 // File: exportSurvey.js
 // Input file is the output of an IzoT CT XML export for an existing IzoT CT project. This utility
 // will summarize the resources that need to be added to the SmartServer IoT prior to running
@@ -14,8 +14,11 @@ const appVersion = '1.00.003';
 //   fixed path issues for input file.
 //   Fixed bugs discovered in more complex device definitions from NYC example db
 //   Added support for dtd file generation.
-// 12/13/2021: 1.00.003
+// 12/15/2021: 1.00.003
 //   Added resource use summary to console output   
+// 12/15/2021: Release 1.00.004
+//  Fixed issue with duplicate device type reporting 
+
 let parser = new xml2js.Parser({explicitArray:false});       
 
 let args = process.argv.slice(2); //cmdline parameter start at index 2
@@ -44,6 +47,7 @@ if (args.length >= 1) {
 let AppDevCollection = new Array();
 let typesInPlay = new Set();
 let templateCollection = new Map();
+let templatesInPlay = new Map();
 let userTypesSet = new Set();
 let connectionCount = 0;
 
@@ -130,7 +134,7 @@ fs.readFile(`${fileName}`, function(err, data) {
             if (!appDev.hasOwnProperty('NeuronId'))
                 continue; 
             var devTmp = templateCollection.get(appDev.Template);
- 
+            
             //let fbCollection = appDev.FunctionalBlocks.FunctionalBlock.length == null ? [appDev.FunctionalBlocks.FunctionalBlock] : appDev.FunctionalBlocks.FunctionalBlock;
             //let fbs = appDev.FunctionalBlocks;
             if (devTmp == null)
@@ -138,12 +142,15 @@ fs.readFile(`${fileName}`, function(err, data) {
             var fbs = devTmp.FunctionalBlocks;
             if (fbs == null || typeof(fbs) == 'string')
                 continue;
+            if (templatesInPlay.has(devTmp.Classification.ProgramId))
+                continue;    
             if (devTmp != null) {
                 dtdStream.write(`${devTmp.Name},lon,${devTmp.Classification.ProgramId},,,false,false,,true\n`);
                 reportRowStr = `${devTmp.Name},\'${devTmp.Classification.ProgramId}\',${devTmp.XifPath =='' ? 'addhoc':devTmp.XifPath},`;
             } else {
                 continue;
             }              
+            templatesInPlay.set(devTmp.Classification.ProgramId,devTmp.Name);
             var fbCollection = devTmp.FunctionalBlocks.FunctionalBlock;
             // Need to promote an object to an array for Interfaces with a single FB.
             if (fbCollection.$ != null)
