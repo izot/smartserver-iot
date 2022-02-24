@@ -21,8 +21,14 @@ chown -R apollo:apollo $APP_DIR
 mv $APP_DIR/$A_SETUP/astroClock.conf /etc/supervisor/conf.d
 echo "Moving astroClock package to $APOLLO_DATA/dtp-files.d"
 mv ./astroClock.dtp $APOLLO_DATA/dtp-files.d
+echo "Moving ApolloDev resources (1.31) to $APOLLO_DATA/dtp-files.d"
+mv ./ApolloDev_1_31.dtp $APOLLO_DATA/dtp-files.d
 chown apollo:apollo $APOLLO_DATA/dtp-files.d/astroClock.dtp
 chmod 666 $APOLLO_DATA/dtp-files.d/astroClock.dtp
+chown apollo:apollo $APOLLO_DATA/dtp-files.d/ApolloDev_1_31.dtp
+chmod 666 $APOLLO_DATA/dtp-files.d/ApolloDev_1_31.dtp
+echo "Loading ApolloDev Resources version 1.31"
+dtp-loader http://localhost:8181 apollo $1 $APOLLO_DATA/dtp-files.d/ApolloDev_1_31.dtp
 echo "Loading astroClock package to the CMS as user/pwd apollo/$1. This will take 30-45s"
 dtp-loader http://localhost:8181 apollo $1 $APOLLO_DATA/dtp-files.d/astroClock.dtp
 echo "Creating astro-1 lon.attach:local device"

@@ -7,13 +7,13 @@ const child_process = require('child_process');
 // astroClock.js
 // Provides UFPTrealtimeClock capabilities related to reporting dusk/dawn control points on
 // an internal device.  Based on UFPTastroClock defined ApolloDev.typ 1.31 or higher.  Calculations
-// occur at 3:15 AM to avoid any confussion related to daylight savings clock adjustments.
+// occur at 3:15 AM to avoid any confusion related to daylight savings clock adjustments.
 // PID: 90000106000A8511 Handle: astro-1 must be created using localDev.js 
 // 08/25/2021 - 1.00.003, Fixed up issue with stacking timers on nvoAfterDark transistion.
 
 // SolarCalc(date,lat,long)
 var solar = new SolarCalc(new Date(),34.15157,-118.64777);
-const version = '1.00.004';
+const version = '1.00.005';
 const scheduleTm = 3*3600000 + 15*60000;
 let args = process.argv.slice(2);
 let startupPause = 180;

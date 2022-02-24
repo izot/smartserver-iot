@@ -2,6 +2,7 @@
 This application provides time, sunrise, sunset, dusk, and dawn times to share with edge devices in outdoor lighting systems.  It applies to a class of devices that require knowledge of local time, and the local dusk and dawn times to schedule load control.  
 ## Release Notes
 1.00.002 - Initial application release.  08/25/2021
+1.00.005 - Deployment package and setup script updated to support setup on systems that may have a newer ApolloDev resources.
 ## UFPTastroClock
 This UFPT provides data points intended to align with Lon devices that understand SNVT_time_stamp, and SNVT_switch for direct control.  This functional block provides the functionality of the UCPTrealtimeClock found in SmartServer 2. The resources defining this interface are part of ApolloDev.typ 1.31 or higher.
 
