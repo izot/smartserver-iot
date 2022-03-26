@@ -1,16 +1,18 @@
 # ChannelMon.js
 This application monitors the USB interface activity to detect a condition the creates unsustainable traffic on the FT-10 side of the router that causes monitoring from the IP852 side to fail.  This condition has occurred in large sites where the SmartServer is configured to use simple repeating router configuration without explicit network management by an tool such as IzoT CT.  This condition is fully described here: https://cs.diasemi.com/browse/AP-8499 
 
-The initial deployment uses a xif file (`channelMon.xif`) that enables monitoring a single U60 interface (`lon0`) at 5s intervals.  If excessive packet drops occur in 6 consecutive samples (30s), the Lontalk stack will be shutdown, and restarted 150s later.  It is believed that when the failure occurs (5-8 day intervals), that all of the SmartServers in the IP-852 channel are likely to see it and application recovery sequence will insure all of the SmartServers are silent for a sufficient duration for the looping to cease.  Up to 4 interfaces can be monitored but this requires configuration from the CMS.
+The initial deployment uses a xif file (`channelMon.xif`) that enables monitoring a single U60 interface (`lon0`) at 5s intervals.  If excessive packet drops occur in 6 consecutive samples (30s), the Lontalk stack will be shutdown, and restart 150s later.  It is believed that when the failure occurs (5-8 day intervals), that all of the SmartServers in the IP-852 channel are likely to see it and application recovery sequence will insure all of the SmartServers are silent for a sufficient duration for the looping to cease.  Up to 4 interfaces can be monitored but this requires configuration from the CMS.
 
 The application runs as a service under supervisorctl as the service `channelMon`.  The stdout of the channelMon will report the stack restart events (`/var/log/supervisor/channelMon.log`).  More details are also record in daily log files stored in the directory: `/media/sdcard/app_logdata`
 ## Installation
-1. Copy the files `setup.sh` and `channelMonitorPackage.zip` to the folder `/media/sdcard/updates`.  You will need to login as user root with an scp client.
+1. Copy the files `channelMonitorDelopy.zip` to the folder `/media/sdcard/updates`.  You will need to login as user root with an scp client.
 2. Using an SSH client application such as `putty.exe` Login as user root.  The password for root should match the apollo user password.
 3. Type: `cd /media/sdcard/updates `
-4. Type: `nohup ./setup.sh [pwd] &>/dev/null &`
+4. Type: `unzip channelMonitorDeploy.zip`
+5. Type: `chmod 755 setup.sh` so linux treats this file as executable.
+6. Type: `nohup ./setup.sh [pwd] &>/dev/null &`
 
-The command in step 4 allows you to end the SSH terminal session while the channelMonitorPackage installs.  You can repeat the steps 1-4 on other SmartServers in your system and return 10 minutes later to confirm the service has been installed.
+The command in step 6 allows you to end the SSH terminal session while the channelMonitorPackage installs.  You can repeat the steps 1-6 on other SmartServers in your system and return 10 minutes later to confirm the service has been installed.  **If your running firmware version 3.30 or higher, you will need to allow 30 minutes.**
 ## Installation Verification
 
 **You should allow more than 10 minutes for the setup.sh to complete the work**.  After 10 minutes you can connect by SSH and type: `cat /var/log/supervisor/channelMon.log` and you should see output similar to this:
