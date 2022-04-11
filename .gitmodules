@@ -1,0 +1,3 @@
+[submodule "drivers/smartserver-driver-template"]
+	path = drivers/smartserver-driver-template
+	url = git@github.com:izot/smartserver-driver-template.git
