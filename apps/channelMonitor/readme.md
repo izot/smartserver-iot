@@ -3,8 +3,9 @@ This application monitors the USB interface activity to detect a condition the c
 
 The initial deployment uses a xif file (`channelMon.xif`) that enables monitoring a single U60 interface (`lon0`) at 5s intervals.  If excessive packet drops occur in 6 consecutive samples (30s), the Lontalk stack will be shutdown, and restart 150s later.  It is believed that when the failure occurs (5-8 day intervals), that all of the SmartServers in the IP-852 channel are likely to see it and application recovery sequence will insure all of the SmartServers are silent for a sufficient duration for the looping to cease.  Up to 4 interfaces can be monitored but this requires configuration from the CMS.
 
-The application runs as a service under supervisorctl as the service `channelMon`.  The stdout of the channelMon will report the stack restart events (`/var/log/supervisor/channelMon.log`).  More details are also record in daily log files stored in the directory: `/media/sdcard/app_logdata`
+The application runs as a service under supervisorctl as the service `channelMon`.  The stdout of the channelMon will report the stack restart events (`/var/log/supervisor/channelMon.log`).  More details are also recorded in daily log files stored in the directory: `/media/sdcard/app_logdata`
 ## Installation
+**Take note that in step 6 below you must replace [pwd] to match your SmartServer password.  Otherwise, the script will fail.  If you want to monitor the the installation use this command: `./setup.sh [pwd]` instead of running in the background as shown.** 
 1. Copy the files `channelMonitorDelopy.zip` to the folder `/media/sdcard/updates`.  You will need to login as user root with an scp client.
 2. Using an SSH client application such as `putty.exe` Login as user root.  The password for root should match the apollo user password.
 3. Type: `cd /media/sdcard/updates `
