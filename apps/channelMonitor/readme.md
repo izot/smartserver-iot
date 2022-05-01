@@ -1,4 +1,4 @@
-# ChannelMon.js
+# ChannelMonitor.js
 This application monitors the U60 USB interface activity to detect a condition the creates unsustainable traffic on the FT-10 side of the router. This causes monitoring from the IP852 side to fail.  It also tracks the attachment state of the U60 adapter and will force a reboot should it be dropped unexpectedly.  If the lon[n] adaptor is not detected a startup, a reboot will fire as well.   
 
 This FT channel flooding condition was originally discovered on a large site where the SmartServer was configured to use simple un-managed repeating router configuration.  This condition is fully described here: https://cs.diasemi.com/browse/AP-8499.  
