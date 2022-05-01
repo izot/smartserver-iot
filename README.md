@@ -1,2 +1,2 @@
 # smartserver-iot
-Example applications and web pages for Adesto's SmartServer IoT Edge Server.  Documentation is available at http://iecdocs.diasemi.com.
+Example applications and web pages for Dialog's SmartServer IoT Edge Server.  Documentation is available at http://iecdocs.renesas.com.  Dialog Semiconductor is a Renesas Electronics company.
