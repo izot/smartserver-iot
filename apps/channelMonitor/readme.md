@@ -1,4 +1,4 @@
-# ChannelMon.js
+# ChannelMonitor.js - channelMon service
 This application monitors the U60 USB interface activity to detect a condition the creates unsustainable traffic on the FT-10 side of the router. This causes monitoring from the IP852 side to fail.  It also tracks the attachment state of the U60 adapter and will force a reboot should it be dropped unexpectedly.  If the lon[n] adaptor is not detected a startup, a reboot will fire as well.   
 
 This FT channel flooding condition was originally discovered on a large site where the SmartServer was configured to use simple un-managed repeating router configuration.  This condition is fully described here: https://cs.diasemi.com/browse/AP-8499.  
@@ -8,10 +8,10 @@ The initial deployment uses a xif file (`channelMon.xif`) that enables monitorin
 The application runs as a service under `supervisorctl` as the service `channelMon`.  The stdout of the `channelMon` service will report the stack restart events (`/var/log/supervisor/channelMon.log`).  More details are also recorded in daily log files stored in the directory: `/media/sdcard/app_logdata`
 ## Installation
 **Take note that in step 5 below you must replace [pwd] to match your SmartServer password.  Otherwise, the install script will fail.** 
-1. Use `winscp.exe` or similar scp client to copy the file `channelMonitor-1_8_Delopy.zip` to the folder `/media/sdcard/updates` on your SmartServer.  Do this operation as user root.
+1. Use `winscp.exe` or similar scp client to copy the file `channelMonitor-1_9_Delopy.zip` to the folder `/media/sdcard/updates` on your SmartServer.  Do this operation as user root.
 2. Using an SSH client application such as `putty.exe` Login as user root.  The password for root should match the apollo user password.
 3. Type: `cd /media/sdcard/updates `
-4. Type: `unzip -o channelMonitor-1_8_Deploy.zip`
+4. Type: `unzip -o channelMonitor-1_9_Deploy.zip`
 5. Type: `./cmSetup.sh [pwd] [Bridge|Repeater] [update]`
 
 The last paramater of the command in step 5, [update] be included only on SmartServers already running the `channelMon` service. **If you chose the Bridge parameter, you must configure ALL SmartServers on the IP-852 channel to use the same 1-byte domain.**
@@ -23,7 +23,7 @@ After cmSetup.sh completes allow 5 minute for `channelMon` service startup. `Typ
 ```
 root@smartserver-17qam11:/media/sdcard/updates# tail -f  /var/log/supervisor/channelMon.log
 
-[5/1/2022, 9:41:31 AM] - channelMonitor.js - version: 1.00.008
+[5/1/2022, 9:41:31 AM] - channelMonitor.js - version: 1.00.009
 Allowing SIOT processes to initialize.  Sleep for: 240s
 [5/1/2022, 9:45:32 AM] - SmartServer SID: 17qam11
 chMon-1 - State: deleted - Health: unknown
@@ -33,6 +33,8 @@ chMon-1 - State: unprovisioned - Health: normal
 The device chMon-1 has been created and provisioned.
 chMon-1 - State: provisioned - Health: normal
 Forcing Bridge configuration
+Switching to IMM configuration
+
 cpEnable: 1 on block: 0
 [5/1/2022, 9:45:54 AM] - Logged: 1 records
 Monitoring: lon0 at: 5 seconds.
