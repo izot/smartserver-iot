@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # ChannelMonitor.js - channelMon service
 This application monitors the U60 USB interface activity to detect a condition the creates unsustainable traffic on the FT-10 side of the router. This causes monitoring from the IP852 side to fail.  It also tracks the attachment state of the U60 adapter and will force a reboot should it be dropped unexpectedly.  If the lon[n] adaptor is not detected a startup, a reboot will fire as well.   
 
@@ -9,10 +8,10 @@ The initial deployment uses a xif file (`channelMon.xif`) that enables monitorin
 The application runs as a service under `supervisorctl` as the service `channelMon`.  The stdout of the `channelMon` service will report the stack restart events (`/var/log/supervisor/channelMon.log`).  More details are also recorded in daily log files stored in the directory: `/media/sdcard/app_logdata`
 ## Installation
 **Take note that in step 5 below you must replace [pwd] to match your SmartServer password.  Otherwise, the install script will fail.** 
-1. Use `winscp.exe` or similar scp client to copy the file `channelMonitor-1_9_Delopy.zip` to the folder `/media/sdcard/updates` on your SmartServer.  Do this operation as user root.
+1. Use `winscp.exe` or similar scp client to copy the file `channelMonitor-1_10_Delopy.zip` to the folder `/media/sdcard/updates` on your SmartServer.  Do this operation as user root.
 2. Using an SSH client application such as `putty.exe` Login as user root.  The password for root should match the apollo user password.
 3. Type: `cd /media/sdcard/updates `
-4. Type: `unzip -o channelMonitor-1_9_Deploy.zip`
+4. Type: `unzip -o channelMonitor-1_10_Deploy.zip`
 5. Type: `./cmSetup.sh [pwd] [Bridge|Repeater] [update]`
 
 The last paramater of the command in step 5, [update] be included only on SmartServers already running the `channelMon` service. **If you chose the Bridge parameter, you must configure ALL SmartServers on the IP-852 channel to use the same 1-byte domain.**
@@ -24,8 +23,11 @@ After cmSetup.sh completes allow 5 minute for `channelMon` service startup. `Typ
 ```
 root@smartserver-17qam11:/media/sdcard/updates# tail -f  /var/log/supervisor/channelMon.log
 
-[5/1/2022, 9:41:31 AM] - channelMonitor.js - version: 1.00.009
+[5/1/2022, 9:41:31 AM] - channelMonitor.js - version: 1.00.010
+Delay Start: true, 240
+Router Mode: 1
 Allowing SIOT processes to initialize.  Sleep for: 240s
+
 [5/1/2022, 9:45:32 AM] - SmartServer SID: 17qam11
 chMon-1 - State: deleted - Health: unknown
 Creating the internal device: chMon-1 based on PID: 9000010600058518
@@ -61,3 +63,15 @@ After transferring the files using scp use this command:
 `sudo supervisorctl start channelMon`
 
 You can used the files in `/media/sdcard/app_logdata` to track the frequency of stack restart recovery events.
+
+## ChannelMonitor System Management
+The channelMonitor application supports self managed Bridge routing.  To persist this routing mode, the channelMon service will set the routing mode and forces the system to operate in IMM mode.  This can create some difficulty if you intend to move the SmartServer to a different self-managed repeater system that may be configured on a different domain. Remember that to operate the SmartServer as a bridge, you must first configure all SmartServers participating in the IP-852 channel to be on the same 1-byte domain.  To manage the reconfiguration of the domain again, you need to follow this sequence:
+
+1. In an SSH session as user root type: `channelMon-ctl disable`
+2. In the CMS, select the segment controller, and set to DMM mode.
+3. In the CMS device widget, remove the `cmMon-1` device.
+4. Use the SmartServer configuration UI Lon tab to set the 1-byte domain.
+5. In an SSH session as user root type: `channelMon-ctl enable [r|b|c]` 
+   A few notes: option `r` will operate as a standard un-managed repeater. Option `b` will set the routing to Bridge mode, and then set the SmartServer to IMM mode.  Option `c` is used if you plan to use the SmartServer in a IzoT CT managed network where the you are responsible for managing the transition to IMM mode using the CMS.  
+
+Take note that the channelMon service will take 4 minutes before it actively monitors the operation of the USB interface.  The delay occurs at system startup, or whenever the service is restarted using `supervisorctl`. 
