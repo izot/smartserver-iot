@@ -8,10 +8,10 @@ The initial deployment uses a xif file (`channelMon.xif`) that enables monitorin
 The application runs as a service under `supervisorctl` as the service `channelMon`.  The stdout of the `channelMon` service will report the stack restart events (`/var/log/supervisor/channelMon.log`).  More details are also recorded in daily log files stored in the directory: `/media/sdcard/app_logdata`
 ## Installation
 **Take note that in step 5 below you must replace [pwd] to match your SmartServer password.  Otherwise, the install script will fail.** 
-1. Use `winscp.exe` or similar scp client to copy the file `channelMonitor-1_10_Delopy.zip` to the folder `/media/sdcard/updates` on your SmartServer.  Do this operation as user root.
+1. Use `winscp.exe` or similar scp client to copy the file `channelMonitor-1_11_Delopy.zip` to the folder `/media/sdcard/updates` on your SmartServer.  Do this operation as user root.
 2. Using an SSH client application such as `putty.exe` Login as user root.  The password for root should match the apollo user password.
 3. Type: `cd /media/sdcard/updates `
-4. Type: `unzip -o channelMonitor-1_10_Deploy.zip`
+4. Type: `unzip -o channelMonitor-1_11_Deploy.zip`
 5. Type: `./cmSetup.sh [pwd] [Bridge|Repeater] [update]`
 
 The last paramater of the command in step 5, [update] be included only on SmartServers already running the `channelMon` service. **If you chose the Bridge parameter, you must configure ALL SmartServers on the IP-852 channel to use the same 1-byte domain.**
@@ -23,7 +23,7 @@ After cmSetup.sh completes allow 5 minute for `channelMon` service startup. `Typ
 ```
 root@smartserver-17qam11:/media/sdcard/updates# tail -f  /var/log/supervisor/channelMon.log
 
-[5/1/2022, 9:41:31 AM] - channelMonitor.js - version: 1.00.010
+[5/1/2022, 9:41:31 AM] - channelMonitor.js - version: 1.00.011
 Delay Start: true, 240
 Router Mode: 1
 Allowing SIOT processes to initialize.  Sleep for: 240s
