@@ -16,7 +16,7 @@
   "author": "Adesto Technologies",
   "license": "Copyright (c) Adesto Technologies 2019",
   "dependencies": {
-    "async": "^2.6.2",
+    "async": "^2.6.4",
     "columnify": "^1.5.4",
     "deepmerge": "^3.2.0",
     "env-var": "^4.0.0",
