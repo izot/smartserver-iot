@@ -14,9 +14,7 @@ cp ./astroClockPackage.zip "$APP_DIR/$A_SETUP"
 cd "$APP_DIR/$A_SETUP"
 unzip -o ./astroClockPackage.zip
 rm ./astroClockPackage.zip
-echo "Installing npm packages..."
-npm install
-echo "Resetting file ownship to apollo"
+echo "Resetting file ownership to apollo"
 chown -R apollo:apollo $APP_DIR
 mv $APP_DIR/$A_SETUP/astroClock.conf /etc/supervisor/conf.d
 echo "Moving astroClock package to $APOLLO_DATA/dtp-files.d"
@@ -33,4 +31,6 @@ echo "Loading astroClock package to the CMS as user/pwd apollo/$1. This will tak
 dtp-loader http://localhost:8181 apollo $1 $APOLLO_DATA/dtp-files.d/astroClock.dtp
 echo "Creating astro-1 lon.attach:local device"
 mosquitto_pub -t glp/0/$APOLLO_INSTALL_CODE/rq/dev/lon/astro-1/do -m '{"action":"create","args":{"uid":"auto","type":"90000106000A8511","lon.attach":"local","provision":true}}'
+sleep 20s
+supervisorctl reload
 cd .
