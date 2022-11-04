@@ -1,0 +1,37 @@
+**BTM Creation Tool (1.00)**
+The BTM Creation Tool Web page (btmtool.html) allows you to create BTM files for your LON, Modbus, IAP and optionally for BACnet devices. BTM files allow a BACnet tool to read and write LON, Modbus, and IAP devices which are attached to a SmartServer. Copy the BTM Creation Tool Web page to any SmartServer to create the files. You can use the created BTM files on any other SmartServer. This tool can only be used with 3.40+ SmartServers.
+
+Since BACnet devices are already visible to BACnet tools the default is not to create BTM files for BACnet devices otherwise you will see two instances of each real BACnet device in the BACnet Tool, one from the real device and one from the SmartServer. Many BACnet devices have a lot of datapoints so optionally you may want to create a BTM file for BACnet devices which you can select which datapoints you want to see. In the BACnet tool you will see two devices for each actual device, one with the full list of datapoints and one with subset of datapoints specified in the BTM file.
+
+BTM files are defined for XIF files (.xif, .mod, .bac). Even though a XIF file can have multiple device types specified in the SmartServer, only one BTM per XIF file is supported.
+
+Typically many devices have a lot of datapoints, but only a couple of datapoints are actually used. For example, some LON devices have 100 or more datapoints, but you may only be interested in five datapoints. So after you create a BTM you will want to limit the datapoints to just the datapoints that you are interested in, by removing the datapoints rows in the BTM for datapoints that you are not interested in.
+
+Once you create a BTM file you can use a text editor or Excel to modify the list to reduce the number of datapoints or change the name and descriptions.  After you edit the file you can import the BTM file into the SmartServer or add it to a DTP file and import the DTP file to the SmartServer.
+
+This tool provides a number of options that can control how the BTM file is generated. For example, you can specify some name changes, remove some common unneeded datapoints and put the SmartServer Datapoint XIF path in the description so you can track the names.
+
+The BTM tool includes a full help and instructions on the Web page.
+
+Instructions:
+1. Unzip the btmtool.zip file
+2. Go into the folder and copy the btmtool folder to
+    /var/apollo/www/user
+3. Access the Web page (replace the IP address with your SmartServer IP address)
+    https://10.0.0.113/user/btmtool/btmtool.html
+4. Create BTM files
+    - created files are located in the PC downloads folder
+5. BTM files need to have same name as XIF file name (the extensions are different).
+    - Rename BTM files if (<number>) added during the file creation. 
+    - If the file exists already in the downloads folder a (<number>) will be added to the file name. 
+       6kEvbMultiSensor(1).btm or 6kEvbMultiSensor.btm(1).csv are invalid names and should be renamed to 6kEvbMultiSensor.btm or 6kEvbMultiSensor.btm.csv
+6. Edit BTM file
+    - remove extra datapoints and change any names or descriptions
+7. Import BTM file into SmartServer CMS, or add to DTP file and import DTP file into SmartServer CMS.
+
+
+CMS warnings:
+1. Yellow Warning message ending in "btm missing mandatory column bacnet_type
+    - Usually means the BACnet address is incorrect
+    - Look for any column with \"?\", fix value or remove row from file, and re-import into Smartserver CMS</li>
+   
