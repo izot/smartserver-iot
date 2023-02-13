@@ -15,6 +15,6 @@
     "glp-toolkit": "file:glp",
     "jsdoc": "^3.6.2",
     "leveldown": "^5.0.1",
-    "moment-timezone": "^0.5.23"
+    "moment-timezone": "^0.5.35"
   }
 }
