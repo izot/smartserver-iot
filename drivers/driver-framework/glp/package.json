@@ -26,7 +26,7 @@
     "level-jobs": "^2.1.0",
     "lodash": "^4.17.21",
     "modern-syslog": "^1.1.4",
-    "moment-timezone": "^0.5.25",
+    "moment-timezone": "^0.5.35",
     "mqtt": "^2.18.8",
     "mqtt-regex": "^1.0.5",
     "node-getopt": "^0.3.2",
