@@ -9,7 +9,7 @@ const { createCipheriv } = require('crypto');
 const moment = require('moment-timezone');
 
 let hostIp = '127.0.0.1';
-//let hostIp = '192.168.10.204';
+//let hostIp = '10.100.16.213';
 let year=1970;
 let month=0; // 0 based,  Jan = 0
 let day=1
@@ -28,12 +28,14 @@ if (args.length >= 3) {
         lat = parseFloat(args[3]);
         lng = parseFloat(args[4]);
         zone = args[5];
-        console.log('Blocking reboots and disabling ntp to set the clock');
-        execSync('block_reboot',{encoding:'utf-8'});
-        execSync(`timedatectl set-timezone ${zone}`,{encoding:'utf-8'});
-        execSync('timedatectl set-ntp false',{encoding:'utf-8'});
-        execSync(`timedatectl set-time \"${year}-${month+1}-${day} 03:01:00\"`,{encoding:'utf-8'});
-        console.log('*** Remember to run: sudo timedatectl set-ntp true and to enable reboots: unblock_reboot ***');
+        if (process.platform == 'linux') {
+            console.log('Blocking reboots and disabling ntp to set the clock');
+            execSync('block_reboot',{encoding:'utf-8'});
+            execSync(`timedatectl set-timezone ${zone}`,{encoding:'utf-8'});
+            execSync('timedatectl set-ntp false',{encoding:'utf-8'});
+            execSync(`timedatectl set-time \"${year}-${month+1}-${day} 03:01:00\"`,{encoding:'utf-8'});
+            console.log('*** Remember to run: sudo timedatectl set-ntp true and to enable reboots: unblock_reboot ***');
+        }
         updateCfgTz=true;
     }
 

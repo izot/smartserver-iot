@@ -16,7 +16,7 @@ const { time, timeStamp } = require('console');
 // 07/30/2022 - 1.00.006 - Now using suncalc.js to align with the Scheduler astro position module
 
 
-const version = '1.00.006';
+const version = '1.00.007';
 const scheduleTm = 60000;  // 00:01 
 let args = process.argv.slice(2);
 let startupPause = 180;

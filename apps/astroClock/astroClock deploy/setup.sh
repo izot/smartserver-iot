@@ -1,6 +1,6 @@
 #!/bin/bash
 # Adds the Astto clock internal device to the SmartServer. Run as root
-echo "AstroClock device installer"
+echo "AstroClock device installer 1.07"
 APP_DIR="$APOLLO_DATA/apps"
 A_SETUP="astroClock"
 PWD=$1

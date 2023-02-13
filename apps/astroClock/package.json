@@ -9,7 +9,9 @@
   "author": "RTG",
   "license": "MIT",
   "dependencies": {
+    "moment-timezone": "^0.5.40",
     "mqtt": "^4.2.8",
-    "solar-calc": "^1.1.0"
+    "solar-calc": "^1.1.0",
+    "suncalc": "^1.9.0"
   }
 }

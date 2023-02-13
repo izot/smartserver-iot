@@ -11,9 +11,9 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}\\astroClock.js",
+            "program": "${workspaceFolder}\\astroEvent.js",
             "env":{"DEV_TARGET":"192.168.10.202"},
-            "args": ["20","3"],
+            "args": ["2023","2", "13", "59.9454", "10.7892", "Europe/Oslo"],
         }
     ]
 }
