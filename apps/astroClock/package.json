@@ -1,6 +1,6 @@
 {
   "name": "astroclock",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Provides sunrise/sunset times to edge devices for dusk/dawn scheduling at the edge.",
   "main": "astroClock.js",
   "scripts": {
