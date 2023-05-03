@@ -10,8 +10,7 @@ condition.
 
 1.  Configure your PC Ethernet adaptor to be on the with this static IP
     configuration:\
-    ![](images/media/image1.png){width="4.531158136482939in"
-    height="4.279910323709537in"}
+    ![](images/media/image1.png)
 
 2.  Install this software from Advantech on your Windows PC: [Adam/Apax.
     Net Utility for ADAM/APAX series - Advantech Support -
@@ -26,37 +25,32 @@ condition.
 5.  Right-click the Ethernet interface configure with the 10.0.0.20 and
     select Search Device:
 
-![](images/media/image2.png){width="6.5in"
-height="5.625in"}
+![](images/media/image2.png)
 
 6.  You should see the Adam-6266 device with the address.
 
-![](images/media/image3.png){width="5.738299431321085in"
-height="4.990358705161855in"}\
-\
+![](images/media/image3.png)
+
 7. Select the device that is discovered and then the 6266 child node.
 Click the Channel tab and select the FSV (Fail Safe Values) to be ON.
 Use the DO buttons to set the value. Click Apply FSV. Use the password
 00000000 (8 zeros) when prompted.
 
-![](images/media/image4.png){width="5.167778871391076in"
-height="3.7946741032370954in"},
+![](images/media/image4.png)
 
 8.  Select the ADAM-6266 parent node and click the Network tab in the
     main application frame. Use the configuration shown here and click
     Apply. This is the same subnet as the Eth1/WAN port of the
     SmartServer IoT. When you are prompted for the password use:
     00000000 (8 zeros)\
-    ![](images/media/image5.png){width="5.708164916885389in"
-    height="4.2366032370953635in"}
+    ![](images/media/image5.png)
 
 9.  Disconnect the Adam-6266 from the PC and connect to the SmartServer
     eth1/WAN port and apply power. Confirm in the SmartServer
     Configuration page that the network settings for the eth1/WAN port
     are as show here:\
     ![Graphical user interface Description automatically
-    generated](images/media/image6.png){width="6.5in"
-    height="4.564583333333333in"}
+    generated](images/media/image6.png)
 
 10. Login to the CMS, import the supporting device type package
     ADAM-6266.dtp in Import/Export menu option. Wait until the device
@@ -65,8 +59,7 @@ height="3.7946741032370954in"},
 11. Use the device widget to create this device and click Save:\
     ![Graphical user interface, text, application, email Description
     automatically
-    generated](images/media/image7.png){width="5.844390857392826in"
-    height="4.170996281714785in"}
+    generated](images/media/image7.png)
 
 12. Use the device widget action menu to provision the DIO device.
 
