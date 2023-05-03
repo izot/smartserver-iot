@@ -5,6 +5,7 @@ const sunCalc = require('suncalc');
 
 const child_process = require('child_process');
 const { time, timeStamp } = require('console');
+const { devNull } = require('os');
 
 // 
 // astroClock.js
@@ -14,9 +15,9 @@ const { time, timeStamp } = require('console');
 // PID: 90000106000A8511 Handle: astro-1 must be created using localDev.js 
 // 08/25/2021 - 1.00.003, Fixed up issue with stacking timers on nvoAfterDark transition.
 // 07/30/2022 - 1.00.006 - Now using suncalc.js to align with the Scheduler astro position module
+// 03/03/2023 - 1.00.008 - Add support for monitoring, and correcting lat/lng changes.
 
-
-const version = '1.00.007';
+const version = '1.00.008';
 const scheduleTm = 60000;  // 00:01 
 let args = process.argv.slice(2);
 let startupPause = 180;
@@ -321,7 +322,16 @@ function sendRtc () {
     clkHbTmo = setTimeout (sendRtc, myAppIf.timeHb);
     //console.log('Updated nvoLocalTime');
 }
-
+function setConfigLocation(lat,length) {
+    let cfg = {
+        loc:{desc:'',lat:lat,lng:lng,ele:0}
+    };
+    console.log(`Setting timezone: ${zone}, Lat: ${lat}, Lng: ${lng}`);
+    client.publish(
+        `${glpPrefix}/rq/cfg`,
+        JSON.stringify(cfg)
+    );
+}
 // IAP/MQ. MQTT message handler. 
 client.on(
     'message', 
@@ -335,8 +345,14 @@ client.on(
         }  
         // Capture the segment controller GPS location
         if (topic === `${glpPrefix}/fb/cfg`) {
-            if ((myAppIf.lat != payload.loc.lat) || (myAppIf.lng != payload.loc.lng))
+            if ((myAppIf.lat != payload.loc.lat) || (myAppIf.lng != payload.loc.lng)) {
                 console.log(`[${now.toLocaleString()}] Geo-location was: ${myAppIf.lat}, ${myAppIf.lng}. Now: ${payload.loc.lat}, ${payload.loc.lng}`)
+                if ((payload.loc.lat == 0 && payload.loc.lng == 0) && (myAppIf.lat != 0 && myAppIf.lat != -1)) {
+                    console.log ('Geo-location error:  Set back to orignal now');
+                    setConfigLocation(myAppIf.lat, myAppIf.lng);
+                    return;
+                }
+            } 
             myAppIf.lat = payload.loc.lat;
             myAppIf.lng = payload.loc.lng;
             console.log (`[${now.toLocaleString()}] - Using Lat: ${myAppIf.lat} Lng: ${myAppIf.lng}`)
