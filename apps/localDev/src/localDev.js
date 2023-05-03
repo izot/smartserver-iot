@@ -7,7 +7,7 @@
 const mqtt = require('mqtt');
 const fs = require('fs'); 
 
-const appVersion = '1.00.003';
+const appVersion = '1.00.004';
 
 let provisioned = 'unknown';
 let gmState = 'unknown';
@@ -199,7 +199,7 @@ client.on(
                         console.log(err.stack);
                         process.exit (1)
                     });
-                devicesFile.write('#filetype devices\n','utf-8');    
+                devicesFile.write('#filetype,devices\n','utf-8');    
                 devicesFile.write('name,deviceType,category,protocol,discoveryMethod,installationDate,uid,longitude,latitude,customerName,did,ownerMAC,timezone\n',"utf8");
                 devCollection.forEach((value,key) =>  {
                     devicesFile.write(`${value}\n`,'utf8');

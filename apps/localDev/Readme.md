@@ -24,3 +24,5 @@ Release 1.00.003 added support to create multiple internal devices.  Now you hav
 The command parameters above will create 50 local devices based on the XIF with PID `800001230E041005` and they will be assigned handles LC-01 to LC-50.  A CSV device import file will be created (`simDevices.csv`).  Priro to 3.60, you need to modify the `ownerMAC` field of each device to match the target SmartServer that you plan to import the file to.  
 
 A nodeutil script file (`nuDevices.scr`) is also created by `localDev.exe` when you are doing a multiple device create.
+
+Release 1.00.004: Fixed issue with the header of the devices file
