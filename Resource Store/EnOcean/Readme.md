@@ -1,1 +1,1 @@
-Package file (.dtp) for EnOcean devices.
+Package file (.dtp) for various EnOcean devices.
