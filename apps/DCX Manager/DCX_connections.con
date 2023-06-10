@@ -1,0 +1,22 @@
+#filetype,con
+Template Name,Reference Type,Contexts,Target Type,Target Name,Device Name,Device Type,Datapoint Name,Direction,Map,Use Presets,Use Localized Value,Transform
+RelayControl,Fixed,,,,IO-1,PL_IO,openLoopActuator/0/nviSwValue,Destination,,No,No,
+RelayControl,Fixed,,,,dcx-1,DCX-Manager,DcxManager/0/oSegmentSw,Source,,No,No,
+GrpDuskDawn,Fixed,,,,dcx-1,DCX-Manager,DcxManager/0/oGroupSw,Source,,No,No,
+GrpDuskDawn,Fixed,,,,GC-1,GroupControl,gc/0/iSchedule,Destination,,No,No,
+GrpDuskDawn,Fixed,,,,GC-1,GroupControl,gc/1/iSchedule,Destination,,No,No,
+GrpDuskDawn,Fixed,,,,GC-1,GroupControl,gc/2/iSchedule,Destination,,No,No,
+GrpDuskDawn,Fixed,,,,GC-1,GroupControl,gc/3/iSchedule,Destination,,No,No,
+GrpDuskDawn,Fixed,,,,GC-1,GroupControl,gc/4/iSchedule,Destination,,No,No,
+GrpDuskDawn,Fixed,,,,GC-1,GroupControl,gc/5/iSchedule,Destination,,No,No,
+GrpDuskDawn,Fixed,,,,GC-1,GroupControl,gc/6/iSchedule,Destination,,No,No,
+GrpDuskDawn,Fixed,,,,GC-1,GroupControl,gc/7/iSchedule,Destination,,No,No,
+GrpDuskDawn,Fixed,,,,GC-1,GroupControl,gc/8/iSchedule,Destination,,No,No,
+GrpDuskDawn,Fixed,,,,GC-1,GroupControl,gc/9/iSchedule,Destination,,No,No,
+GrpDuskDawn,Fixed,,,,GC-1,GroupControl,gc/10/iSchedule,Destination,,No,No,
+GrpDuskDawn,Fixed,,,,GC-1,GroupControl,gc/11/iSchedule,Destination,,No,No,
+GrpDuskDawn,Fixed,,,,GC-1,GroupControl,gc/12/iSchedule,Destination,,No,No,
+GrpDuskDawn,Fixed,,,,GC-1,GroupControl,gc/13/iSchedule,Destination,,No,No,
+GrpDuskDawn,Fixed,,,,GC-1,GroupControl,gc/14/iSchedule,Destination,,No,No,
+GrpDuskDawn,Fixed,,,,GC-1,GroupControl,gc/15/iSchedule,Destination,,No,No,
+
