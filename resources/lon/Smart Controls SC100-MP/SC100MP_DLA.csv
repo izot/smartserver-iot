@@ -1,0 +1,35 @@
+#filetype,dla
+Protocol,Device Type,Datapoint,Polled,Poll Interval,Publish Interval,Publish Min_Delta_Time,Publish Min Delta Value,Initial Value,Log Interval 1,Log Interval 2,Log Interval 3,Log Retention 1,Log Retention 2,Log Retention 3,Log Min Delta Time,Log Min Delta Value,Alarm Name,High Warning,Low Warning,High Error,Low Error,Visible
+lon,SC100MP,Digital Input/0/SCPTmaxSendTime[1],,,,,,,,,,,,,,,,,,,,
+lon,SC100MP,Digital Input/0/nvoValue,No,,,,any,,0,0,0,14,60,730,,,,,,,,Yes
+lon,SC100MP,Digital Input/1/SCPTmaxSendTime[2],,,,,,,,,,,,,,,,,,,,
+lon,SC100MP,Digital Input/1/nvoValue,No,,,,any,,0,0,0,14,60,730,,,,,,,,Yes
+lon,SC100MP,Digital Input/2/SCPTmaxSendTime[3],,,,,,,,,,,,,,,,,,,,
+lon,SC100MP,Digital Input/2/nvoValue,No,,,,any,,0,0,0,14,60,730,,,,,,,,Yes
+lon,SC100MP,Digital Input/3/SCPTmaxSendTime[4],,,,,,,,,,,,,,,,,,,,
+lon,SC100MP,Digital Input/3/nvoValue,No,,,,any,,0,0,0,14,60,730,,,,,,,,Yes
+lon,SC100MP,Digital Output/0/SCPTmaxRcvTime[0],,,,,,,,,,,,,,,,,,,,
+lon,SC100MP,Digital Output/0/cpDefOutput_1,,,,,,,,,,,,,,,,,,,,
+lon,SC100MP,Digital Output/0/nviValue,Yes,30,,,any,,0,0,0,14,60,730,,,,,,,,Yes
+lon,SC100MP,Digital Output/1/SCPTmaxRcvTime[1],,,,,,,,,,,,,,,,,,,,
+lon,SC100MP,Digital Output/1/cpDefOutput_2,,,,,,,,,,,,,,,,,,,,
+lon,SC100MP,Digital Output/1/nviValue,Yes,30,,,any,,0,0,0,14,60,730,,,,,,,,Yes
+lon,SC100MP,Digital Output/2/SCPTmaxRcvTime[2],,,,,,,,,,,,,,,,,,,,
+lon,SC100MP,Digital Output/2/cpDefOutput_3,,,,,,,,,,,,,,,,,,,,
+lon,SC100MP,Digital Output/2/nviValue,Yes,30,,,any,,0,0,0,14,60,730,,,,,,,,Yes
+lon,SC100MP,Digital Output/3/SCPTmaxRcvTime[3],,,,,,,,,,,,,,,,,,,,
+lon,SC100MP,Digital Output/3/cpDefOutput_4,,,,,,,,,,,,,,,,,,,,
+lon,SC100MP,Digital Output/3/nviValue,Yes,30,,,any,,0,0,0,14,60,730,,,,,,,,Yes
+lon,SC100MP,Digital Output/4/SCPTmaxRcvTime[4],,,,,,,,,,,,,,,,,,,,
+lon,SC100MP,Digital Output/4/cpDefOutput_5,,,,,,,,,,,,,,,,,,,,
+lon,SC100MP,Digital Output/4/nviValue,,,,,,,,,,,,,,,,,,,,
+lon,SC100MP,NodeObject/0/nviRequest,,,,,,,,,,,,,,,,,,,,
+lon,SC100MP,NodeObject/0/nvoFileDirectory,,,,,,,,,,,,,,,,,,,,
+lon,SC100MP,NodeObject/0/nvoStatus,,,,,,,,,,,,,,,,,,,,
+lon,SC100MP,TempSensor/0/SCPTgain,,,,,,,,,,,,,,,,,,,,
+lon,SC100MP,TempSensor/0/SCPToffset,,,,,,,,,,,,,,,,,,,,
+lon,SC100MP,TempSensor/0/nciMaxSendTime[0],,,,,,,,,,,,,,,,,,,,
+lon,SC100MP,TempSensor/0/nciMinDelta,,,,,,,,,,,,,,,,,,,,
+lon,SC100MP,TempSensor/0/nciMinSendTime,,,,,,,,,,,,,,,,,,,,
+lon,SC100MP,TempSensor/0/nvoHVACTemp,Yes,10,,,any,,0,0,0,14,60,730,,,,,,,,Yes
+
