@@ -1,3 +1,0 @@
-#filetype,dtd
-"Device Type",Protocol,"Program ID","Default App","Default Sys","Auto App Load","Auto Sys Load","Graphics File",Default
-exampledevice,example,9B0001050004EC00,,,false,false,,false
