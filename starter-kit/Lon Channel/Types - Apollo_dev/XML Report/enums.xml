@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml-stylesheet href="http://types.lonmark.org/templates/index.xsl" type="text/xsl"?>
+<!-- created by Report Generator 4.41.06 at Mon Jun 29 08:51:53 2020 -->
+<ldrf>
+	<control>
+		<xsl>index.xsl</xsl>
+		<self>enums.xml</self>
+		<base>C:\Users\robg\Documents\OneDrive - Adesto Technologies\Resoure Reports\XML</base>
+		<folder>9000010600000000-4</folder>
+		<standard>http://types.lonmark.org</standard>
+		<tools>http://types.lonmark.org/templates</tools>
+		<set>Apollodev 90:00:01:06:00:00:00:00-4</set>
+		<html>index.html</html>
+		<generator>Report Generator 4.41.06</generator>
+		<group>Enumerations</group>
+		<selector>4</selector>
+		<data-version>1.23</data-version>
+		<format-version>6.00</format-version>
+		<timestamp>6/6/2020 15:37:9</timestamp>
+		<url>suppport@echelon.com</url>
+		<description id="4-1"/>
+		<creator id="4-2"/>
+	</control>
+	<items>
+		<enumt id="MathOp" idx="1">
+			<h-file>MathOp.h</h-file>
+			<members>
+				<e-member id="MEM_NUL">
+					<value>-1</value>
+				</e-member>
+				<e-member id="OP_ADD">
+					<value>0</value>
+					<comment id="4-14"/>
+				</e-member>
+				<e-member id="OP_SUB">
+					<value>1</value>
+					<comment id="4-15"/>
+				</e-member>
+				<e-member id="OP_MULT">
+					<value>2</value>
+					<comment id="4-16"/>
+				</e-member>
+				<e-member id="OP_DIV">
+					<value>3</value>
+					<comment id="4-17"/>
+				</e-member>
+			</members>
+			<refs>
+				<ref href="9000010600000000-4/cps.xml">UCPTmathOp</ref>
+			</refs>
+		</enumt>
+		<enumt id="WaveForms" idx="2">
+			<h-file>WaveForms.h</h-file>
+			<members>
+				<e-member id="MEM_NUL">
+					<value>-1</value>
+				</e-member>
+				<e-member id="WV_SAWTOOTH">
+					<value>0</value>
+					<comment id="4-18"/>
+				</e-member>
+				<e-member id="WV_RAMP">
+					<value>1</value>
+					<comment id="4-19"/>
+				</e-member>
+				<e-member id="WV_SQUARE">
+					<value>2</value>
+					<comment id="4-19"/>
+				</e-member>
+			</members>
+		</enumt>
+		<enumt id="pass_t" idx="3">
+			<h-file>Mst_enm11.h</h-file>
+			<members>
+				<e-member id="PASSWORD_ON">
+					<value>0</value>
+				</e-member>
+				<e-member id="PASSWORD_OFF">
+					<value>1</value>
+				</e-member>
+			</members>
+			<refs>
+				<ref href="9000010600000000-4/nvs.xml">UNVT_FmkSetup</ref>
+			</refs>
+		</enumt>
+	</items>
+	<strings>
+		<string id="4-1">This file is a scope 4 type file. It contains user network variable types, configuration property types, and the enumeration types that support them.</string>
+		<string id="4-2">This LonMark Device Resource TYP file was created by Echelon Corporation. Contact us at 408-938-5200 or at www.echelon.com on the internet.</string>
+		<string id="4-14">Add</string>
+		<string id="4-15">Subtract</string>
+		<string id="4-16">Multiply</string>
+		<string id="4-17">Divide</string>
+		<string id="4-18">Sawtooth</string>
+		<string id="4-19">Ramp</string>
+	</strings>
+</ldrf>

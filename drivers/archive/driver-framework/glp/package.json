@@ -1,0 +1,38 @@
+{
+  "name": "glp-toolkit",
+  "version": "2.50.00",
+  "description": "Echelon GLP Toolkit",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "IAP",
+    "IoT",
+    "Lighting",
+    "Logistics",
+    "Protocol"
+  ],
+  "author": "Adesto Technologies",
+  "license": "Copyright (c) Adesto Technologies 2019",
+  "dependencies": {
+    "async": "^2.6.2",
+    "columnify": "^1.5.4",
+    "deepmerge": "^3.2.0",
+    "env-var": "^4.0.0",
+    "fs-ext": "^1.2.1",
+    "json-file": "^0.1.0",
+    "level": "^5.0.1",
+    "level-jobs": "^2.1.0",
+    "lodash": "^4.17.21",
+    "modern-syslog": "^1.1.4",
+    "moment-timezone": "^0.5.25",
+    "mqtt": "^2.18.8",
+    "mqtt-regex": "^1.0.5",
+    "node-getopt": "^0.3.2",
+    "qlobber": "^3.1.0",
+    "sqlite3": "^4.0.6",
+    "string-template": "^1.0.0",
+    "util": "^0.11.1"
+  }
+}

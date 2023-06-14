@@ -1,0 +1,1651 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml-stylesheet href="http://types.lonmark.org/templates/index.xsl" type="text/xsl"?>
+<!-- created by Report Generator 4.41.06 at Mon Jun 29 08:51:53 2020 -->
+<ldrf>
+	<control>
+		<xsl>index.xsl</xsl>
+		<self>fps.xml</self>
+		<base>C:\Users\robg\Documents\OneDrive - Adesto Technologies\Resoure Reports\XML</base>
+		<folder>9000010600000000-4</folder>
+		<standard>http://types.lonmark.org</standard>
+		<tools>http://types.lonmark.org/templates</tools>
+		<set>Apollodev 90:00:01:06:00:00:00:00-4</set>
+		<html>index.html</html>
+		<generator>Report Generator 4.41.06</generator>
+		<group>Functional Profiles</group>
+		<selector>4</selector>
+		<data-version>1.23</data-version>
+		<format-version>5.00</format-version>
+		<timestamp>6/10/2020 14:38:41</timestamp>
+		<url>suppport@echelon.com</url>
+		<description id="4-3"/>
+		<creator id="4-4"/>
+	</control>
+	<items>
+		<fpt id="UFPTDspSPcontroller" idx="5" key="20004" stlp_std="no">
+			<obsolete>no</obsolete>
+			<inheriting>
+				no
+				<literal>no</literal>
+			</inheriting>
+			<f-nvs>
+				<f-nv id="nviEnable" idx="1">
+					<member>1</member>
+					<mandatory>yes</mandatory>
+					<name id="0-346"/>
+					<comment id="4-7"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_switch</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoDspSP" idx="2">
+					<member>2</member>
+					<mandatory>yes</mandatory>
+					<name id="0-69"/>
+					<comment id="4-8"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_press_p</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoMaxDemand" idx="3">
+					<member>3</member>
+					<mandatory>yes</mandatory>
+					<name id="0-233"/>
+					<comment id="0-2134"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_lev_percent</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoMinDemand" idx="4">
+					<member>4</member>
+					<mandatory>yes</mandatory>
+					<name id="0-233"/>
+					<comment id="0-2134"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_lev_percent</ref>
+					<min>134.280</min>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoAvgDemand" idx="5">
+					<member>5</member>
+					<mandatory>yes</mandatory>
+					<name id="0-233"/>
+					<comment id="0-2134"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_lev_percent</ref>
+					<min>-142.160</min>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoRougeCount" idx="6">
+					<member>6</member>
+					<mandatory>yes</mandatory>
+					<name id="0-19"/>
+					<comment id="4-9"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_count</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nviAddRouge" idx="7">
+					<member>7</member>
+					<mandatory>yes</mandatory>
+					<name id="0-78"/>
+					<comment id="4-10"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_str_asc</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nviRemoveRouge" idx="8">
+					<member>8</member>
+					<mandatory>yes</mandatory>
+					<name id="0-78"/>
+					<comment id="4-11"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_str_asc</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nviShowRouge" idx="9">
+					<member>9</member>
+					<mandatory>yes</mandatory>
+					<name id="0-19"/>
+					<comment id="4-12"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_count</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoRougeReport" idx="10">
+					<member>10</member>
+					<mandatory>yes</mandatory>
+					<comment id="4-13"/>
+					<ref href="9000010600000000-4/nvs.xml">UNVTdevHandle</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+			</f-nvs>
+			<f-cps>
+				<f-cp id="cpDelay" idx="1">
+					<member>1</member>
+					<mandatory>yes</mandatory>
+					<name id="0-722"/>
+					<comment id="0-723"/>
+					<ref href="0000000000000000-0/cps.xml">SCPTdelayTime</ref>
+					<default>90.0</default>
+					<applies>UFPTDspSPcontroller</applies>
+					<array>not permitted</array>
+				</f-cp>
+				<f-cp id="cpDefaultDspSP" idx="2">
+					<member>2</member>
+					<mandatory>yes</mandatory>
+					<name id="0-1265"/>
+					<comment id="0-1266"/>
+					<ref href="0000000000000000-0/cps.xml">SCPTductStaticPressureSetpoint</ref>
+					<default>2.01085</default>
+					<applies>UFPTDspSPcontroller</applies>
+					<array>not permitted</array>
+				</f-cp>
+				<f-cp id="cpMaxDspSP" idx="3">
+					<member>3</member>
+					<mandatory>yes</mandatory>
+					<name id="0-1267"/>
+					<comment id="0-1268"/>
+					<ref href="0000000000000000-0/cps.xml">SCPTmaxDuctStaticPressureSetpoint</ref>
+					<default>3.00421</default>
+					<applies>UFPTDspSPcontroller</applies>
+					<array>not permitted</array>
+				</f-cp>
+				<f-cp id="cpMinDspSP" idx="4">
+					<member>4</member>
+					<mandatory>yes</mandatory>
+					<name id="0-1269"/>
+					<comment id="0-1270"/>
+					<ref href="0000000000000000-0/cps.xml">SCPTminDuctStaticPressureSetpoint</ref>
+					<default>1.0014</default>
+					<applies>UFPTDspSPcontroller</applies>
+					<array>not permitted</array>
+				</f-cp>
+				<f-cp id="cpLoopInterval" idx="5">
+					<member>5</member>
+					<mandatory>yes</mandatory>
+					<name id="0-5183"/>
+					<comment id="0-5184"/>
+					<ref href="0000000000000000-0/cps.xml">SCPTmeasurementInterval</ref>
+					<default>15.0</default>
+					<applies>UFPTDspSPcontroller</applies>
+					<array>not permitted</array>
+				</f-cp>
+			</f-cps>
+		</fpt>
+		<fpt id="UFPTdisplayController" idx="1" key="20000" stlp_std="no">
+			<obsolete>no</obsolete>
+			<inheriting>
+				no
+				<literal>no</literal>
+			</inheriting>
+			<principal>nviLine1msg</principal>
+			<f-nvs>
+				<f-nv id="nviLine1msg" idx="1">
+					<member>1</member>
+					<mandatory>yes</mandatory>
+					<name id="0-78"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_str_asc</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nviLine2msg" idx="2">
+					<member>2</member>
+					<mandatory>yes</mandatory>
+					<name id="0-78"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_str_asc</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nviLine3msg" idx="3">
+					<member>3</member>
+					<mandatory>yes</mandatory>
+					<name id="0-78"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_str_asc</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoMyNid" idx="4">
+					<member>4</member>
+					<mandatory>yes</mandatory>
+					<name id="0-78"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_str_asc</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+			</f-nvs>
+			<f-cps>
+				<f-cp id="cpLine1Default" idx="1">
+					<member>1</member>
+					<mandatory>yes</mandatory>
+					<ref href="9000010600000000-4/cps.xml">UCPTmsgDefault</ref>
+					<default>00*31</default>
+					<applies>nviLine1msg</applies>
+					<array>not permitted</array>
+				</f-cp>
+				<f-cp id="cpLine2Default" idx="2">
+					<member>2</member>
+					<mandatory>yes</mandatory>
+					<ref href="9000010600000000-4/cps.xml">UCPTmsgDefault</ref>
+					<default>00*31</default>
+					<applies>nviLine2msg</applies>
+					<array>not permitted</array>
+				</f-cp>
+				<f-cp id="cpLine3Default" idx="3">
+					<member>3</member>
+					<mandatory>yes</mandatory>
+					<ref href="9000010600000000-4/cps.xml">UCPTmsgDefault</ref>
+					<default>00*31</default>
+					<applies>nviLine3msg</applies>
+					<array>not permitted</array>
+				</f-cp>
+			</f-cps>
+		</fpt>
+		<fpt id="UFPTdisplayController2" idx="2" key="20001" stlp_std="no">
+			<obsolete>no</obsolete>
+			<inheriting>
+				no
+				<literal>no</literal>
+			</inheriting>
+			<principal>nviLine1msg</principal>
+			<f-nvs>
+				<f-nv id="nviLine1msg" idx="1">
+					<member>1</member>
+					<mandatory>yes</mandatory>
+					<name id="0-78"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_str_asc</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nviLine2msg" idx="2">
+					<member>2</member>
+					<mandatory>yes</mandatory>
+					<name id="0-78"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_str_asc</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nviLine3msg" idx="3">
+					<member>3</member>
+					<mandatory>yes</mandatory>
+					<name id="0-78"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_str_asc</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoMyNid" idx="4">
+					<member>4</member>
+					<mandatory>yes</mandatory>
+					<name id="0-78"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_str_asc</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoWinkCount" idx="5">
+					<member>5</member>
+					<mandatory>yes</mandatory>
+					<name id="0-19"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_count</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoSimpleUpDown" idx="6">
+					<member>6</member>
+					<mandatory>yes</mandatory>
+					<name id="0-19"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_count</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+			</f-nvs>
+			<f-cps>
+				<f-cp id="cpLine1Default" idx="1">
+					<member>1</member>
+					<mandatory>yes</mandatory>
+					<ref href="9000010600000000-4/cps.xml">UCPTmsgDefault</ref>
+					<default>00*31</default>
+					<applies>nviLine1msg</applies>
+					<array>not permitted</array>
+				</f-cp>
+				<f-cp id="cpLine2Default" idx="2">
+					<member>2</member>
+					<mandatory>yes</mandatory>
+					<ref href="9000010600000000-4/cps.xml">UCPTmsgDefault</ref>
+					<default>00*31</default>
+					<applies>nviLine2msg</applies>
+					<array>not permitted</array>
+				</f-cp>
+				<f-cp id="cpLine3Default" idx="3">
+					<member>3</member>
+					<mandatory>yes</mandatory>
+					<ref href="9000010600000000-4/cps.xml">UCPTmsgDefault</ref>
+					<default>00*31</default>
+					<applies>nviLine3msg</applies>
+					<array>not permitted</array>
+				</f-cp>
+			</f-cps>
+		</fpt>
+		<fpt id="UFPTgasMonitorX" idx="16" key="20015" stlp_std="no">
+			<obsolete>no</obsolete>
+			<inheriting>
+				no
+				<literal>no</literal>
+			</inheriting>
+			<name id="4-21"/>
+			<f-nvs>
+				<f-nv id="nvoError" idx="1">
+					<member>1</member>
+					<mandatory>yes</mandatory>
+					<name id="0-236"/>
+					<comment id="0-1410"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_state</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoSensor" idx="2">
+					<member>3</member>
+					<mandatory>yes</mandatory>
+					<ref href="9000010600000000-4/nvs.xml">UNVT_Sensor</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoSetup" idx="3">
+					<member>4</member>
+					<mandatory>yes</mandatory>
+					<ref href="9000010600000000-4/nvs.xml">UNVT_FmkSetup</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoState" idx="4">
+					<member>5</member>
+					<mandatory>yes</mandatory>
+					<name id="0-236"/>
+					<comment id="0-1410"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_state</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoGasConc" idx="5">
+					<member>2</member>
+					<mandatory>yes</mandatory>
+					<name id="0-67"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_ppm_f</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoErrorX" idx="6">
+					<member>6</member>
+					<mandatory>yes</mandatory>
+					<name id="0-19"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_count</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoStateX" idx="7">
+					<member>7</member>
+					<mandatory>yes</mandatory>
+					<name id="0-19"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_count</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nviMsg" idx="8">
+					<member>8</member>
+					<mandatory>yes</mandatory>
+					<ref href="9000010600000000-4/nvs.xml">UNVTmsgData</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+			</f-nvs>
+		</fpt>
+		<fpt id="UFPTgasMonitorX2" idx="18" key="20017" stlp_std="no">
+			<obsolete>no</obsolete>
+			<inheriting>
+				no
+				<literal>no</literal>
+			</inheriting>
+			<name id="4-21"/>
+			<f-nvs>
+				<f-nv id="nvoError" idx="1">
+					<member>1</member>
+					<mandatory>yes</mandatory>
+					<name id="0-236"/>
+					<comment id="0-1410"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_state</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoSensor" idx="2">
+					<member>3</member>
+					<mandatory>yes</mandatory>
+					<ref href="9000010600000000-4/nvs.xml">UNVT_Sensor</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoSetup" idx="3">
+					<member>4</member>
+					<mandatory>yes</mandatory>
+					<ref href="9000010600000000-4/nvs.xml">UNVT_FmkSetup</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoState" idx="4">
+					<member>5</member>
+					<mandatory>yes</mandatory>
+					<name id="0-236"/>
+					<comment id="0-1410"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_state</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoGasConc" idx="5">
+					<member>2</member>
+					<mandatory>yes</mandatory>
+					<name id="0-67"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_ppm_f</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="ErrorX" idx="6">
+					<member>6</member>
+					<mandatory>yes</mandatory>
+					<ref href="9000010600000000-4/nvs.xml">UNVTfieldCsv</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="StateX" idx="7">
+					<member>7</member>
+					<mandatory>yes</mandatory>
+					<ref href="9000010600000000-4/nvs.xml">UNVTfieldCsv</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nviMsg" idx="8">
+					<member>8</member>
+					<mandatory>yes</mandatory>
+					<ref href="9000010600000000-4/nvs.xml">UNVTmsgData</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="SetupX" idx="9">
+					<member>9</member>
+					<mandatory>yes</mandatory>
+					<ref href="9000010600000000-4/nvs.xml">UNVTfieldCsv</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="Alarm1" idx="10">
+					<member>10</member>
+					<mandatory>yes</mandatory>
+					<name id="0-19"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_count</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="Alarm2" idx="11">
+					<member>11</member>
+					<mandatory>yes</mandatory>
+					<name id="0-19"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_count</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="Fault" idx="12">
+					<member>12</member>
+					<mandatory>yes</mandatory>
+					<name id="0-19"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_count</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="Warning" idx="13">
+					<member>13</member>
+					<mandatory>yes</mandatory>
+					<name id="0-19"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_count</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="Maint" idx="14">
+					<member>14</member>
+					<mandatory>yes</mandatory>
+					<name id="0-19"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_count</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="Disabled" idx="15">
+					<member>15</member>
+					<mandatory>yes</mandatory>
+					<name id="0-19"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_count</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="SensorX" idx="16">
+					<member>16</member>
+					<mandatory>yes</mandatory>
+					<ref href="9000010600000000-4/nvs.xml">UNVTfieldCsv</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="setSensor" idx="17">
+					<member>17</member>
+					<mandatory>yes</mandatory>
+					<ref href="9000010600000000-4/nvs.xml">UNVTfieldCsv</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="setSetup" idx="18">
+					<member>18</member>
+					<mandatory>yes</mandatory>
+					<ref href="9000010600000000-4/nvs.xml">UNVTfieldCsv</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+			</f-nvs>
+			<f-cps>
+				<f-cp id="nciTarget" idx="1">
+					<member>1</member>
+					<mandatory>yes</mandatory>
+					<ref href="9000010600000000-4/cps.xml">UCPTdestTarget</ref>
+					<default>0 0 0  0</default>
+					<applies>UFPTgasMonitorX2</applies>
+					<array>not permitted</array>
+				</f-cp>
+			</f-cps>
+		</fpt>
+		<fpt id="UFPTgasSensorSim" idx="17" key="20016" stlp_std="no">
+			<obsolete>no</obsolete>
+			<inheriting>
+				no
+				<literal>no</literal>
+			</inheriting>
+			<f-nvs>
+				<f-nv id="nvoSensor" idx="1">
+					<member>1</member>
+					<mandatory>yes</mandatory>
+					<name id="3-7"/>
+					<ref href="9000010600000000-4/nvs.xml">UNVT_Sensor</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoSetup" idx="2">
+					<member>2</member>
+					<mandatory>yes</mandatory>
+					<name id="3-18"/>
+					<ref href="9000010600000000-4/nvs.xml">UNVT_FmkSetup</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nviStateTest" idx="3">
+					<member>3</member>
+					<mandatory>yes</mandatory>
+					<name id="0-236"/>
+					<comment id="0-1410"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_state</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoState" idx="4">
+					<member>4</member>
+					<mandatory>yes</mandatory>
+					<name id="0-236"/>
+					<comment id="0-1410"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_state</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nviErrorTest" idx="5">
+					<member>5</member>
+					<mandatory>yes</mandatory>
+					<name id="0-236"/>
+					<comment id="0-1410"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_state</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoError" idx="6">
+					<member>6</member>
+					<mandatory>yes</mandatory>
+					<name id="0-236"/>
+					<comment id="0-1410"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_state</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+			</f-nvs>
+		</fpt>
+		<fpt id="UFPTgasSensorSim2" idx="19" key="20018" stlp_std="no">
+			<obsolete>no</obsolete>
+			<inheriting>
+				no
+				<literal>no</literal>
+			</inheriting>
+			<f-nvs>
+				<f-nv id="nvoSensor" idx="1">
+					<member>1</member>
+					<mandatory>yes</mandatory>
+					<name id="3-7"/>
+					<ref href="9000010600000000-4/nvs.xml">UNVT_Sensor</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoSetup" idx="2">
+					<member>2</member>
+					<mandatory>yes</mandatory>
+					<name id="3-18"/>
+					<ref href="9000010600000000-4/nvs.xml">UNVT_FmkSetup</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nviStateTest" idx="3">
+					<member>3</member>
+					<mandatory>yes</mandatory>
+					<name id="0-236"/>
+					<comment id="0-1410"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_state</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoState" idx="4">
+					<member>4</member>
+					<mandatory>yes</mandatory>
+					<name id="0-236"/>
+					<comment id="0-1410"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_state</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nviErrorTest" idx="5">
+					<member>5</member>
+					<mandatory>yes</mandatory>
+					<name id="0-236"/>
+					<comment id="0-1410"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_state</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoError" idx="6">
+					<member>6</member>
+					<mandatory>yes</mandatory>
+					<name id="0-236"/>
+					<comment id="0-1410"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_state</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoAlarm1" idx="7">
+					<member>7</member>
+					<mandatory>yes</mandatory>
+					<name id="0-57"/>
+					<comment id="0-2129"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_lev_disc</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoAlarm2" idx="8">
+					<member>8</member>
+					<mandatory>yes</mandatory>
+					<name id="0-57"/>
+					<comment id="0-2129"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_lev_disc</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoWarning" idx="9">
+					<member>9</member>
+					<mandatory>yes</mandatory>
+					<name id="0-57"/>
+					<comment id="0-2129"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_lev_disc</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoDisabled" idx="10">
+					<member>10</member>
+					<mandatory>yes</mandatory>
+					<name id="0-57"/>
+					<comment id="0-2129"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_lev_disc</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoFault" idx="11">
+					<member>11</member>
+					<mandatory>yes</mandatory>
+					<name id="0-57"/>
+					<comment id="0-2129"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_lev_disc</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoMaint" idx="12">
+					<member>12</member>
+					<mandatory>yes</mandatory>
+					<name id="0-57"/>
+					<comment id="0-2129"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_lev_disc</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+			</f-nvs>
+			<f-cps>
+				<f-cp id="cpMaxSendTime" idx="1">
+					<member>1</member>
+					<mandatory>yes</mandatory>
+					<name id="0-448"/>
+					<comment id="0-449"/>
+					<ref href="0000000000000000-0/cps.xml">SCPTmaxSendTime</ref>
+					<default>0.0</default>
+					<applies>UFPTgasSensorSim2</applies>
+					<array>not permitted</array>
+				</f-cp>
+				<f-cp id="cpMinSendTime" idx="2">
+					<member>2</member>
+					<mandatory>yes</mandatory>
+					<name id="0-451"/>
+					<comment id="0-452"/>
+					<ref href="0000000000000000-0/cps.xml">SCPTminSendTime</ref>
+					<default>0.0</default>
+					<applies>UFPTgasSensorSim2</applies>
+					<array>not permitted</array>
+				</f-cp>
+				<f-cp id="cpMaintHours" idx="3">
+					<member>3</member>
+					<mandatory>yes</mandatory>
+					<name id="0-798"/>
+					<comment id="0-799"/>
+					<ref href="0000000000000000-0/cps.xml">SCPTrunHrAlarm</ref>
+					<max>65535 23:0:0:0</max>
+					<default>0 0:0:0:0</default>
+					<applies>UFPTgasSensorSim2</applies>
+					<array>not permitted</array>
+				</f-cp>
+			</f-cps>
+		</fpt>
+		<fpt id="UFPTlssMonitor" idx="11" key="20010" stlp_std="no">
+			<obsolete>no</obsolete>
+			<inheriting>
+				no
+				<literal>no</literal>
+			</inheriting>
+			<name id="4-21"/>
+			<f-nvs>
+				<f-nv id="nvoAlarm10" idx="1">
+					<member>1</member>
+					<mandatory>yes</mandatory>
+					<name id="0-57"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_lev_disc</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoAlarm11" idx="2">
+					<member>2</member>
+					<mandatory>yes</mandatory>
+					<name id="0-57"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_lev_disc</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoAlarm12" idx="3">
+					<member>3</member>
+					<mandatory>yes</mandatory>
+					<name id="0-57"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_lev_disc</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoAlarm13" idx="4">
+					<member>4</member>
+					<mandatory>yes</mandatory>
+					<name id="0-57"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_lev_disc</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoAlarm20" idx="5">
+					<member>5</member>
+					<mandatory>yes</mandatory>
+					<name id="0-57"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_lev_disc</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoAlarm21" idx="6">
+					<member>6</member>
+					<mandatory>yes</mandatory>
+					<name id="0-57"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_lev_disc</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoAlarm22" idx="7">
+					<member>7</member>
+					<mandatory>yes</mandatory>
+					<name id="0-57"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_lev_disc</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoAlarm23" idx="8">
+					<member>8</member>
+					<mandatory>yes</mandatory>
+					<name id="0-57"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_lev_disc</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoError" idx="9">
+					<member>9</member>
+					<mandatory>yes</mandatory>
+					<name id="0-236"/>
+					<comment id="0-1410"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_state</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoMaint3" idx="10">
+					<member>10</member>
+					<mandatory>yes</mandatory>
+					<name id="0-57"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_lev_disc</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoSensor" idx="11">
+					<member>11</member>
+					<mandatory>yes</mandatory>
+					<ref href="9000010600000000-4/nvs.xml">UNVT_Sensor</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoSetup" idx="12">
+					<member>12</member>
+					<mandatory>yes</mandatory>
+					<ref href="9000010600000000-4/nvs.xml">UNVT_FmkSetup</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoState" idx="13">
+					<member>13</member>
+					<mandatory>yes</mandatory>
+					<name id="0-236"/>
+					<comment id="0-1410"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_state</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoWarn0" idx="14">
+					<member>14</member>
+					<mandatory>yes</mandatory>
+					<name id="0-57"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_lev_disc</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoWarn1" idx="15">
+					<member>15</member>
+					<mandatory>yes</mandatory>
+					<name id="0-57"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_lev_disc</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoWarn2" idx="16">
+					<member>16</member>
+					<mandatory>yes</mandatory>
+					<name id="0-57"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_lev_disc</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoWarn3" idx="17">
+					<member>17</member>
+					<mandatory>yes</mandatory>
+					<name id="0-57"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_lev_disc</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoFault0" idx="18">
+					<member>18</member>
+					<mandatory>yes</mandatory>
+					<name id="0-57"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_lev_disc</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoFault1" idx="19">
+					<member>19</member>
+					<mandatory>yes</mandatory>
+					<name id="0-57"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_lev_disc</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoFault2" idx="20">
+					<member>20</member>
+					<mandatory>yes</mandatory>
+					<name id="0-57"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_lev_disc</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoFault3" idx="21">
+					<member>21</member>
+					<mandatory>yes</mandatory>
+					<name id="0-57"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_lev_disc</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoGasConc" idx="22">
+					<member>22</member>
+					<mandatory>yes</mandatory>
+					<name id="0-67"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_ppm_f</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoMaint0" idx="23">
+					<member>23</member>
+					<mandatory>yes</mandatory>
+					<name id="0-57"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_lev_disc</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoMaint1" idx="24">
+					<member>24</member>
+					<mandatory>yes</mandatory>
+					<name id="0-57"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_lev_disc</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoMaint2" idx="25">
+					<member>25</member>
+					<mandatory>yes</mandatory>
+					<name id="0-57"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_lev_disc</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+			</f-nvs>
+		</fpt>
+		<fpt id="UFPTmathBlock" idx="7" key="20006" stlp_std="no">
+			<obsolete>no</obsolete>
+			<inheriting>
+				no
+				<literal>no</literal>
+			</inheriting>
+			<f-nvs>
+				<f-nv id="nviOperand_1" idx="1">
+					<member>1</member>
+					<mandatory>yes</mandatory>
+					<name id="0-21"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_count_inc</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nviOperand_2" idx="2">
+					<member>2</member>
+					<mandatory>yes</mandatory>
+					<name id="0-21"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_count_inc</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoResult" idx="3">
+					<member>3</member>
+					<mandatory>yes</mandatory>
+					<name id="0-21"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_count_inc</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoError" idx="4">
+					<member>4</member>
+					<mandatory>yes</mandatory>
+					<name id="0-78"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_str_asc</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+			</f-nvs>
+			<f-cps>
+				<f-cp id="cpOperator" idx="1">
+					<member>1</member>
+					<mandatory>yes</mandatory>
+					<ref href="9000010600000000-4/cps.xml">UCPTmathOp</ref>
+					<min>OP_ADD</min>
+					<max>OP_DIV</max>
+					<default>OP_ADD</default>
+					<applies>UFPTmathBlock</applies>
+					<array>not permitted</array>
+				</f-cp>
+			</f-cps>
+		</fpt>
+		<fpt id="UFPTnodeModel" idx="3" key="20002" stlp_std="no">
+			<obsolete>no</obsolete>
+			<inheriting>
+				no
+				<literal>no</literal>
+			</inheriting>
+			<f-nvs>
+				<f-nv id="nviDataSeed" idx="1">
+					<member>1</member>
+					<mandatory>yes</mandatory>
+					<name id="0-19"/>
+					<comment id="0-3327"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_count_32</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoCount1" idx="2">
+					<member>2</member>
+					<mandatory>yes</mandatory>
+					<name id="0-19"/>
+					<comment id="0-3327"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_count_32</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoCount2" idx="3">
+					<member>4</member>
+					<mandatory>yes</mandatory>
+					<name id="0-19"/>
+					<comment id="0-3327"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_count_32</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoCount3" idx="4">
+					<member>5</member>
+					<mandatory>yes</mandatory>
+					<name id="0-19"/>
+					<comment id="0-3327"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_count_32</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoCount4" idx="5">
+					<member>6</member>
+					<mandatory>yes</mandatory>
+					<name id="0-19"/>
+					<comment id="0-3327"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_count_32</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nviEnable" idx="6">
+					<member>7</member>
+					<mandatory>yes</mandatory>
+					<name id="0-346"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_switch</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoFaults" idx="7">
+					<member>8</member>
+					<mandatory>yes</mandatory>
+					<name id="0-19"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_count</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoCounterData" idx="8">
+					<member>9</member>
+					<mandatory>yes</mandatory>
+					<ref href="9000010600000000-4/nvs.xml">UNVTdataAll</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+			</f-nvs>
+			<f-cps>
+				<f-cp id="cpMaxSendTime" idx="1">
+					<member>1</member>
+					<mandatory>yes</mandatory>
+					<name id="0-448"/>
+					<comment id="0-449"/>
+					<ref href="0000000000000000-0/cps.xml">SCPTmaxSendTime</ref>
+					<default>60.0</default>
+					<applies>UFPTnodeModel</applies>
+					<array>not permitted</array>
+				</f-cp>
+				<f-cp id="cpMaxRcvTime" idx="2">
+					<member>2</member>
+					<mandatory>yes</mandatory>
+					<name id="0-446"/>
+					<comment id="0-669"/>
+					<ref href="0000000000000000-0/cps.xml">SCPTmaxRcvTime</ref>
+					<default>80.0</default>
+					<applies>UFPTnodeModel</applies>
+					<array>not permitted</array>
+				</f-cp>
+				<f-cp id="cpRandDelay" idx="3">
+					<member>3</member>
+					<mandatory>yes</mandatory>
+					<name id="0-722"/>
+					<comment id="0-723"/>
+					<ref href="0000000000000000-0/cps.xml">SCPTdelayTime</ref>
+					<min>10.0</min>
+					<default>0.0</default>
+					<applies>UFPTnodeModel</applies>
+					<array>not permitted</array>
+				</f-cp>
+				<f-cp id="cpIsMaster" idx="4">
+					<member>4</member>
+					<mandatory>yes</mandatory>
+					<name id="0-724"/>
+					<comment id="0-725"/>
+					<ref href="0000000000000000-0/cps.xml">SCPTmasterSlave</ref>
+					<default>0</default>
+					<applies>UFPTnodeModel</applies>
+					<array>not permitted</array>
+				</f-cp>
+			</f-cps>
+		</fpt>
+		<fpt id="UFPTnodeModelMonitor" idx="4" key="20003" stlp_std="no">
+			<obsolete>no</obsolete>
+			<inheriting>
+				no
+				<literal>no</literal>
+			</inheriting>
+			<f-nvs>
+				<f-nv id="nvoDataSeed" idx="1">
+					<member>1</member>
+					<mandatory>yes</mandatory>
+					<name id="0-19"/>
+					<comment id="0-3327"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_count_32</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nviCount1" idx="2">
+					<member>2</member>
+					<mandatory>yes</mandatory>
+					<name id="0-19"/>
+					<comment id="0-3327"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_count_32</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nviCount2" idx="3">
+					<member>4</member>
+					<mandatory>yes</mandatory>
+					<name id="0-19"/>
+					<comment id="0-3327"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_count_32</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nviCount3" idx="4">
+					<member>5</member>
+					<mandatory>yes</mandatory>
+					<name id="0-19"/>
+					<comment id="0-3327"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_count_32</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nviCount4" idx="5">
+					<member>6</member>
+					<mandatory>yes</mandatory>
+					<name id="0-19"/>
+					<comment id="0-3327"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_count_32</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoEnable" idx="6">
+					<member>7</member>
+					<mandatory>yes</mandatory>
+					<name id="0-346"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_switch</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nviFaults" idx="7">
+					<member>8</member>
+					<mandatory>yes</mandatory>
+					<name id="0-19"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_count</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nviCounterData" idx="8">
+					<member>9</member>
+					<mandatory>yes</mandatory>
+					<ref href="9000010600000000-4/nvs.xml">UNVTdataAll</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+			</f-nvs>
+		</fpt>
+		<fpt id="UFPTswitchDriver" idx="15" key="20014" stlp_std="no">
+			<obsolete>no</obsolete>
+			<inheriting>
+				no
+				<literal>no</literal>
+			</inheriting>
+			<f-nvs>
+				<f-nv id="nvoSwitch01" idx="1">
+					<member>1</member>
+					<mandatory>yes</mandatory>
+					<name id="0-346"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_switch</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoSwitch02" idx="2">
+					<member>2</member>
+					<mandatory>yes</mandatory>
+					<name id="0-346"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_switch</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoSwitch03" idx="3">
+					<member>3</member>
+					<mandatory>yes</mandatory>
+					<name id="0-346"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_switch</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoSwitch04" idx="4">
+					<member>4</member>
+					<mandatory>yes</mandatory>
+					<name id="0-346"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_switch</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoSwitch05" idx="5">
+					<member>5</member>
+					<mandatory>yes</mandatory>
+					<name id="0-346"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_switch</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoSwitch06" idx="6">
+					<member>6</member>
+					<mandatory>yes</mandatory>
+					<name id="0-346"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_switch</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoSwitch07" idx="7">
+					<member>7</member>
+					<mandatory>yes</mandatory>
+					<name id="0-346"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_switch</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoSwitch08" idx="8">
+					<member>8</member>
+					<mandatory>yes</mandatory>
+					<name id="0-346"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_switch</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+			</f-nvs>
+		</fpt>
+		<fpt id="UFPTuiTestTarget" idx="6" key="20005" stlp_std="no">
+			<obsolete>no</obsolete>
+			<inheriting>
+				no
+				<literal>no</literal>
+			</inheriting>
+			<f-nvs>
+				<f-nv id="nvoHvacStatus" idx="1">
+					<member>1</member>
+					<mandatory>yes</mandatory>
+					<name id="0-396"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_hvac_status</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nviHvacMode" idx="2">
+					<member>2</member>
+					<mandatory>yes</mandatory>
+					<name id="0-383"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_hvac_mode</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nviTempSP" idx="3">
+					<member>3</member>
+					<mandatory>yes</mandatory>
+					<name id="0-91"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_temp_setpt</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nviOccupancy" idx="4">
+					<member>4</member>
+					<mandatory>yes</mandatory>
+					<name id="0-385"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_occupancy</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nviLampSw" idx="5">
+					<member>5</member>
+					<mandatory>yes</mandatory>
+					<name id="0-346"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_switch</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nviLampSw_2" idx="6">
+					<member>6</member>
+					<mandatory>yes</mandatory>
+					<name id="0-3623"/>
+					<comment id="0-3624"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_switch_2</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoLampFb" idx="7">
+					<member>7</member>
+					<mandatory>yes</mandatory>
+					<name id="0-346"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_switch</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoLampFb_sw2" idx="8">
+					<member>8</member>
+					<mandatory>yes</mandatory>
+					<name id="0-3623"/>
+					<comment id="0-3624"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_switch_2</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoAlarm" idx="9">
+					<member>9</member>
+					<mandatory>yes</mandatory>
+					<name id="0-2369"/>
+					<comment id="0-2370"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_alarm_2</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nviAlarmSimulate" idx="10">
+					<member>10</member>
+					<mandatory>yes</mandatory>
+					<name id="0-2369"/>
+					<comment id="0-2370"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_alarm_2</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoEffectiveSP" idx="11">
+					<member>11</member>
+					<mandatory>yes</mandatory>
+					<name id="0-91"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_temp_p</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+			</f-nvs>
+			<f-cps>
+				<f-cp id="cpSceneTable" idx="1">
+					<member>1</member>
+					<mandatory>yes</mandatory>
+					<name id="0-5644"/>
+					<ref href="0000000000000000-0/cps.xml">SCPTsceneDef</ref>
+					<default>0 0.0 0</default>
+					<applies>UFPTuiTestTarget</applies>
+					<array>required with dimension 4</array>
+				</f-cp>
+			</f-cps>
+		</fpt>
+		<fpt id="UFPTuiTestTarget2" idx="8" key="20007" stlp_std="no">
+			<obsolete>no</obsolete>
+			<inheriting>
+				no
+				<literal>no</literal>
+			</inheriting>
+			<f-nvs>
+				<f-nv id="nvoHvacStatus" idx="1">
+					<member>1</member>
+					<mandatory>yes</mandatory>
+					<name id="0-396"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_hvac_status</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nviHvacMode" idx="2">
+					<member>2</member>
+					<mandatory>yes</mandatory>
+					<name id="0-383"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_hvac_mode</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nviTempSP" idx="3">
+					<member>3</member>
+					<mandatory>yes</mandatory>
+					<name id="0-91"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_temp_setpt</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nviOccupancy" idx="4">
+					<member>4</member>
+					<mandatory>yes</mandatory>
+					<name id="0-385"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_occupancy</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nviLampSw" idx="5">
+					<member>5</member>
+					<mandatory>yes</mandatory>
+					<name id="0-346"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_switch</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nviLampSw_2" idx="6">
+					<member>6</member>
+					<mandatory>yes</mandatory>
+					<name id="0-3623"/>
+					<comment id="0-3624"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_switch_2</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoLampFb" idx="7">
+					<member>7</member>
+					<mandatory>yes</mandatory>
+					<name id="0-346"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_switch</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoLampFb_sw2" idx="8">
+					<member>8</member>
+					<mandatory>yes</mandatory>
+					<name id="0-3623"/>
+					<comment id="0-3624"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_switch_2</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoAlarm" idx="9">
+					<member>9</member>
+					<mandatory>yes</mandatory>
+					<name id="0-2369"/>
+					<comment id="0-2370"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_alarm_2</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nviAlarmSimulate" idx="10">
+					<member>10</member>
+					<mandatory>yes</mandatory>
+					<name id="0-2369"/>
+					<comment id="0-2370"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_alarm_2</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoEffectiveSP" idx="11">
+					<member>11</member>
+					<mandatory>yes</mandatory>
+					<name id="0-91"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_temp_p</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nviColor_2" idx="12">
+					<member>12</member>
+					<mandatory>yes</mandatory>
+					<name id="0-3882"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_color_2</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoColor_2" idx="13">
+					<member>13</member>
+					<mandatory>yes</mandatory>
+					<name id="0-3882"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_color_2</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nviCount" idx="14">
+					<member>14</member>
+					<mandatory>yes</mandatory>
+					<name id="0-19"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_count</ref>
+					<dir>input</dir>
+					<service>any</service>
+				</f-nv>
+				<f-nv id="nvoCount" idx="15">
+					<member>15</member>
+					<mandatory>yes</mandatory>
+					<name id="0-19"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_count</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+			</f-nvs>
+			<f-cps>
+				<f-cp id="cpSceneTable" idx="1">
+					<member>1</member>
+					<mandatory>yes</mandatory>
+					<name id="0-5644"/>
+					<ref href="0000000000000000-0/cps.xml">SCPTsceneDef</ref>
+					<default>0 0.0 0</default>
+					<applies>UFPTuiTestTarget2</applies>
+					<array>required with dimension 4</array>
+				</f-cp>
+			</f-cps>
+		</fpt>
+		<fpt id="UFPTwebServer" idx="9" key="20008" stlp_std="no">
+			<obsolete>no</obsolete>
+			<inheriting>
+				no
+				<literal>no</literal>
+			</inheriting>
+		</fpt>
+		<fpt id="UFPTwebServerMon" idx="10" key="20013" stlp_std="no">
+			<obsolete>no</obsolete>
+			<inheriting>
+				no
+				<literal>no</literal>
+			</inheriting>
+			<f-nvs>
+				<f-nv id="alarm" idx="1">
+					<member>1</member>
+					<mandatory>yes</mandatory>
+					<name id="0-2369"/>
+					<comment id="0-2370"/>
+					<ref href="0000000000000000-0/nvs.xml">SNVT_alarm_2</ref>
+					<dir>output</dir>
+					<service>any</service>
+				</f-nv>
+			</f-nvs>
+		</fpt>
+		<fpt id="UFPTwebServerOG" idx="14" key="22013" stlp_std="no">
+			<obsolete>no</obsolete>
+			<inheriting>
+				no
+				<literal>no</literal>
+			</inheriting>
+		</fpt>
+	</items>
+	<strings>
+		<string id="4-3">This is a scope 4 FPT file. It contains functional profile templates.</string>
+		<string id="4-4">This LonMark Device Resource FPT file was created by Echelon Corporation. Contact us at 408-938-5200 or at www.echelon.com on the internet.</string>
+		<string id="0-346">Switch</string>
+		<string id="4-7">Enables controller after delay expirtes.</string>
+		<string id="0-69">Pressure (gauge)</string>
+		<string id="4-8">The demand calculated duct static pressure setpoint subject to limits.</string>
+		<string id="0-233">Percentage level.</string>
+		<string id="0-2134">
+			Level percent. SNVT_switch should be used instead of SNVT_lev_percent, with the exception of network variables that are used to communicate a percentage value and that require the additional resolution provided by SNVT_lev_percent; or for network variable members of functional profiles that are designed primarily for interfacing with SNVT_lev_percent members of other profiles.
+		</string>
+		<string id="0-19">Absolute count.</string>
+		<string id="4-9">The number of designated rouge VAVs.</string>
+		<string id="0-78">Character string (30 characters max)</string>
+		<string id="4-10">Used to add a VAV device handle to the Rouge list.  Rouges are not used in control sequence.</string>
+		<string id="4-11">Used to remove a VAV device handle to the Rouge list.</string>
+		<string id="4-12">The index to the rouge list.  Zero based.</string>
+		<string id="4-13">Reports the Index, and the handle of the last requested nviShowRouge request.</string>
+		<string id="0-722">Delay time, default to scene.</string>
+		<string id="0-723">The delay time, default to scene.</string>
+		<string id="0-1265">Duct static pressure.</string>
+		<string id="0-1266">Setpoint for default duct static pressure.</string>
+		<string id="0-1267">Maximum duct static pressure.</string>
+		<string id="0-1268">Setpoint for maximum duct static pressure.</string>
+		<string id="0-1269">Minimum duct static pressure.</string>
+		<string id="0-1270">Setpoint for minimum duct static pressure.</string>
+		<string id="0-5183">Measurement interval.</string>
+		<string id="0-5184">Time period used for a measurement.</string>
+		<string id="4-21">Gas Sesnosr Monitor.</string>
+		<string id="0-236">State vector.</string>
+		<string id="0-1410">Each state is a boolean single bit value. SNVT_state_64 is preferred.</string>
+		<string id="0-67">Concentration</string>
+		<string id="3-7">Boolean</string>
+		<string id="3-18">Scaling data.</string>
+		<string id="0-57">Discrete level.</string>
+		<string id="0-2129">This SNVT is obsolete. Use SNVT_switch instead.</string>
+		<string id="0-448">Maximum send time.</string>
+		<string id="0-449">The maximum period of time between consecutive transmissions of the current value.</string>
+		<string id="0-451">Minimum send time.</string>
+		<string id="0-452">The minimum period of time between consecutive transmissions of the current value.</string>
+		<string id="0-798">Running hours alarm threshold level.</string>
+		<string id="0-799">The alarm threshold for the running hours counter.</string>
+		<string id="0-21">Increment count.</string>
+		<string id="0-3327">A 32-bit counter.</string>
+		<string id="0-446">Maximum receive time.</string>
+		<string id="0-669">
+			The maximum period of time that may expire with no updates on the associated input network variables before the object goes into heartbeat failure mode. A zero value disables the mechanism.
+		</string>
+		<string id="0-724">Master-slave operation.</string>
+		<string id="0-725">Used to select master clock or slave clock, non-zero indicates this is master clock.</string>
+		<string id="0-396">HVAC status.</string>
+		<string id="0-383">HVAC mode.</string>
+		<string id="0-91">Temperature</string>
+		<string id="0-385">Occupancy</string>
+		<string id="0-3623">Switch with scene and setting control.</string>
+		<string id="0-3624">An enhanced version of SNVT_switch with scene and setting controls similar to SNVT_scene and SNVT_setting.</string>
+		<string id="0-2369">Alarm status 2.</string>
+		<string id="0-2370">Used to report alarm status for a functional block or device. Replaces SNVT_alarm.</string>
+		<string id="0-5644">LC Scene Definition.</string>
+		<string id="0-3882">Color</string>
+	</strings>
+</ldrf>

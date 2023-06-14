@@ -1,3 +1,0 @@
-name,deviceType,category,protocol,discoveryMethod,installationDate,uid,longitude,latitude,customerName,did,ownerMAC,timezone
-VAV-01,VAV_sim,EDGE,lon,manual,2020-06-29,000000000001,-121.7562,37.2974,Customer 1,1,00-D0-71-07-6B-50,America/Los_Angeles
-DIO-01,SC100-MP,EDGE,lon,manual,2020-06-29,000000000002,-121.7562,37.2974,Customer 1,2,00-D0-71-07-6B-50,America/Los_Angeles

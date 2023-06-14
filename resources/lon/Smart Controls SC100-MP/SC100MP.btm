@@ -1,0 +1,11 @@
+#filetype,bacnet_type_map
+#version,v6.0.0
+#product_name,SC100MP
+Technology,BlockType,BlockHandle,Point Name,bacnet_type,instance,name,description,units,scale_a,scale_b,scale_c,SNVT field
+lon,Digital Input,0,nvoValue,BI,1,Switch 1,Input 0,ON/OFF,1,0,0,state
+lon,Digital Input,1,nvoValue,BI,2,Switch 2,Input 1,ON/OFF,1,0,0,state
+lon,Digital Input,2,nvoValue,BI,3,Switch 3,Input 2,ON/OFF,1,0,0,state
+lon,Digital Input,3,nvoValue,BI,4,Switch 4,Input 3,ON/OFF,1,0,0,state
+lon,Digital Output,0,nviValue,BO,5,Left LED,Output 0,ON/OFF,1,0,0,state
+lon,Digital Output,1,nviValue,BO,6,Middle LED,Output 1,ON/OFF,1,0,0,state
+lon,Digital Output,2,nviValue,BO,7,Right LED,Output 2,ON/OFF,1,0,0,state
