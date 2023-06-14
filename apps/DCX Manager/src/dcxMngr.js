@@ -23,7 +23,7 @@
 const mqtt = require('mqtt');
 const { execSync } = require("child_process");
 
-const version = '1.00.003';
+const version = '1.00.004';
 // dcxMnger.js
 // This application implements scheduled control of DCI device connectivity
 // functions to support PL repeating networks that control power to streetlight
@@ -37,7 +37,9 @@ const version = '1.00.003';
 //
 // In addition, this application integrates the ADAM-6266 DIO module with directy MQTT access.  It will 
 // use the first input of of the 6266 module for a localOvrd input (di1), and drive the relay (do1) to
-// controll segment power.  This 
+// controll segment power.  
+// 06/13/2033: 1.00.004 - Improved startup checks to prevent operating on unitialized input.  Modified
+//   Console messages to include full dates in some output to provide better reference points for events.
 
 
 let onApollo = Boolean(process.platform == 'linux');
@@ -45,6 +47,7 @@ let repeatingActive = '';
 let args = process.argv.slice(1);
 let delayStart = 1;
 let startupPause = 120;
+let inputSetComplete=false;
 const onScript = '/var/apollo/data/apps/dcxMngr/dcxOn.sh';
 const onStaticScript = '/var/apollo/data/apps/dcxMngr/dcxOnStatic.sh';
 const offScript = '/var/apollo/data/apps/dcxMngr/dcxOff.sh';
@@ -194,7 +197,7 @@ let myDevCreateTmo = setTimeout (createInternalDevice,10000);
 //  2. iLocalOvrd.state == 1, higher priority that di1 == false, and iSched.state == 0 
 //  3. iSched.state == 1, higher priority that di1 == false, and iLocalOvrd.state == 0
 function dciEnable () {
-    if (myAppIf.iLocalOvrd == null) {
+    if (!inputSetComplete) {
         return false;
     }
     if (inputState.di1 == true) { 
@@ -276,7 +279,7 @@ function processStateMachine (event) {
                     processStateMachine(Events.DCI_CMD_TMO);
                 }, modeDelay);
             } else {
-                console.log(`[${tsNow.toLocaleTimeString()}] Disable DCI functions`);
+                console.log(`[${tsNow.toLocaleString()}] Disable DCI functions`);
                 setDciEnable(false);
                 segmentPower(false);
             }   
@@ -340,7 +343,7 @@ function processStateMachine (event) {
                     clearTimeout (dciScriptTmo);
                     dciScriptTmo =setTimeout(()=> {   
                         let tsNow = new Date();                 
-                        console.log(`[${tsNow.toLocaleTimeString()}] Enable DCI functions`);
+                        console.log(`[${tsNow.toLocaleString()}] Enable DCI functions`);
                         setDciEnable(true);
                         myAppIf.dciOn = true;
                         updateDp('lon.sys','system',0,'mode','Onnet');
@@ -394,6 +397,7 @@ let inputState = {di1:false,di2:false,di3:false,di4:false};
 let outputState = {do1:null,do2:null,do3:null,do4:null};
 let dioConnected=false;
 let rptModeChkInt;
+
 client.on(
     'message', 
     (topic, message) => {
@@ -460,24 +464,34 @@ client.on(
             updateDp(myAppIf.devHandle, myAppIf.fbName, 0, 'oRestarts', myAppIf.oRestarts);
         }
         if (topic == 'myRespQ') {
+            let pointCount = 0;
             payload.result.forEach((element) => {
-                if(element.item.endsWith('iLocalOvrd')) 
+                if(element.item.endsWith('iLocalOvrd')) { 
                     myAppIf.iLocalOvrd = element.value;
-                if(element.item.endsWith('iSched'))
+                    ++pointCount;
+                }
+                if(element.item.endsWith('iSched')) {
                     myAppIf.iSched = element.value;
-                if(element.item.endsWith('cpDefLevel'))
+                    ++pointCount;
+                }
+                if(element.item.endsWith('cpDefLevel')) {
                     myAppIf.defLevel = element.value;    
+                    ++pointCount;
+                }
                 if(element.item.endsWith('oSegmentSw'))
                     myAppIf.oSegmentSw = element.value;    
                 if(element.item.endsWith('oGroupSw'))
                     myAppIf.oGroupSw = element.value;    
-                if(element.item.endsWith('cpGroupDelay'))
-                    myAppIf.groupDelay = element.value * 1000;            
-                if(element.item.endsWith('cpOffSequence')) 
+                if(element.item.endsWith('cpGroupDelay')) {
+                    myAppIf.groupDelay = element.value * 1000;
+                    ++pointCount;
+                }            
+                if(element.item.endsWith('cpOffSequence')) { 
                     myAppIf.offSequence = element.value; 
+                    ++pointCount;
+                }
                 if(element.item.endsWith('oRestarts')) 
                     myAppIf.oRestarts = element.value; 
-                             
             });
             console.log(`[${tsNow.toLocaleString()}] - DCX manager startup:`);
             console.log(`\tiLocalOvrd: ${JSON.stringify(myAppIf.iLocalOvrd)}`);
@@ -486,9 +500,15 @@ client.on(
             console.log(`\tdefLevel: ${JSON.stringify(myAppIf.defLevel)}`);
             console.log(`\toffSequence: ${JSON.stringify(myAppIf.offSequence)}`);
             console.log(`\toRestarts: ${myAppIf.oRestarts}`);
-            processStateMachine(Events.NO_EVENT);
-            client.unsubscribe('myRespQ');
-            client.subscribe ('Advantech/+/Device_Status');
+            if (pointCount >= 5) {
+                inputSetComplete = true;
+                processStateMachine(Events.NO_EVENT);
+                client.unsubscribe('myRespQ');
+                client.subscribe ('Advantech/+/Device_Status');
+            } else {
+                console.log('[${tsNow.toLocaleString()}] *** Failed to initialize point values.  Exiting now.');
+                process.exit(1);
+            }
         }
         // Auto detect presense of an Adam-6266 connected to the WAN/eth1 port on 
         // subnet 192.168.2.x.  Adam-6266 expecting to find the MQTT broker at 192.168.2.222
