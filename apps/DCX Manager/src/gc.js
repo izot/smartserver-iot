@@ -24,7 +24,8 @@
 const mqtt = require('mqtt');
 const { execSync } = require("child_process");
 
-const version = '1.00.003';
+const version = '1.00.004';
+const actionTrace=true;
 
 // gc.js
 // This application implements 16 simple group controllers.  The first gc will optionally manage 
@@ -136,6 +137,10 @@ function updateDp (devHndl, fb, index, dp, value) {
                 console.error (`Failed to update: ${outputPnt} : ${err}`);
         }
     );
+    if (actionTrace) {
+        let tsNow = new Date();
+        console.log(`[${tsNow.toLocaleString}] GC[${index}].${dp}.value: ${JSON.stringify(value)}`);
+    }
 }
 let gcDevRe = /fb\/dev\/lon\/GC-1\/sts/g;
 let gcUpdateRe = new RegExp(`ev\/updated\/dev\/lon\/type\/${myAppIf.appPID}`);
@@ -160,7 +165,7 @@ client.on(
 
             if (provisioned != 'deleted') {               
                 state = payload.health;
-                console.log (`\t${thisDevHndl} - State: ${provisioned} - Health: ${state} `); 
+                console.log (`[${tsNow.toLocaleString()}] ${thisDevHndl} - State: ${provisioned} - Health: ${state} `); 
                 client.subscribe(`${glpPrefix}/ev/updated/dev/lon/type/${myAppIf.appPID}`);
                 clearTimeout(myDevCreateTmo); 
             }  
@@ -188,6 +193,7 @@ client.on(
                 case 'iRemOvrd':
                     // Add BLupdateDp (myAppIf.devHandle,myAppIf.fbName,thisFb,'oDimVal',payload.value);
                     updateDp (dp.handle,dp.fb,dp.fbIndex,'oDimVal',dp.val);
+                    updateDp (dp.handle,dp.fb,dp.fbIndex,'oDimSw2val',sw2);
                     break;
                 case 'iSchedule':
                     // Add BL    
@@ -195,7 +201,7 @@ client.on(
                     updateDp (dp.handle,dp.fb,dp.fbIndex,'oDimSw2val',sw2);
                     break; 
             }
-            console.log(`[${tsNow.toLocaleTimeString()}] update from: ${dp.handle}/${dp.fb}/${dp.fbIndex}/${dp.dp}: ${JSON.stringify(dp.val)}`);
+            console.log(`[${tsNow.toLocaleString()}] update from: ${dp.handle}/${dp.fb}/${dp.fbIndex}/${dp.dp}: ${JSON.stringify(dp.val)}`);
             lastUpdate = dpFingerPrint;
             // Clear lastValue after 500ms 
             updateDelayTmo = setTimeout(()=>{

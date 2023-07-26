@@ -23,7 +23,7 @@
 const mqtt = require('mqtt');
 const { execSync } = require("child_process");
 
-const version = '1.00.004';
+const version = '1.00.005';
 // dcxMnger.js
 // This application implements scheduled control of DCI device connectivity
 // functions to support PL repeating networks that control power to streetlight
@@ -43,21 +43,27 @@ const version = '1.00.004';
 
 
 let onApollo = Boolean(process.platform == 'linux');
-let repeatingActive = '';
 let args = process.argv.slice(1);
+let ap_version = onApollo ? process.env.APOLLO_VERSION : '0.00.000';
+let serviceEnv = parseInt(ap_version.split('.')[0],10);
 let delayStart = 1;
 let startupPause = 120;
+let down
 let inputSetComplete=false;
+let fixPlRepeating=true;
 const onScript = '/var/apollo/data/apps/dcxMngr/dcxOn.sh';
 const onStaticScript = '/var/apollo/data/apps/dcxMngr/dcxOnStatic.sh';
 const offScript = '/var/apollo/data/apps/dcxMngr/dcxOff.sh';
+const upScript = '/var/apollo/data/apps/dcxMngr/dcxUp.sh';
+
 const States = Object.freeze({OFF: 'OFF', ON: 'ON',  DCI_ENABLE: 'DCI_ENABLE', SET_ONNET:'SET_ONNET', SET_MAINT:'SET_MAINT', DCI_DISABLE:'DCI_DISABLE', INIT:'INIT' });
 const Events = Object.freeze({BYPASS_OFF: 0, BYPASS_ON:1, SCHED_ON:2, SCHED_OFF:3, DCI_CMD_TMO:4, MODE_TMO:5, GRP_MSG_TMO:6, NO_EVENT: 7 });
+// These are the values the lep uses.  $
 const PL_Modes = Object.freeze({OFF:'repeatingDisabled', OPTIMIZED:'optimizedProxyChain',STATIC:'staticProxyChain'});
 let controlState = States.INIT;
 // DevNote: Hardcoded address for target to change
-let mqttBroker =  (onApollo) ? 'mqtt://127.0.0.1:1883' : 'mqtt://192.168.10.203';
-
+let mqttBroker =  (onApollo) ? 'mqtt://127.0.0.1:1883' : 'mqtt://10.100.16.216';
+let repeatingActive = PL_Modes.OPTIMIZED;
 let myAppIf = {
         appPID : '9000010600008502',    
         fbName : 'DcxManager',            
@@ -75,6 +81,9 @@ let myAppIf = {
         isActive : false,
         dciOn : null         
 };    
+
+let downDevices = new Set();
+
 const dioRelay='do1';
 const dioCtlOn = {'v':true};
 const dioCtlOff = {'v':false};
@@ -91,21 +100,28 @@ const dciCmdDelay = 2000;
 const modeDelay =  5000;
 const cmdDelay = 10000;
 const uptimeInterval = 60000;
+const downCheckInterval = 300000;
 
 function cmdBanner (){
-    console.log(`dcxMngr.js - version: ${version}`); 
+    console.log(`dcxMngr.js - version: ${version} Apollo Version: ${ap_version}`); 
+    
 };
 cmdBanner();
 if (args.length > 1) {
     delayStart = parseInt(args[1],10);    
-    //console.log (`Delay active: ${onApollo && delayStart} arg[0]: ${args[0]}`);               
+    //console.log (`Delay active: ${onApollo && delayStart} arg[0]: ${args[0]}`);  
+    if (args.length == 3) 
+        if (args[2].toLocaleLowerCase() == 'static')
+            repeatingActive = PL_Modes.STATIC;
+
 }
-console.log(`onApollo: ${onApollo} - Delay Start: ${delayStart} - Start Delay ${startupPause} `);
+console.log(`onApollo: ${onApollo} - Delay Start: ${delayStart} - Start Delay ${startupPause} - Repeating: ${repeatingActive} `);
  
 if (onApollo && delayStart) {
     console.log(`Allowing SIOT processes to initialize.  Sleep for: ${(startupPause ).toString()}s`);
     // Only in linux
     execSync("sleep " +  (startupPause).toString());  
+    
 } 
 
 let glpPrefix='glp/0';  // this will include the sid once determined
@@ -189,6 +205,17 @@ function setDciEnable(enable) {
         console.log(`DCI state emulated: ${enable}`);
     }
 }
+function setAllUp() {
+    if (repeatingActive == PL_Modes.OFF) {
+        console.log('PL repeating is OFF.  DCI control is not possible');
+        return;
+    }
+    if (onApollo) {
+        execSync(upScript);   
+    } else {
+        console.log(`DCI UP sim`);
+    }    
+}
 
 // If Internal devices required are not present, this function will fire
 let myDevCreateTmo = setTimeout (createInternalDevice,10000); 
@@ -251,6 +278,7 @@ function processStateMachine (event) {
     switch (controlState) {
         case States.INIT:
             if (dciEnable()) { 
+                setAllUp();
                 segmentPower(true);
                 //setDciEnable(true);
                 clearTimeout (modeTmo);
@@ -271,6 +299,7 @@ function processStateMachine (event) {
             break;
         case States.OFF:
             if (dciEnable()) {
+                setAllUp();
                 segmentPower(true);
                 //setDciEnable(true);
                 clearTimeout (modeTmo);
@@ -339,17 +368,18 @@ function processStateMachine (event) {
                     updateDp(myAppIf.devHandle, myAppIf.fbName, 0, 'oGroupSw', newSw);
                 }
                 // Delay DCI function enable    
-                if (!myAppIf.dciOn) {
+                //if (!myAppIf.dciOn) {
                     clearTimeout (dciScriptTmo);
                     dciScriptTmo =setTimeout(()=> {   
                         let tsNow = new Date();                 
-                        console.log(`[${tsNow.toLocaleString()}] Enable DCI functions`);
+                        console.log(`[${tsNow.toLocaleTimeString()}] Enable DCI functions`);
                         setDciEnable(true);
                         myAppIf.dciOn = true;
                         updateDp('lon.sys','system',0,'mode','Onnet');
                     },myAppIf.groupDelay);
 
-                }  
+                // } 
+                //} 
 
             }
             break;                      
@@ -387,8 +417,9 @@ function updateDp (devHndl, fb, index, dp, value) {
     );
 }
 
-let devStsRe = new RegExp(`fb/dev/lon/${myAppIf.devHandle}/sts`);
+let devStsRe = new RegExp(`fb\/dev\/lon\/${myAppIf.devHandle}\/sts`);
 let dciUpdateRe = new RegExp(`ev\/updated\/dev\/lon\/type\/${myAppIf.appPID}`);
+let edgeDeviceStsRe = new RegExp('fb\/dev\/lon\/[a-zA-Z0-9]+\/sts');
 
 let updateDelayTmo;
 let dioMac='';
@@ -397,6 +428,28 @@ let inputState = {di1:false,di2:false,di3:false,di4:false};
 let outputState = {do1:null,do2:null,do3:null,do4:null};
 let dioConnected=false;
 let rptModeChkInt;
+function doTest (devHndl) {
+    let topic = `${glpPrefix}/rq/dev/lon/${devHndl}/do`;
+    let msg = {action:'test'};
+    client.publish(topic,JSON.stringify(msg));
+}
+let downCheckTmr;
+let setIterator = downDevices[Symbol.iterator]();
+
+// Round robin device test for provisioned devices that are down.
+// Device point polling should normally brind devices back to normal
+// This is a backstop measure.
+downCheckTmr = setInterval(()=> {
+    if (downDevices.size == 0)
+        return;
+    let thisDev = setIterator.next().value;
+    if (typeof (thisDev) == 'undefined') { 
+        setIterator = downDevices[Symbol.iterator]();
+        thisDev = setIterator.next().value;
+    }
+    console.log (`Testing device handle: ${thisDev.toLocaleString()}`);
+    doTest(thisDev.toLocaleString());
+}, downCheckInterval);
 
 client.on(
     'message', 
@@ -411,14 +464,24 @@ client.on(
         }  
         if (topic == lonSysTopic) {
             if (typeof (payload.meta.link.channel) !== 'undefined') {
+                client.unsubscribe(lonSysTopic);
+                // TODO: work with fixPlRepeating false and drop the next to lines
+                if (fixPlRepeating) {
+                    console.log (`Using fixed PL Repeating: ${repeatingActive}`);
+                    return;
+                }
                 // dev handle lon.sys/impl meta.link.channel describes the handle of the interface
-                lepInterfaceTopic = `lep/0/lon/0/reponse/${payload.meta.link.channel.split('/')[2]}/meta`;
+                let lonChannel = payload.meta.link.channel.split('/')[2]
+                lepInterfaceTopic = `lep/0/lon/0/response/${lonChannel}/meta`;
                 console.log(`lep interface: ${lepInterfaceTopic}`);
                 client.subscribe(lepInterfaceTopic);
+                //TODO: This in not showing up for some reason              
+                client.publish(`lep/0/lon/0/request/${lonChannel}`, JSON.stringify({method:'GET'}));
+                console.log(`Request PL repeating mode ${lonChannel}`);    
             }
         }
         if (topic == lepInterfaceTopic) {
-            repeatingActive = payload.body.modeDelay;
+            repeatingActive = payload.body.meta.link.mode;
             console.log(`[${tsNow.toLocaleString()}] PL repeating Mode: ${repeatingActive}`);
         }
         if (topic.match (devStsRe)) {
@@ -447,6 +510,7 @@ client.on(
                         'dev/lon/dcx-1/if/DcxManager/0/cpOffSequence',
                         'dev/lon/dcx-1/if/DcxManager/0/oRestarts'
                     ], response:"myRespQ"}));
+                    client.subscribe(`${glpPrefix}/fb/dev/lon/+/sts`);
                 }
 
             } 
@@ -454,7 +518,25 @@ client.on(
                 clearInterval(rptModeChkInt);
                 myAppIf.isActive = false; 
             }
+            return;
         } 
+        // Background Up check
+        if (topic.match(edgeDeviceStsRe)) {
+            let provisioned = 'unknown';
+            let state = 'unknown';
+            let thisDevHndl = topic.split('/')[6];
+            provisioned = payload.state;
+            if (provisioned == 'provisioned') {
+                if (payload.health == 'down') {
+                    console.log(`[${tsNow.toLocaleTimeString()}] Device: ${thisDevHndl} is down.`)
+                    downDevices.add(thisDevHndl);
+                }
+                if (payload.health == 'normal') {
+                    downDevices.delete(thisDevHndl);  
+                    console.log(`[${tsNow.toLocaleTimeString()}] Device: ${thisDevHndl} is normal.`)
+                }
+            }
+        }
         // lepAboutTopic fires when lte restarts.  Adding resources can restart LTE. Some restarts are to be
         // expected.  But if once should occur while dp updates or binding requests are in flight, these operations
         // can be lost.  Lighting managment software should monitor oRestarts while management operations are processed.
@@ -468,10 +550,12 @@ client.on(
             payload.result.forEach((element) => {
                 if(element.item.endsWith('iLocalOvrd')) { 
                     myAppIf.iLocalOvrd = element.value;
+                    console.log(`\tiLocalOvrd: ${JSON.stringify(myAppIf.iLocalOvrd)}`);
                     ++pointCount;
                 }
                 if(element.item.endsWith('iSched')) {
                     myAppIf.iSched = element.value;
+                    console.log(`\tiSched: ${JSON.stringify(myAppIf.iSched)}`);
                     ++pointCount;
                 }
                 if(element.item.endsWith('cpDefLevel')) {
