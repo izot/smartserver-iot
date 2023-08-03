@@ -23,7 +23,7 @@
 const mqtt = require('mqtt');
 const { execSync } = require("child_process");
 
-const version = '1.00.005';
+const version = '1.00.006';
 // dcxMnger.js
 // This application implements scheduled control of DCI device connectivity
 // functions to support PL repeating networks that control power to streetlight
@@ -62,7 +62,7 @@ const Events = Object.freeze({BYPASS_OFF: 0, BYPASS_ON:1, SCHED_ON:2, SCHED_OFF:
 const PL_Modes = Object.freeze({OFF:'repeatingDisabled', OPTIMIZED:'optimizedProxyChain',STATIC:'staticProxyChain'});
 let controlState = States.INIT;
 // DevNote: Hardcoded address for target to change
-let mqttBroker =  (onApollo) ? 'mqtt://127.0.0.1:1883' : 'mqtt://10.100.16.216';
+let mqttBroker =  (onApollo) ? 'mqtt://127.0.0.1:1883' : 'mqtt://192.168.10.201';
 let repeatingActive = PL_Modes.OPTIMIZED;
 let myAppIf = {
         appPID : '9000010600008502',    
@@ -70,7 +70,7 @@ let myAppIf = {
         devHandle : 'dcx-1',
         iLocalOvrd: null,
         iSched    : null, 
-        oGroupSw: null,
+        oGroupSw: {value:0, state:0},
         oSegmentSw: null,
         oRestarts: null, 
         bypassState : null, 
@@ -95,6 +95,7 @@ let lonSysTopic = '';
 let dciScriptTmo;
 let modeTmo;
 let cmdTmo; 
+let initializeSet = new Set();
 
 const dciCmdDelay = 2000;
 const modeDelay =  5000;
@@ -227,6 +228,7 @@ function dciEnable () {
     if (!inputSetComplete) {
         return false;
     }
+    
     if (inputState.di1 == true) { 
         myAppIf.scheduled = false;
         return true;
@@ -427,12 +429,19 @@ let lastUpdate = {};
 let inputState = {di1:false,di2:false,di3:false,di4:false};
 let outputState = {do1:null,do2:null,do3:null,do4:null};
 let dioConnected=false;
-let rptModeChkInt;
+
 function doTest (devHndl) {
     let topic = `${glpPrefix}/rq/dev/lon/${devHndl}/do`;
     let msg = {action:'test'};
     client.publish(topic,JSON.stringify(msg));
 }
+// Points that need initial values from IAP
+initializeSet.add('iLocalOvrd');
+initializeSet.add('iSched');
+initializeSet.add('cpDefLevel');
+initializeSet.add('cpGroupDelay');
+initializeSet.add('cpOffSequence');
+
 let downCheckTmr;
 let setIterator = downDevices[Symbol.iterator]();
 
@@ -442,6 +451,8 @@ let setIterator = downDevices[Symbol.iterator]();
 downCheckTmr = setInterval(()=> {
     if (downDevices.size == 0)
         return;
+    if (!myAppIf.dciOn) 
+        return;   
     let thisDev = setIterator.next().value;
     if (typeof (thisDev) == 'undefined') { 
         setIterator = downDevices[Symbol.iterator]();
@@ -490,7 +501,7 @@ client.on(
             let thisDevHndl = topic.split('/')[6];
             provisioned = payload.state;
 
-            if (provisioned != 'deleted') {               
+            if (provisioned == 'provisioned') {               
                 state = payload.health;
                 console.log (`\t${thisDevHndl} - State: ${provisioned} - Health: ${state} `); 
                 myAppIf.isActive = true;
@@ -499,6 +510,7 @@ client.on(
                     clearTimeout(myDevCreateTmo); 
                     client.subscribe(lepAboutTopic);
                     client.subscribe('myRespQ');
+
                     client.publish(
                         `${glpPrefix}/=get/dp/request`,
                         JSON.stringify({item:['dev/lon/dcx-1/if/DcxManager/0/iLocalOvrd',
@@ -515,7 +527,6 @@ client.on(
 
             } 
             if (provisioned !== 'provisioned') {
-                clearInterval(rptModeChkInt);
                 myAppIf.isActive = false; 
             }
             return;
@@ -547,20 +558,22 @@ client.on(
         }
         if (topic == 'myRespQ') {
             let pointCount = 0;
+            console.log(`[${tsNow.toLocaleString()}] - DCX manager startup:`);
             payload.result.forEach((element) => {
                 if(element.item.endsWith('iLocalOvrd')) { 
-                    myAppIf.iLocalOvrd = element.value;
+                    myAppIf.iLocalOvrd = element.value != null ? element.value : {value:0,state:0};
                     console.log(`\tiLocalOvrd: ${JSON.stringify(myAppIf.iLocalOvrd)}`);
-                    ++pointCount;
+                    initializeSet.delete('iLocalOvrd');
                 }
                 if(element.item.endsWith('iSched')) {
-                    myAppIf.iSched = element.value;
+                    myAppIf.iSched = element.value != null ? element.value : {value:0,state:0};
                     console.log(`\tiSched: ${JSON.stringify(myAppIf.iSched)}`);
-                    ++pointCount;
+                    initializeSet.delete('iSched');
                 }
                 if(element.item.endsWith('cpDefLevel')) {
                     myAppIf.defLevel = element.value;    
-                    ++pointCount;
+                    console.log(`\tdefLevel: ${JSON.stringify(myAppIf.defLevel)}`);
+                    initializeSet.delete('cpDefLevel');
                 }
                 if(element.item.endsWith('oSegmentSw'))
                     myAppIf.oSegmentSw = element.value;    
@@ -568,23 +581,21 @@ client.on(
                     myAppIf.oGroupSw = element.value;    
                 if(element.item.endsWith('cpGroupDelay')) {
                     myAppIf.groupDelay = element.value * 1000;
-                    ++pointCount;
+                    console.log(`\tgroupDelay: ${JSON.stringify(myAppIf.groupDelay)}`);
+                    initializeSet.delete('cpGroupDelay');
                 }            
                 if(element.item.endsWith('cpOffSequence')) { 
                     myAppIf.offSequence = element.value; 
-                    ++pointCount;
+                    console.log(`\toffSequence: ${JSON.stringify(myAppIf.offSequence)}`);
+                    initializeSet.delete('cpOffSequence');
                 }
                 if(element.item.endsWith('oRestarts')) 
-                    myAppIf.oRestarts = element.value; 
+                console.log(`\toRestarts: ${myAppIf.oRestarts}`);                    
+                myAppIf.oRestarts = element.value; 
             });
-            console.log(`[${tsNow.toLocaleString()}] - DCX manager startup:`);
-            console.log(`\tiLocalOvrd: ${JSON.stringify(myAppIf.iLocalOvrd)}`);
-            console.log(`\tiSched: ${JSON.stringify(myAppIf.iSched)}`);
-            console.log(`\tgroupDelay: ${JSON.stringify(myAppIf.groupDelay)}`);
-            console.log(`\tdefLevel: ${JSON.stringify(myAppIf.defLevel)}`);
-            console.log(`\toffSequence: ${JSON.stringify(myAppIf.offSequence)}`);
-            console.log(`\toRestarts: ${myAppIf.oRestarts}`);
-            if (pointCount >= 5) {
+
+
+            if (initializeSet.size == 0) {
                 inputSetComplete = true;
                 processStateMachine(Events.NO_EVENT);
                 client.unsubscribe('myRespQ');
