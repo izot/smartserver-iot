@@ -23,8 +23,9 @@
 'use strict';
 const mqtt = require('mqtt');
 const { execSync } = require("child_process");
+const { log } = require('util');
 
-const version = '1.00.004';
+const version = '1.01.001';
 const actionTrace=true;
 
 // gc.js
@@ -35,6 +36,9 @@ const actionTrace=true;
 let pendingCreate;
 let tsNow = new Date();
 let onApollo = Boolean(process.platform == 'linux');
+let ap_version = onApollo ? process.env.APOLLO_VERSION : '0.00.000';
+let serviceEnv = parseInt(ap_version.split('.')[0],10);
+
 let args = process.argv.slice(1);
 let delayStart = 1;
 let startupPause = 120;
@@ -50,9 +54,17 @@ let myAppIf = {
         devHandle : 'GC-1',               
 };    
 
+function logPrefix (fullDate) {
+    let tsNow = new Date();
+    if(!onApollo || serviceEnv < 4) {
+        return `[${fullDate ? tsNow.toLocaleString():tsNow.toLocaleTimeString()}] -`
+    } else
+        return ` `;
+}
+
 function cmdBanner (){
     console.log(`\ngc.js - version: ${version}`); 
-    console.log(`[${tsNow.toLocaleString()}] - Startup.`)   
+    console.log(`${logPrefix(true)} - Startup.`)   
 };
 cmdBanner();
 if (args.length > 1) {
@@ -85,7 +97,7 @@ function createGcDevice () {
     let thisHndl = myAppIf.devHandle;
     let thisPID = myAppIf.appPID;
 
-    console.log(`[${tsNow.toLocaleTimeString()}] Creating: ${thisHndl} based on PID: ${thisPID}`);
+    console.log(`${logPrefix(false)} Creating: ${thisHndl} based on PID: ${thisPID}`);
     let createMyAppMsg = {
         action: 'create',
         args: {
@@ -139,7 +151,7 @@ function updateDp (devHndl, fb, index, dp, value) {
     );
     if (actionTrace) {
         let tsNow = new Date();
-        console.log(`[${tsNow.toLocaleString}] GC[${index}].${dp}.value: ${JSON.stringify(value)}`);
+        console.log(`${logPrefix(false)} GC[${index}].${dp}.value: ${JSON.stringify(value)}`);
     }
 }
 let gcDevRe = /fb\/dev\/lon\/GC-1\/sts/g;
@@ -165,7 +177,7 @@ client.on(
 
             if (provisioned != 'deleted') {               
                 state = payload.health;
-                console.log (`[${tsNow.toLocaleString()}] ${thisDevHndl} - State: ${provisioned} - Health: ${state} `); 
+                console.log (`${logPrefix(true)} ${thisDevHndl} - State: ${provisioned} - Health: ${state} `); 
                 client.subscribe(`${glpPrefix}/ev/updated/dev/lon/type/${myAppIf.appPID}`);
                 clearTimeout(myDevCreateTmo); 
             }  
@@ -189,19 +201,21 @@ client.on(
                     // Add BL
                     updateDp (dp.handle,dp.fb,dp.fbIndex,'oDimVal',dp.val);
                     updateDp (dp.handle,dp.fb,dp.fbIndex,'oDimSw2val',sw2);
-                    break;
+                    console.log(`${logPrefix(false)} update from: ${dp.handle}/${dp.fb}/${dp.fbIndex}/${dp.dp}: ${JSON.stringify(dp.val)}`);                    break;
                 case 'iRemOvrd':
                     // Add BLupdateDp (myAppIf.devHandle,myAppIf.fbName,thisFb,'oDimVal',payload.value);
                     updateDp (dp.handle,dp.fb,dp.fbIndex,'oDimVal',dp.val);
                     updateDp (dp.handle,dp.fb,dp.fbIndex,'oDimSw2val',sw2);
+                    console.log(`${logPrefix(false)} update from: ${dp.handle}/${dp.fb}/${dp.fbIndex}/${dp.dp}: ${JSON.stringify(dp.val)}`);
                     break;
                 case 'iSchedule':
                     // Add BL    
                     updateDp (dp.handle,dp.fb,dp.fbIndex,'oDimVal',dp.val);
                     updateDp (dp.handle,dp.fb,dp.fbIndex,'oDimSw2val',sw2);
+                    console.log(`${logPrefix(false)} update from: ${dp.handle}/${dp.fb}/${dp.fbIndex}/${dp.dp}: ${JSON.stringify(dp.val)}`);
                     break; 
             }
-            console.log(`[${tsNow.toLocaleString()}] update from: ${dp.handle}/${dp.fb}/${dp.fbIndex}/${dp.dp}: ${JSON.stringify(dp.val)}`);
+
             lastUpdate = dpFingerPrint;
             // Clear lastValue after 500ms 
             updateDelayTmo = setTimeout(()=>{
@@ -211,7 +225,7 @@ client.on(
 
     } catch(error) {
         let tsNow = new Date();
-        console.error(`[${tsNow.toLocaleTimeString()}] MQTT Message: ${error.stack}`);
+        console.error(`${logPrefix(false)} MQTT Message: ${error.stack}`);
     }
 }   // onMessage handler
 );  // onMessage registrations

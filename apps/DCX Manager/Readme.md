@@ -3,6 +3,7 @@ This application supports power line outdoor lighting systems where the streetli
 
 Release 1.05 created on 07/25/2023 has a key feature addition to force devices to the UP state when segement power is switched ON.
 Releae 1.06 - fixed startup initialization issues.
+Release 1.01.001 - Logging specific to 4.0x service architecture. Capturing provission, and connection requests.
 
 1. `DCX Manager Service Integration Guide.pdf` - Instructions on how to install and use the DCX Manager service.
 2. `src` - This folder contains the source code for the DCX Manager and Group controller used in this solution.

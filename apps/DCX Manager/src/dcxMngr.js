@@ -23,7 +23,7 @@
 const mqtt = require('mqtt');
 const { execSync } = require("child_process");
 
-const version = '1.00.006';
+const version = '1.01.001';
 // dcxMnger.js
 // This application implements scheduled control of DCI device connectivity
 // functions to support PL repeating networks that control power to streetlight
@@ -48,7 +48,7 @@ let ap_version = onApollo ? process.env.APOLLO_VERSION : '0.00.000';
 let serviceEnv = parseInt(ap_version.split('.')[0],10);
 let delayStart = 1;
 let startupPause = 120;
-let down
+
 let inputSetComplete=false;
 let fixPlRepeating=true;
 const onScript = '/var/apollo/data/apps/dcxMngr/dcxOn.sh';
@@ -83,7 +83,7 @@ let myAppIf = {
 };    
 
 let downDevices = new Set();
-
+let deviceMap = new Map();
 const dioRelay='do1';
 const dioCtlOn = {'v':true};
 const dioCtlOff = {'v':false};
@@ -102,6 +102,14 @@ const modeDelay =  5000;
 const cmdDelay = 10000;
 const uptimeInterval = 60000;
 const downCheckInterval = 300000;
+
+function logPrefix (fullDate) {
+    let tsNow = new Date();
+    if(!onApollo || serviceEnv < 4) {
+        return `[${fullDate ? tsNow.toLocaleString():tsNow.toLocaleTimeString()}] -`
+    } else
+        return ` `;
+}
 
 function cmdBanner (){
     console.log(`dcxMngr.js - version: ${version} Apollo Version: ${ap_version}`); 
@@ -147,12 +155,13 @@ setInterval(()=>{
     uptimeLTE += 60;
     updateDp(myAppIf.devHandle, myAppIf.fbName, 0,'oUpTime',uptimeLTE);
 },uptimeInterval);
+
 function createInternalDevice () {
     let tsNow = new Date();
     let thisHndl = myAppIf.devHandle;
     let thisPID = myAppIf.appPID;
 
-    console.log(`[${tsNow.toLocaleTimeString()}] Creating: ${thisHndl} based on PID: ${thisPID}`);
+    console.log(`${logPrefix(false)} Creating: ${thisHndl} based on PID: ${thisPID}`);
     let createMyAppMsg = {
         action: 'create',
         args: {
@@ -193,14 +202,16 @@ function setDciEnable(enable) {
         console.log('PL repeating is OFF.  DCI control is not possible');
         return;
     }
+    myAppIf.dciOn = enable;
     if (onApollo) {
         if (enable) {
             if (repeatingActive == PL_Modes.OPTIMIZED)
                 execSync(onScript);
             else
-                execSync(onStaticScript);    
-        } else
+                execSync(onStaticScript);      
+        } else 
             execSync(offScript);
+
         //console.log(`DCI Enabled: ${enable}`);     
     } else {
         console.log(`DCI state emulated: ${enable}`);
@@ -282,10 +293,9 @@ function processStateMachine (event) {
             if (dciEnable()) { 
                 setAllUp();
                 segmentPower(true);
-                //setDciEnable(true);
                 clearTimeout (modeTmo);
                 modeTmo = setTimeout (()=> {
-                    controlState = States.SET_ONNET;
+                    controlState = States.ON;
                     processStateMachine(Events.DCI_CMD_TMO);
                 }, modeDelay);
             } else { // At startup we need to squence to OFF gracefully
@@ -293,7 +303,7 @@ function processStateMachine (event) {
                 //updateDp(myAppIf.devHandle, myAppIf.fbName, 0, 'oGroupSw', swOff);
                 clearTimeout (cmdTmo);
                 cmdTmo = setTimeout(()=> {
-                    controlState = States.SET_MAINT;
+                    controlState = States.OFF;
                     processStateMachine(Events.GRP_MSG_TMO);
                 },modeDelay);
 
@@ -303,14 +313,13 @@ function processStateMachine (event) {
             if (dciEnable()) {
                 setAllUp();
                 segmentPower(true);
-                //setDciEnable(true);
                 clearTimeout (modeTmo);
                 modeTmo = setTimeout (()=> {
-                    controlState = States.SET_ONNET;
+                    controlState = States.ON;
                     processStateMachine(Events.DCI_CMD_TMO);
                 }, modeDelay);
             } else {
-                console.log(`[${tsNow.toLocaleString()}] Disable DCI functions`);
+                console.log(`${logPrefix(false)} Disable DCI functions`);
                 setDciEnable(false);
                 segmentPower(false);
             }   
@@ -326,7 +335,7 @@ function processStateMachine (event) {
                 },cmdDelay);
             } else {
                 clearTimeout(modeTmo);
-                updateDp('lon.sys','system',0,'mode','Maintenance');
+                //updateDp('lon.sys','system',0,'mode','Maintenance');
                 controlState = States.SET_MAINT;
             }
             break;    
@@ -336,7 +345,7 @@ function processStateMachine (event) {
                 controlState = States.SET_ONNET;
                 updateDp('lon.sys','system',0,'mode','Onnet');
             } else {
-                updateDp('lon.sys','system',0,'mode','Maintenance');
+                //updateDp('lon.sys','system',0,'mode','Maintenance');
                 setTimeout(()=> {
                     controlState = States.OFF;
                     processStateMachine(Events.MODE_TMO);
@@ -348,45 +357,37 @@ function processStateMachine (event) {
             let newSw = calculateGroupLevel();
             if(!dciEnable()) {
                 if (newSw != null) {
-                    updateDp('lon.sys','system',0,'mode','Maintenance');
+                    //updateDp('lon.sys','system',0,'mode','Maintenance');
                     updateDp (myAppIf.devHandle, myAppIf.fbName,0,'oGroupSw',newSw);
                     if (myAppIf.dciOn) {
                         setDciEnable(false);
-                        myAppIf.dciOn = false;
                     } 
                     clearTimeout(dciScriptTmo);
                     clearTimeout(cmdTmo);
                     cmdTmo = setTimeout(()=> {
-                        controlState = States.SET_MAINT;
+                        controlState = States.OFF;
                         processStateMachine(Events.GRP_MSG_TMO);
                     },myAppIf.groupDelay);
                 } else {  
                     clearTimeout(cmdTmo);  
-                    controlState = States.SET_MAINT;
+                    controlState = States.OFF;
                     processStateMachine(Events.NO_EVENT);        
                 }
             } else {    
                 if (newSw.value !== myAppIf.oGroupSw.value) {
                     updateDp(myAppIf.devHandle, myAppIf.fbName, 0, 'oGroupSw', newSw);
                 }
-                // Delay DCI function enable    
-                //if (!myAppIf.dciOn) {
-                    clearTimeout (dciScriptTmo);
-                    dciScriptTmo =setTimeout(()=> {   
+                clearTimeout (dciScriptTmo);
+                dciScriptTmo =setTimeout(()=> {   
                         let tsNow = new Date();                 
-                        console.log(`[${tsNow.toLocaleTimeString()}] Enable DCI functions`);
+                        console.log(`${logPrefix(false)} Enable DCI functions`);
                         setDciEnable(true);
-                        myAppIf.dciOn = true;
                         updateDp('lon.sys','system',0,'mode','Onnet');
-                    },myAppIf.groupDelay);
-
-                // } 
-                //} 
-
+                },myAppIf.groupDelay);
             }
             break;                      
     }
-    console.log(`[${tsNow.toLocaleTimeString()}] Current State: ${controlState}`);
+    console.log(`${logPrefix(false)} Current State: ${controlState}`);
 
 }
 function handleSid (sidMsg) {
@@ -398,6 +399,9 @@ function handleSid (sidMsg) {
             client.subscribe (`${glpPrefix}/fb/dev/lon/+/sts`); 
             lonSysTopic = `${glpPrefix}/fb/dev/lon/lon.sys/impl`;
             client.subscribe (lonSysTopic);
+            client.subscribe (`${glpPrefix}/fb/dev/lon/+/cfg`);
+            client.subscribe (`${glpPrefix}/rq/con/#`);
+            client.subscribe (`${glpPrefix}/rq/dev/lon/#/do`);
             client.unsubscribe (sidTopic);
 
         } else {
@@ -420,8 +424,11 @@ function updateDp (devHndl, fb, index, dp, value) {
 }
 
 let devStsRe = new RegExp(`fb\/dev\/lon\/${myAppIf.devHandle}\/sts`);
+let devCfgRe = new RegExp(`fb\/dev\/lon\/[a-zA-Z0-9]+\/cfg`);
 let dciUpdateRe = new RegExp(`ev\/updated\/dev\/lon\/type\/${myAppIf.appPID}`);
 let edgeDeviceStsRe = new RegExp('fb\/dev\/lon\/[a-zA-Z0-9]+\/sts');
+let conRqRe = new RegExp('rq\/con\/[a-zA-Z0-9]+\/do');
+let devProvRe = new RegExp('rq\/dev\/lon\/[a-zA-Z0-9]+\/do');
 
 let updateDelayTmo;
 let dioMac='';
@@ -458,7 +465,7 @@ downCheckTmr = setInterval(()=> {
         setIterator = downDevices[Symbol.iterator]();
         thisDev = setIterator.next().value;
     }
-    console.log (`Testing device handle: ${thisDev.toLocaleString()}`);
+    console.log (`${logPrefix(false)} Backstop testing device handle: ${thisDev.toLocaleString()}`);
     doTest(thisDev.toLocaleString());
 }, downCheckInterval);
 
@@ -493,7 +500,7 @@ client.on(
         }
         if (topic == lepInterfaceTopic) {
             repeatingActive = payload.body.meta.link.mode;
-            console.log(`[${tsNow.toLocaleString()}] PL repeating Mode: ${repeatingActive}`);
+            console.log(`${logPrefix(false)} PL repeating Mode: ${repeatingActive}`);
         }
         if (topic.match (devStsRe)) {
             let provisioned = 'unknown';
@@ -501,7 +508,7 @@ client.on(
             let thisDevHndl = topic.split('/')[6];
             provisioned = payload.state;
 
-            if (provisioned == 'provisioned') {               
+            if (provisioned != 'deleted') {               
                 state = payload.health;
                 console.log (`\t${thisDevHndl} - State: ${provisioned} - Health: ${state} `); 
                 myAppIf.isActive = true;
@@ -531,6 +538,10 @@ client.on(
             }
             return;
         } 
+        if (topic.match(devCfgRe)) {
+            let thisDevHndl = topic.split('/')[6];
+            deviceMap.set(thisDevHndl,payload.name);
+        }
         // Background Up check
         if (topic.match(edgeDeviceStsRe)) {
             let provisioned = 'unknown';
@@ -538,13 +549,13 @@ client.on(
             let thisDevHndl = topic.split('/')[6];
             provisioned = payload.state;
             if (provisioned == 'provisioned') {
-                if (payload.health == 'down') {
-                    console.log(`[${tsNow.toLocaleTimeString()}] Device: ${thisDevHndl} is down.`)
+                if (payload.health == 'down' && !downDevices.has(thisDevHndl)) {
+                    console.log(`${logPrefix(false)} Device: ${deviceMap.has(thisDevHndl) ? deviceMap.get(thisDevHndl):thisDevHndl} is down.`);
                     downDevices.add(thisDevHndl);
                 }
                 if (payload.health == 'normal') {
-                    downDevices.delete(thisDevHndl);  
-                    console.log(`[${tsNow.toLocaleTimeString()}] Device: ${thisDevHndl} is normal.`)
+                    downDevices.delete(thisDevHndl);                    
+                    console.log(`${logPrefix(false)} Device: ${deviceMap.has(thisDevHndl) ? deviceMap.get(thisDevHndl):thisDevHndl} is normal.`);
                 }
             }
         }
@@ -552,13 +563,13 @@ client.on(
         // expected.  But if once should occur while dp updates or binding requests are in flight, these operations
         // can be lost.  Lighting managment software should monitor oRestarts while management operations are processed.
         if (topic == lepAboutTopic) {
-            console.log(`[${tsNow.toLocaleString()}] - LTE restarted`);
+            console.log(`${logPrefix(false)} - LTE restarted`);
             myAppIf.oRestarts += 1;
             updateDp(myAppIf.devHandle, myAppIf.fbName, 0, 'oRestarts', myAppIf.oRestarts);
         }
         if (topic == 'myRespQ') {
             let pointCount = 0;
-            console.log(`[${tsNow.toLocaleString()}] - DCX manager startup:`);
+            console.log(`${logPrefix(false)} - DCX manager startup:`);
             payload.result.forEach((element) => {
                 if(element.item.endsWith('iLocalOvrd')) { 
                     myAppIf.iLocalOvrd = element.value != null ? element.value : {value:0,state:0};
@@ -601,7 +612,7 @@ client.on(
                 client.unsubscribe('myRespQ');
                 client.subscribe ('Advantech/+/Device_Status');
             } else {
-                console.log('[${tsNow.toLocaleString()}] *** Failed to initialize point values.  Exiting now.');
+                console.log(`${logPrefix(false)} *** Failed to initialize point values.  Exiting now.`);
                 process.exit(1);
             }
         }
@@ -627,7 +638,7 @@ client.on(
                     inputState.di2 = false;
                     inputState.di3 = false;
                     inputState.di4 = false;
-                    console.log(`[${tsNow.toLocaleTimeString()}] - Adam 6266 Disconnected.`)    
+                    console.log(`${logPrefix(false)} - Adam 6266 Disconnected.`)    
                 }
             }
             if (topic.endsWith('data')) {
@@ -648,7 +659,7 @@ client.on(
                     ctlMsg.v = inputState.di1;
                     myAppIf.bypassState = inputState.di1;
                     processStateMachine(inputState.d1 ? Events.BYPASS_ON : Events.BYPASS_OFF);
-                    console.log(`[${tsNow.toLocaleString()}] Local Bypass: ${(inputState.di1 == true) ? 'ON':'OFF'}`);
+                    console.log(`${logPrefix(false)} Local Bypass: ${(inputState.di1 == true) ? 'ON':'OFF'}`);
                     return;    
                 }
             }
@@ -674,7 +685,7 @@ client.on(
                 case 'iSched':
                     myAppIf.iSched = payload.value;
                     controlEvent = payload.value.state == 1 ? Events.SCHED_ON : Events.SCHED_OFF;
-                    console.log(`[${tsNow.toLocaleTimeString()}] - iSched value: ${JSON.stringify(payload.value)}`);
+                    console.log(`${logPrefix(false)} - iSched value: ${JSON.stringify(payload.value)}`);
                     break;
                 case 'cpDefLevel':
                     myAppIf.defLevel = payload.value;    
@@ -687,15 +698,23 @@ client.on(
                 default:
                     break; 
             }
+            
             if (controlEvent !== Events.NO_EVENT)
                 processStateMachine(Events.controlEvent);
             if (!dpFingerPrint.includes('oUpTime'))     
-                console.log(`[${tsNow.toLocaleTimeString()}] ${dpFingerPrint}`);
+                console.log(`${logPrefix(false)} ${dpFingerPrint}`);
             lastUpdate = dpFingerPrint;
             // Clear lastValue after 500ms 
             updateDelayTmo = setTimeout(()=>{
                 lastUpdate = {};
             }, 500);
+        }
+        if (topic.match(conRqRe)) {
+            console.log(`${logPrefix(false)} Connection: ${topic}: ${message}`);
+        }
+        if (topic.match(devProvRe)) {
+            if(payload.action != 'test')
+                console.log(`${logPrefix(false)} Device: ${topic}: ${message}`);
         }
 
     } catch(error) {
