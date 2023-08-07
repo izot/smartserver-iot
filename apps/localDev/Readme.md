@@ -26,3 +26,5 @@ The command parameters above will create 50 local devices based on the XIF with 
 A nodeutil script file (`nuDevices.scr`) is also created by `localDev.exe` when you are doing a multiple device create.
 
 Release 1.00.004: Fixed issue with the header of the devices file
+
+Release 1.00.005: Blocks of devices are created but not provisioned.  Creates better support for Lon device simulations.

@@ -7,7 +7,7 @@
 const mqtt = require('mqtt');
 const fs = require('fs'); 
 
-const appVersion = '1.00.004';
+const appVersion = '1.00.005';
 
 let provisioned = 'unknown';
 let gmState = 'unknown';
@@ -75,7 +75,8 @@ function createDevice (thisDevHandle) {
         args: {
             unid: 'auto',
             type: pidSelect,
-            'lon.attach': 'local'
+            'lon.attach': 'local',
+            provision: (devCount > 0) ? false : true
             }
     }; // CreateMyAppMsg {}
     let setCfg = {
@@ -154,19 +155,20 @@ client.on(
             console.log (`${devHndl} - State: ${provisioned} - Health: ${gmState} `); 
    
         }
+        // 01/04 Events observed to be dropped.  Look for the sts in fb channel
         if (topic.startsWith(`${glpPrefix}/ev/created/dev/lon`)) {
             if (payload.topic.endsWith(pendingDeviceHandle)) {
                 console.log (`${pendingDeviceHandle} created.`)
                 if (devCount == 0) {
                     process.exit(0);
                 } else {
-                    if (pendingDeviceIndex < devCount) {
-                        ++pendingDeviceIndex;
-                        createDevice (`${devHndl}-${pendingDeviceIndex.toString().padStart(2,'0')}`);
-                    } else {
-                        console.log (`${devCount} devices created.`);
-                        devicesCreated = true;
-                    }
+                    // if (pendingDeviceIndex < devCount) {
+                    //     ++pendingDeviceIndex;
+                    //     createDevice (`${devHndl}-${pendingDeviceIndex.toString().padStart(2,'0')}`);
+                    // } else {
+                    //     console.log (`${devCount} devices created.`);
+                    //     devicesCreated = true;
+                    // }
                 }
             } else 
                 console.log (`Create event: ${payload.topic}`);
@@ -186,6 +188,15 @@ client.on(
             let devRecord = `${thisDevHandle},${devTemplate},EDGE,lon,manual,,\'${payload.unid},-121.93216,37.28506,Customer 1,,,` ;
             devCollection.set(thisDevHandle,devRecord);
             uids.add(`${payload.unid}`);
+            if (pendingDeviceIndex < devCount && (thisDevHandle == pendingDeviceHandle)) {
+                ++pendingDeviceIndex;
+                createDevice (`${devHndl}-${pendingDeviceIndex.toString().padStart(2,'0')}`);
+            } else {
+                if (pendingDeviceIndex == devCount) {
+                    devicesCreated = true;
+                    console.log (`${devCount} devices created.`);
+                }
+            }
             if (devCount > 0 && (devCollection.size == devCount) && !deviceFileCreated) {
                 console.log(`Creating CMS import file.`);
                 console.log(`Creating nodeUtil devices script file.`);
