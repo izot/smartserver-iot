@@ -23,7 +23,7 @@
 const mqtt = require('mqtt');
 const { execSync } = require("child_process");
 
-const version = '1.01.001';
+const version = '1.01.003';
 // dcxMnger.js
 // This application implements scheduled control of DCI device connectivity
 // functions to support PL repeating networks that control power to streetlight
@@ -40,7 +40,7 @@ const version = '1.01.001';
 // controll segment power.  
 // 06/13/2033: 1.00.004 - Improved startup checks to prevent operating on unitialized input.  Modified
 //   Console messages to include full dates in some output to provide better reference points for events.
-
+// 08/21/2-23: 1.01.003 - Improved startup and update validation checks to prevent crashes creating by null references
 
 let onApollo = Boolean(process.platform == 'linux');
 let args = process.argv.slice(1);
@@ -161,7 +161,7 @@ function createInternalDevice () {
     let thisHndl = myAppIf.devHandle;
     let thisPID = myAppIf.appPID;
 
-    console.log(`${logPrefix(false)} Creating: ${thisHndl} based on PID: ${thisPID}`);
+    console.log(`${logPrefix(false)}Creating: ${thisHndl} based on PID: ${thisPID}`);
     let createMyAppMsg = {
         action: 'create',
         args: {
@@ -319,7 +319,7 @@ function processStateMachine (event) {
                     processStateMachine(Events.DCI_CMD_TMO);
                 }, modeDelay);
             } else {
-                console.log(`${logPrefix(false)} Disable DCI functions`);
+                console.log(`${logPrefix(false)}Disable DCI functions`);
                 setDciEnable(false);
                 segmentPower(false);
             }   
@@ -380,14 +380,14 @@ function processStateMachine (event) {
                 clearTimeout (dciScriptTmo);
                 dciScriptTmo =setTimeout(()=> {   
                         let tsNow = new Date();                 
-                        console.log(`${logPrefix(false)} Enable DCI functions`);
+                        console.log(`${logPrefix(false)}Enable DCI functions`);
                         setDciEnable(true);
                         updateDp('lon.sys','system',0,'mode','Onnet');
                 },myAppIf.groupDelay);
             }
             break;                      
     }
-    console.log(`${logPrefix(false)} Current State: ${controlState}`);
+    console.log(`${logPrefix(false)}Current State: ${controlState}`);
 
 }
 function handleSid (sidMsg) {
@@ -465,7 +465,7 @@ downCheckTmr = setInterval(()=> {
         setIterator = downDevices[Symbol.iterator]();
         thisDev = setIterator.next().value;
     }
-    console.log (`${logPrefix(false)} Backstop testing device handle: ${thisDev.toLocaleString()}`);
+    console.log (`${logPrefix(false)}Backstop testing device handle: ${thisDev.toLocaleString()}`);
     doTest(thisDev.toLocaleString());
 }, downCheckInterval);
 
@@ -500,7 +500,7 @@ client.on(
         }
         if (topic == lepInterfaceTopic) {
             repeatingActive = payload.body.meta.link.mode;
-            console.log(`${logPrefix(false)} PL repeating Mode: ${repeatingActive}`);
+            console.log(`${logPrefix(false)}PL repeating Mode from lep: ${repeatingActive}`);
         }
         if (topic.match (devStsRe)) {
             let provisioned = 'unknown';
@@ -510,7 +510,7 @@ client.on(
 
             if (provisioned != 'deleted') {               
                 state = payload.health;
-                console.log (`\t${thisDevHndl} - State: ${provisioned} - Health: ${state} `); 
+                console.log (`\t${thisDevHndl}State: ${provisioned} - Health: ${state} `); 
                 myAppIf.isActive = true;
                 if (myAppIf.defLevel == null) {
                     client.subscribe(`${glpPrefix}/ev/updated/dev/lon/type/${myAppIf.appPID}`);
@@ -522,8 +522,8 @@ client.on(
                         `${glpPrefix}/=get/dp/request`,
                         JSON.stringify({item:['dev/lon/dcx-1/if/DcxManager/0/iLocalOvrd',
                         'dev/lon/dcx-1/if/DcxManager/0/iSched',
-                        'dev/lon/dcx-1/if/DcxManager/0/oSegmentSw',
-                        'dev/lon/dcx-1/if/DcxManager/0/oGroupSw',
+                        //'dev/lon/dcx-1/if/DcxManager/0/oSegmentSw',
+                        //'dev/lon/dcx-1/if/DcxManager/0/oGroupSw',
                         'dev/lon/dcx-1/if/DcxManager/0/cpDefLevel',
                         'dev/lon/dcx-1/if/DcxManager/0/cpGroupDelay',
                         'dev/lon/dcx-1/if/DcxManager/0/cpOffSequence',
@@ -550,12 +550,12 @@ client.on(
             provisioned = payload.state;
             if (provisioned == 'provisioned') {
                 if (payload.health == 'down' && !downDevices.has(thisDevHndl)) {
-                    console.log(`${logPrefix(false)} Device: ${deviceMap.has(thisDevHndl) ? deviceMap.get(thisDevHndl):thisDevHndl} is down.`);
+                    console.log(`${logPrefix(false)}Device: ${deviceMap.has(thisDevHndl) ? deviceMap.get(thisDevHndl):thisDevHndl} is down.`);
                     downDevices.add(thisDevHndl);
                 }
                 if (payload.health == 'normal') {
                     downDevices.delete(thisDevHndl);                    
-                    console.log(`${logPrefix(false)} Device: ${deviceMap.has(thisDevHndl) ? deviceMap.get(thisDevHndl):thisDevHndl} is normal.`);
+                    console.log(`${logPrefix(false)}Device: ${deviceMap.has(thisDevHndl) ? deviceMap.get(thisDevHndl):thisDevHndl} is normal.`);
                 }
             }
         }
@@ -563,13 +563,13 @@ client.on(
         // expected.  But if once should occur while dp updates or binding requests are in flight, these operations
         // can be lost.  Lighting managment software should monitor oRestarts while management operations are processed.
         if (topic == lepAboutTopic) {
-            console.log(`${logPrefix(false)} - LTE restarted`);
+            console.log(`${logPrefix(false)}***LTE restarted`);
             myAppIf.oRestarts += 1;
             updateDp(myAppIf.devHandle, myAppIf.fbName, 0, 'oRestarts', myAppIf.oRestarts);
         }
         if (topic == 'myRespQ') {
             let pointCount = 0;
-            console.log(`${logPrefix(false)} - DCX manager startup:`);
+            console.log(`${logPrefix(false)}DCX manager startup:`);
             payload.result.forEach((element) => {
                 if(element.item.endsWith('iLocalOvrd')) { 
                     myAppIf.iLocalOvrd = element.value != null ? element.value : {value:0,state:0};
@@ -586,10 +586,10 @@ client.on(
                     console.log(`\tdefLevel: ${JSON.stringify(myAppIf.defLevel)}`);
                     initializeSet.delete('cpDefLevel');
                 }
-                if(element.item.endsWith('oSegmentSw'))
-                    myAppIf.oSegmentSw = element.value;    
-                if(element.item.endsWith('oGroupSw'))
-                    myAppIf.oGroupSw = element.value;    
+                //if(element.item.endsWith('oSegmentSw'))
+                //    myAppIf.oSegmentSw = element.value;    
+                //if(element.item.endsWith('oGroupSw'))
+                //    myAppIf.oGroupSw = element.value;    
                 if(element.item.endsWith('cpGroupDelay')) {
                     myAppIf.groupDelay = element.value * 1000;
                     console.log(`\tgroupDelay: ${JSON.stringify(myAppIf.groupDelay)}`);
@@ -600,9 +600,10 @@ client.on(
                     console.log(`\toffSequence: ${JSON.stringify(myAppIf.offSequence)}`);
                     initializeSet.delete('cpOffSequence');
                 }
-                if(element.item.endsWith('oRestarts')) 
-                console.log(`\toRestarts: ${myAppIf.oRestarts}`);                    
-                myAppIf.oRestarts = element.value; 
+                if(element.item.endsWith('oRestarts')) {
+                    console.log(`\toRestarts: ${JSON.stringify(myAppIf.oRestarts)}`);                    
+                    myAppIf.oRestarts = element.value; 
+                }
             });
 
 
@@ -612,7 +613,7 @@ client.on(
                 client.unsubscribe('myRespQ');
                 client.subscribe ('Advantech/+/Device_Status');
             } else {
-                console.log(`${logPrefix(false)} *** Failed to initialize point values.  Exiting now.`);
+                console.log(`${logPrefix(false)}*** Failed to initialize point values.  Exiting now.`);
                 process.exit(1);
             }
         }
@@ -638,7 +639,7 @@ client.on(
                     inputState.di2 = false;
                     inputState.di3 = false;
                     inputState.di4 = false;
-                    console.log(`${logPrefix(false)} - Adam 6266 Disconnected.`)    
+                    console.log(`${logPrefix(false)}***Adam 6266 Disconnected.`)    
                 }
             }
             if (topic.endsWith('data')) {
@@ -659,7 +660,7 @@ client.on(
                     ctlMsg.v = inputState.di1;
                     myAppIf.bypassState = inputState.di1;
                     processStateMachine(inputState.d1 ? Events.BYPASS_ON : Events.BYPASS_OFF);
-                    console.log(`${logPrefix(false)} Local Bypass: ${(inputState.di1 == true) ? 'ON':'OFF'}`);
+                    console.log(`${logPrefix(false)}Local Bypass: ${(inputState.di1 == true) ? 'ON':'OFF'}`);
                     return;    
                 }
             }
@@ -679,23 +680,44 @@ client.on(
             let controlEvent= Events.NO_EVENT;
             switch (payload.datapoint) {
                 case 'iLocalOvrd':
-                    myAppIf.iLocalOvrd = payload.value;
-                    controlEvent = payload.value.state == 1 ? Events.BYPASS_ON : Events.BYPASS_OFF;
+                    if (payload.value.hasOwnProperty('value') && (payload.value.hasOwnProperty('state'))) {
+                        myAppIf.iLocalOvrd = payload.value;
+                        controlEvent = payload.value.state == 1 ? Events.BYPASS_ON : Events.BYPASS_OFF;
+                    } else {
+                        console.log(`${logPrefix(false)}Invalid iLocalOverd: ${payload.value}, update not processed`);
+                        return;
+                    }
                     break;
                 case 'iSched':
-                    myAppIf.iSched = payload.value;
-                    controlEvent = payload.value.state == 1 ? Events.SCHED_ON : Events.SCHED_OFF;
-                    console.log(`${logPrefix(false)} - iSched value: ${JSON.stringify(payload.value)}`);
+                    if (payload.value.hasOwnProperty('value') && (payload.value.hasOwnProperty('state'))) {
+                        myAppIf.iSched = payload.value;
+                        controlEvent = payload.value.state == 1 ? Events.SCHED_ON : Events.SCHED_OFF;
+                        console.log(`${logPrefix(false)}iSched value: ${JSON.stringify(payload.value)}`);
+                    } else {
+                        console.log(`${logPrefix(false)}Invalid iSched: ${payload.value}, update not processed`);
+                        return;
+                    }
                     break;
                 case 'cpDefLevel':
                     myAppIf.defLevel = payload.value;    
                 case 'oSegmentSw':
-                    myAppIf.oSegmentSw = payload.value;
+                    if (payload.value.hasOwnProperty('value') && (payload.value.hasOwnProperty('state'))) {
+                        myAppIf.oSegmentSw = payload.value;
+                    } else {
+                        console.log(`${logPrefix(false)}Invalid oSegmentSw: ${payload.value}, update not processed`);
+                        return;
+                    }
                     break;    
                 case 'oGroupSw':
-                    myAppIf.oGroupSw = payload.value;
+                    if (payload.value.hasOwnProperty('value') && (payload.value.hasOwnProperty('state'))) {
+                        myAppIf.oGroupSw = payload.value;
+                    } else {
+                        console.log(`${logPrefix(false)}Invalid oGroupSw: ${payload.value}, update not processed`);
+                        return;
+                    }    
                     break;  
                 default:
+                    return;
                     break; 
             }
             
@@ -710,11 +732,11 @@ client.on(
             }, 500);
         }
         if (topic.match(conRqRe)) {
-            console.log(`${logPrefix(false)} Connection: ${topic}: ${message}`);
+            console.log(`${logPrefix(false)}Connection: ${topic}: ${message}`);
         }
         if (topic.match(devProvRe)) {
             if(payload.action != 'test')
-                console.log(`${logPrefix(false)} Device: ${topic}: ${message}`);
+                console.log(`${logPrefix(false)}Device: ${topic}: ${message}`);
         }
 
     } catch(error) {
