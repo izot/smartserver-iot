@@ -23,13 +23,13 @@
 const mqtt = require('mqtt');
 const { execSync } = require("child_process");
 
-const version = '1.01.003';
-// dcxMnger.js
+const version = '1.01.004';
+// dcxMngr.js
 // This application implements scheduled control of DCI device connectivity
 // functions to support PL repeating networks that control power to streetlight
-// segmets.  It prevents the DCI from marking down devices that are switched off
-// to reduce startup time when power is applied.  It manages the maintence mode
-// as well to prenvent polling devices that will not repond.  There are sequencing
+// segments.  It prevents the DCI from marking down devices that are switched off
+// to reduce startup time when power is applied.  It manages the maintenance mode
+// as well to prevent polling devices that will not respond.  There are sequencing
 // delays to manage operation of the DCI relative to application layer functions.
 //  
 // It also supervises the uptime of the lte service to inform application layer
@@ -38,9 +38,9 @@ const version = '1.01.003';
 // In addition, this application integrates the ADAM-6266 DIO module with directy MQTT access.  It will 
 // use the first input of of the 6266 module for a localOvrd input (di1), and drive the relay (do1) to
 // controll segment power.  
-// 06/13/2033: 1.00.004 - Improved startup checks to prevent operating on unitialized input.  Modified
+// 06/13/2033: 1.00.004 - Improved startup checks to prevent operating on uninitialized input.  Modified
 //   Console messages to include full dates in some output to provide better reference points for events.
-// 08/21/2-23: 1.01.003 - Improved startup and update validation checks to prevent crashes creating by null references
+//
 
 let onApollo = Boolean(process.platform == 'linux');
 let args = process.argv.slice(1);
@@ -410,7 +410,7 @@ function handleSid (sidMsg) {
     } 
 };
 function updateDp (devHndl, fb, index, dp, value) {
-    if (!myAppIf.isActive)
+    if (!myAppIf.isActive || value == null)
         return;
     client.publish (
         `${glpPrefix}/rq/dev/lon/${devHndl}/if/${fb}/${index}/${dp}/value`,
