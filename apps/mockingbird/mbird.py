@@ -144,32 +144,43 @@ parser.add_argument('--log', dest='log', type=str, default="INFO",
 
 args = parser.parse_args()
 
-if args.XIF == None:
-    if args.dev_template == None:
-        logging.error("<XIF> and <devicetype> not provided!")
-        sys.exit(1)
-    dev_template_prefix = args.dev_template.split("-")[0]
-    args.XIF = f"{dev_template_prefix}.xif"
-else:
-    if args.dev_template == None:
-        args.dev_template = f"{args.XIF}-1"
-
 
 varlock = threading.Lock()
 
 # Setting up process terminator
 runner = True
-def signal_handler(sig, frame):
+def cool_exit(sig=None, frame=None):
     global runner
     runner = False
-signal.signal(signal.SIGINT, signal_handler)
-signal.signal(signal.SIGTERM, signal_handler)
+    # If stopped unsubscribe from all topics and disconnect.
+    for t in subscribe_topic:
+        client.unsubscribe(t[0])
+    client.loop_stop()
+    client.disconnect()
+
+    logging.info('Stopping, bye!')
+
+    sys.exit(0)
+    
+signal.signal(signal.SIGINT, cool_exit)
+signal.signal(signal.SIGTERM, cool_exit)
 
 # Setting the logging level
 numeric_level = getattr(logging, args.log.upper(), None)
 if not isinstance(numeric_level, int):
     raise ValueError('Invalid log level: %s' % args.log.upper())
 logging.basicConfig(level=args.log.upper())
+
+# Arguments logic:
+if args.XIF == None:
+    if args.dev_template == None:
+        logging.error("<XIF> and <devicetype> not provided!")
+        cool_exit()
+    dev_template_prefix = args.dev_template.split("-")[0]
+    args.XIF = f"{dev_template_prefix}.xif"
+else:
+    if args.dev_template == None:
+        args.dev_template = f"{args.XIF}-1"
 
 
 def create_csv_file(filename):
@@ -222,8 +233,7 @@ def create_device(device_handle):
     global pending_device_handle, nr_devices_created, creation_finished, runner
     if SS_SID == None:
         logging.error("The connection to the SS was unsuccessful. No SID obtained!")
-        runner = False
-        sys.exit(0)
+        cool_exit()
 
     if device_handle in MBirds:
         logging.info(f"Device {device_handle} already exists. Skipping creation")
@@ -236,8 +246,7 @@ def create_device(device_handle):
             device_handle = f"{args.device_handle}-{str(nr_devices_created + dev_start_nr).zfill(2)}"
             if trys > args.num_devices:
                 logging.error(f"Tried to increment the name for too many times. Something is probably wrong.")
-                runner = False
-                sys.exit(0)
+                cool_exit()
             
             if nr_devices_created >= args.num_devices:
                 # All devices probably already exist
@@ -462,8 +471,7 @@ def handle_sid(client, userdata, message):
             logging.info(f"Successfully connected to the SmartServer, SID: {SS_SID}")
         else:
             logging.error(f"SID is not alphanumeric: {SS_SID}. Something is wrong!")
-            runner = False
-            sys.exit(-1)
+            cool_exit()
         
         # Switch to the IMM mode if requested by the user. 
         IMM_switch_topic = f"{glp_prefix}/{SS_SID}/rq/dev/lon/lon.sys/if/system/0"
@@ -474,8 +482,7 @@ def handle_sid(client, userdata, message):
         client.unsubscribe(sid_topic)
     except:
         logging.error("Parsing of the SID response failed")
-        runner = False
-        sys.exit(0)
+        cool_exit()
 
 
 def handle_creation_finished(LONdev):
@@ -491,16 +498,21 @@ def handle_creation_finished(LONdev):
 
 def handle_device_creation(client, userdata, message):
     global nr_devices_created, creation_finished, pending_device_handle, time_since_last_creation
+    if runner == False:
+        sys.exit(0)
+    # Get the incoming message.
     payload = message.payload.decode('utf-8')
     dictMessage = json.loads(payload)
     logging.debug(f"topic: {message.topic} | payload: {payload}")
-
+    # Discard empty messages.
     if len(dictMessage) == 0:
         return  # Empty json.
 
     # Figure out the device's handle.
     try:
         device_handle = message.topic.split("/")[6]
+        if device_handle == "lon.sys":
+            return # Skip the system LON device
     except:
         logging.error("Failed to obtain the device handle from the topic split.")
         return
@@ -517,8 +529,6 @@ def handle_device_creation(client, userdata, message):
     elif mqtt_topic_match(message.topic, dev_sts_topic):
         try:
             logging.debug(f"sts: Device {device_handle} | state: {dictMessage['state']}")
-            if device_handle == "lon.sys":
-                return # Skip the system LON device
         except:
             # No state argument in a message body. Skip... 
             return
@@ -544,14 +554,15 @@ def handle_device_creation(client, userdata, message):
                 d.set_status(dictMessage)
                 MBirds[device_handle] = d
         else:
-            # Add the status message to the existing device. 
-            device.set_status(dictMessage)
+            if dictMessage['state'] != "deleted":
+                # Add the status message to the existing device (if not deleted). 
+                device.set_status(dictMessage)
 
     elif mqtt_topic_match(message.topic, dev_impl_topic):
         # impl message - find the devices if it's in the list and update it with the impl message
         device = MBirds.get(dictMessage['meta']['eid'], None)
         if device == None:
-            # The device doesn't exist
+            # The device is not in the list of the devices yet. Not usually what happens, but add it either way.
             logging.info( f"No previously created device with handle {dictMessage['meta']['eid']} to assign this impl message: {str(dictMessage)}")
             d = LONDevice(dictMessage['meta']['eid'])
             d.set_impl(dictMessage)
@@ -580,6 +591,8 @@ def handle_device_creation(client, userdata, message):
                     creation_finished = True    
         
 def handle_datapoint_update(client, userdata, message):
+    if runner == False:
+        sys.exit(0)
     # Topic used for conditional datapoint updating
     payload = message.payload.decode('utf-8')
     dictMessage = json.loads(payload)
@@ -759,6 +772,7 @@ if __name__ == "__main__":
                 logging.info("Channel for the interface couldn't be found!")
         else:
             logging.info("Specified interface couldn't be found!")
+            cool_exit()
                
     # Decide whether to create new devices and start creating if needed:
     if args.device_handle != None and args.dev_template != None:
@@ -771,8 +785,7 @@ if __name__ == "__main__":
                 dev_start_nr = int(handle_parts[-1])
             except:
                 logging.error("Bad device handle formatting!")
-                runner = False
-                sys.exit(0)
+                cool_exit()
                 
             args.device_handle = "".join(handle_parts[:-1])
         # Create the initial MBird
@@ -786,13 +799,13 @@ if __name__ == "__main__":
         
         if time.time() - time_since_last_creation >= DEVICE_CREATION_TIMEOUT:
             logging.error(f"Device creation timedout on {pending_device_handle}")
-            runner = False
-            sys.exit(-1)
+            cool_exit()
         
         logging.info("MBirds created, moving on.")
         
     else:
         logging.info("No MBird handle specified. Not creating any devices!")
+        cool_exit()
 
     # Wait for all of the remaining messages to come. 
     logging.info(f"Waiting {INITIAL_WAIT_TIME}s for all incoming messages.")
@@ -839,8 +852,7 @@ if __name__ == "__main__":
                     dev.enable(args.enable_operation)
                 else:
                     logging.error("Bad formatting of the device operational state -c <true/false/toggle>")
-                    runner = False
-                    sys.exit(-1)
+                    cool_exit()
         
         # Change the channel if needed and if not done during the creation of a device. 
         if device_channel != None and dev.channel_nr != f"/~/{device_channel}":
@@ -865,8 +877,7 @@ if __name__ == "__main__":
 
     if not args.load:
         logging.info("Load generation wasn't enabled. Enable it with additional --load argument")
-        runner = False
-        sys.exit(0)
+        cool_exit()
     
     # Main loop:
     # Iterate through all LON devices by iterating through
@@ -891,15 +902,4 @@ if __name__ == "__main__":
                 val_out = 0
         except:
             runner = False
-
-    # If stopped unsubscribe from all topics and disconnect.
-    for t in subscribe_topic:
-        client.unsubscribe(t[0])
-    client.loop_stop()
-    client.disconnect()
-
-    while connected:
-        # Wait for disconnect
-        pass
-
-    logging.info('Done, bye!')
+            
