@@ -110,7 +110,7 @@ time_since_last_creation = time.time()
 parser = argparse.ArgumentParser(
     description='Mockingbird - LON traffic generator')
 parser.add_argument('-t', dest='ip', type=str, default="localhost",
-                    help='IP address of the target SmartServer')
+                    help='IP address of the target SmartServer.')
 
 parser.add_argument('--hdl', dest='device_handle', type=str,
                     help='<handle> : base name of the handle. For example: MBird. No default.')
@@ -119,28 +119,28 @@ parser.add_argument('-x', dest='XIF', type=str,
                     help='<xif> : name of the XIF file.')
 
 parser.add_argument('-n', dest='num_devices', type=int, default=1,
-                    help='<count> : Number of devices to create. Default is 1')
+                    help='<count> : Number of devices to create. Default is 1.')
 
 parser.add_argument('-d', dest='dev_template', type=str,
-                    help='<devicetype> : the CMS device type. The default is "<xif>-1"')
+                    help='<devicetype> : the CMS device type. The default is "<xif>-1".')
 
 parser.add_argument('-s', dest='service_pin', action='store_true', default=False,
-                    help="Try to initiate the service pin on selected MBirds")
+                    help="Try to initiate the service pin on selected MBirds. The requests will be sent until the MBird is provisioned or the service pin process times out.")
 
 parser.add_argument('-c', dest='enable_operation', type=str,
                     help="Enables/disables MBirds containing the provided base name. Disabling the MBirds is effectively the same as turning them off.")
 
 parser.add_argument('-i', dest='interface', type=str,
-                    help="Set the LON interface to use for data transmission. If not specified, defaults to IP70.")
+                    help="Set the LON interface to use for data transmission. Example: lon0, lon1, ... If the interface is not specified, the MBirds will be created on internal IP70 interface.")
 
 parser.add_argument('--load', action='store_true', default=False,
-                    help="Update the defined datapoints of selected MBirds")
+                    help="Update the specified datapoints of selected MBirds.")
 
 parser.add_argument('--imm', action='store_true', default=False,
-                    help="Put the target SmartServer in the IMM mode")
+                    help="Put the target SmartServer in the IMM mode. This needs to be done only once.")
 
 parser.add_argument('--log', dest='log', type=str, default="INFO",
-                    help='Logging level')
+                    help='Logging level: DEBUG - all messages, INFO - information, WARNING - warnings, ERROR - errors.')
 
 args = parser.parse_args()
 
@@ -169,7 +169,7 @@ signal.signal(signal.SIGTERM, signal_handler)
 numeric_level = getattr(logging, args.log.upper(), None)
 if not isinstance(numeric_level, int):
     raise ValueError('Invalid log level: %s' % args.log.upper())
-logging.basicConfig(encoding='utf-8', level=args.log.upper())
+logging.basicConfig(level=args.log.upper())
 
 
 def create_csv_file(filename):
