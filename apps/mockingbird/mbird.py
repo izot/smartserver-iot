@@ -2,7 +2,7 @@
 """
 This is an example of how a service (in this case Python) can manipulate a MBird (virtual LON device)
 to produce behaviors that are beneficial to a SmartServer test environment.  The script demonstrates
-the ability to MBrids on any Ubuntu platform (including on a SmartServer) that talks on the LON network
+the ability to MBirds on any Ubuntu platform (including on a SmartServer) that talks on the LON network
 like any physical LON device. This includes being able to be provisioned and to have datapoints that can
 be read and written by the SmartServer.
 
@@ -62,12 +62,12 @@ datapointout = "Lamp/0/nvoLampFb"
 datapoints = ["Lamp/1/nviLamp", "Lamp/1/nvoLampFb", "Switch/0/nviSwitchFb",
               "Switch/1/nviSwitchFb", "Switch/0/nvoSwitch", "Switch/1/nvoSwitch"]
 
-# You can use this list to set the device health of individual MBrids.
-# Create an list of tuples with exact device handle and the desired device health.
+# You can use this list to set the operational of individual MBirds.
+# Create an list of tuples with exact device handle and the desired device operational state.
 dev_state_list = None
 # Example:
 # dev_state_list = [("TI-01", "false"), ("TI-02", "true"), ("TI-03", "toggle")]
-
+# TI-01 will be disabled, TI-02 will be enabled, and TI-03's state will be switched enable-> disable or vice versa. 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 import os
 import csv
@@ -115,7 +115,7 @@ parser.add_argument('-t', dest='ip', type=str, default="localhost",
 parser.add_argument('--hdl', dest='device_handle', type=str,
                     help='<handle> : base name of the handle. For example: MBird. No default.')
 
-parser.add_argument('-x', dest='PID', type=str,
+parser.add_argument('-x', dest='XIF', type=str,
                     help='<xif> : name of the XIF file.')
 
 parser.add_argument('-n', dest='num_devices', type=int, default=1,
@@ -127,8 +127,8 @@ parser.add_argument('-d', dest='dev_template', type=str,
 parser.add_argument('-s', dest='service_pin', action='store_true', default=False,
                     help="Try to initiate the service pin on selected MBirds")
 
-parser.add_argument('-c', dest='set_health', type=str,
-                    help="Set health status for selected MBirds. States true/false/toggle")
+parser.add_argument('-c', dest='enable_operation', type=str,
+                    help="Enables/disables MBirds containing the provided base name. Disabling the MBirds is effectively the same as turning them off.")
 
 parser.add_argument('-i', dest='interface', type=str,
                     help="Set the LON interface to use for data transmission. If not specified, defaults to IP70.")
@@ -144,15 +144,15 @@ parser.add_argument('--log', dest='log', type=str, default="INFO",
 
 args = parser.parse_args()
 
-if args.PID == None:
+if args.XIF == None:
     if args.dev_template == None:
         logging.error("<XIF> and <devicetype> not provided!")
         sys.exit(1)
     dev_template_prefix = args.dev_template.split("-")[0]
-    args.PID = f"{dev_template_prefix}.xif"
+    args.XIF = f"{dev_template_prefix}.xif"
 else:
     if args.dev_template == None:
-        args.dev_template = f"{args.PID}-1"
+        args.dev_template = f"{args.XIF}-1"
 
 
 varlock = threading.Lock()
@@ -252,7 +252,7 @@ def create_device(device_handle):
         "action": "create",
         "args": {
             "unid": "auto",
-            "type": args.PID,
+            "type": args.XIF,
             "lon.attach": "local",
             "provision": False if args.num_devices > 0 else True
         }
@@ -263,7 +263,7 @@ def create_device(device_handle):
         "desc": "Internal device applications"
     }
 
-    logging.info(f"Creating a MBird: {device_handle} based on {args.PID}")
+    logging.info(f"Creating a MBird: {device_handle} based on {args.XIF}")
     pending_device_handle = device_handle
 
     # Sending the MBird create request
@@ -603,7 +603,7 @@ class LONDevice:
     def __init__(self, name):
         self.name = name
         self.target_channel = None
-        self.target_health = None
+        self.target_dev_state = None
 
     def set_status(self, jsonPayload):
         try:
@@ -613,10 +613,10 @@ class LONDevice:
             # Save the whole structure
             self.status = jsonPayload
             # Check the desired health.
-            if self.target_health != None:
-                if self.target_health == "true" and self.health == "provisioned" or self.health == "suspect": 
+            if self.target_dev_state != None:
+                if self.target_dev_state == "true" and self.health == "provisioned" or self.health == "suspect": 
                     logging.info(f"{self.name} | device successfully powered on with health: {self.health}")
-                elif self.target_health == "false" and self.health == "disabled":
+                elif self.target_dev_state == "false" and self.health == "disabled":
                     logging.info(f"{self.name} | device successfully powered off with health: {self.health}")
         except:
             logging.error(f"{self.name}| Unpacking of the sts message failed!")
@@ -673,7 +673,7 @@ class LONDevice:
             logging.debug(f"TOPIC: {zt} | PAYLOAD: {zp}")
             client.publish(zt, zp)
 
-    def set_health(self, state):
+    def enable(self, state):
         logging.info(f"Setting the initial state of {self} to {state}")
         zt = f"lep/0/lon/0/request/{self.LEP_id}/meta/enabled"
         if state == "toggle":
@@ -685,7 +685,7 @@ class LONDevice:
                 # Default
                 state = "true"
         # Set the target state.
-        self.target_health = state
+        self.target_dev_state = state
         zp = f"{{\"method\":\"PUT\",\"body\":{state}}}"
         logging.debug(f"TOPIC: {zt} | PAYLOAD: {zp}")
         client.publish(zt, zp)
@@ -776,7 +776,7 @@ if __name__ == "__main__":
                 
             args.device_handle = "".join(handle_parts[:-1])
         # Create the initial MBird
-        logging.info("MBrids creation initiated.")
+        logging.info("MBirds creation initiated.")
         time_since_last_creation = time.time()
         create_device(f"{args.device_handle}-{str(nr_devices_created + dev_start_nr).zfill(2)}")
         
@@ -789,7 +789,7 @@ if __name__ == "__main__":
             runner = False
             sys.exit(-1)
         
-        logging.info("MBrids created, moving on.")
+        logging.info("MBirds created, moving on.")
         
     else:
         logging.info("No MBird handle specified. Not creating any devices!")
@@ -822,23 +822,23 @@ if __name__ == "__main__":
 
 
     for dev in MBirds_subset.values():
-        # Set the health of selected devices.
-        if args.set_health != None:
-            # Option 1: change the device's health using argument -c and the user specified list. 
+        # Set the operational state of selected devices.
+        if args.enable_operation != None:
+            # Option 1: change the device's operational state using argument -c and the user specified list. 
             if dev_state_list != None and len(dev_state_list) > 0:
                 # Try to find the device handle in the list of set to change the state.
                 try:
                     state = list(filter(lambda x: x[0] == dev.name, dev_state_list))
                     if state:
-                        dev.set_health(state[0][1])
+                        dev.enable(state[0][1])
                 except:
                     pass
             else:
                 # Option 2: Set the state of all devices which contain the base handle.
-                if args.set_health == "true" or args.set_health == "false" or args.set_health == "toggle":
-                    dev.set_health(args.set_health)
+                if args.enable_operation == "true" or args.enable_operation == "false" or args.enable_operation == "toggle":
+                    dev.enable(args.enable_operation)
                 else:
-                    logging.error("Bad formatting of the device health -c <true/false/toggle>")
+                    logging.error("Bad formatting of the device operational state -c <true/false/toggle>")
                     runner = False
                     sys.exit(-1)
         
