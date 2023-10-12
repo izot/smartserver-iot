@@ -108,24 +108,24 @@ time_since_last_creation = time.time()
 
 # Setting up command line arguments
 parser = argparse.ArgumentParser(
-    description='Mockingbird - LON traffic generator')
+    description='Mockingbird - LON device simulator')
 parser.add_argument('-t', dest='ip', type=str, default="localhost",
                     help='IP address of the target SmartServer.')
 
 parser.add_argument('--hdl', dest='device_handle', type=str,
-                    help='<handle> : base name of the handle. For example: MBird. No default.')
+                    help='Base name of the handle. For example: --hdl MBird. No default.')
 
-parser.add_argument('-x', dest='XIF', type=str,
-                    help='<xif> : name of the XIF file.')
+parser.add_argument('-x', dest='PID', type=str,
+                    help='PID of the MBird device type.')
 
 parser.add_argument('-n', dest='num_devices', type=int, default=1,
-                    help='<count> : Number of devices to create. Default is 1.')
+                    help='Number of devices to create. Default is 1.')
 
 parser.add_argument('-d', dest='dev_template', type=str,
-                    help='<devicetype> : the CMS device type. The default is "<xif>-1".')
+                    help='XIF of the MBird device type from the target CMS. The default is "<PID>-1".')
 
 parser.add_argument('-s', dest='service_pin', action='store_true', default=False,
-                    help="Try to initiate the service pin on selected MBirds. The requests will be sent until the MBird is provisioned or the service pin process times out.")
+                    help="Initiates the service pin on selected MBirds. The requests will be sent until the MBird is provisioned or the service pin process times out.")
 
 parser.add_argument('-c', dest='enable_operation', type=str,
                     help="Enables/disables MBirds containing the provided base name. Disabling the MBirds is effectively the same as turning them off.")
@@ -153,10 +153,14 @@ def cool_exit(sig=None, frame=None):
     global runner
     runner = False
     # If stopped unsubscribe from all topics and disconnect.
-    for t in subscribe_topic:
-        client.unsubscribe(t[0])
-    client.loop_stop()
-    client.disconnect()
+    try:
+        if client and client != None:
+            for t in subscribe_topic:
+                client.unsubscribe(t[0])
+            client.loop_stop()
+            client.disconnect()
+    except:
+        pass
 
     logging.info('Stopping, bye!')
 
@@ -170,17 +174,6 @@ numeric_level = getattr(logging, args.log.upper(), None)
 if not isinstance(numeric_level, int):
     raise ValueError('Invalid log level: %s' % args.log.upper())
 logging.basicConfig(level=args.log.upper())
-
-# Arguments logic:
-if args.XIF == None:
-    if args.dev_template == None:
-        logging.error("<XIF> and <devicetype> not provided!")
-        cool_exit()
-    dev_template_prefix = args.dev_template.split("-")[0]
-    args.XIF = f"{dev_template_prefix}.xif"
-else:
-    if args.dev_template == None:
-        args.dev_template = f"{args.XIF}-1"
 
 
 def create_csv_file(filename):
@@ -261,7 +254,7 @@ def create_device(device_handle):
         "action": "create",
         "args": {
             "unid": "auto",
-            "type": args.XIF,
+            "type": args.PID,
             "lon.attach": "local",
             "provision": False if args.num_devices > 0 else True
         }
@@ -272,7 +265,7 @@ def create_device(device_handle):
         "desc": "Internal device applications"
     }
 
-    logging.info(f"Creating a MBird: {device_handle} based on {args.XIF}")
+    logging.info(f"Creating a MBird: {device_handle} based on {args.PID}")
     pending_device_handle = device_handle
 
     # Sending the MBird create request
@@ -728,6 +721,19 @@ def on_disconnect(client, userdata, rc):
     connected = False
 
 
+# Arguments logic:
+if args.PID == None:
+    if args.dev_template == None:
+        logging.error("<PID> and <devicetype> not provided!")
+        cool_exit()
+    else:
+        dev_template_prefix = args.dev_template.split("-")[0]
+        args.PID = f"{dev_template_prefix}.xif"
+else:
+    if args.dev_template == None:
+        args.dev_template = f"{args.PID}-1"
+
+
 # create MQTT client object
 client = paho.Client("mbird")     # !! Must be unique !!
 client.on_connect = on_connect
@@ -798,7 +804,7 @@ if __name__ == "__main__":
             time.sleep(0.1)
         
         if time.time() - time_since_last_creation >= DEVICE_CREATION_TIMEOUT:
-            logging.error(f"Device creation timedout on {pending_device_handle}")
+            logging.error(f"Device creation timed out on {pending_device_handle}")
             cool_exit()
         
         logging.info("MBirds created, moving on.")
