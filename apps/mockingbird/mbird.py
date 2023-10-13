@@ -528,28 +528,30 @@ def handle_device_creation(client, userdata, message):
         
         # Is it the newly created device?
         if pending_device_handle != None and device_handle == pending_device_handle:
-            logging.info(f"Device: {device_handle} created.")
             if dictMessage['state'] == "deleted":
                 # TODO: handle when device is deleted when it should be created.
                 pass  # for now don't do anything
 
-            if dictMessage['state'] == "undefined":
-                # TODO: hadle when the device is in undefined state. 
-                pass # for now don't do anything
-        
+            if dictMessage['state'] == "nonexistent":
+                logging.error(f"MBird {device_handle} creation failed!")
+                cool_exit()
+                 
+            # Received the sts message from the device being  created. 
+            logging.info(f"Received the sts message from the MBird {device_handle} being created.")
+            
         # sts message - find the devices if it's in the list and update it with the sts message
         device = MBirds.get(device_handle, None)
-        if device == None:
+        if device != None:
+            if dictMessage['state'] != "deleted" or dictMessage['state'] != "nonexistent":
+                # Add the status message to the existing device (if not deleted). 
+                device.set_status(dictMessage)
+        else:
             # The device doesn't exist yet, use the device handle from the topic. 
-            if dictMessage['state'] != "deleted":
+            if dictMessage['state'] != "deleted" or dictMessage['state'] != "nonexistent":
                 logging.debug(f"No previously created device with handle {device_handle} to assign this status message: {str(dictMessage)}")
                 d = LONDevice(device_handle)
                 d.set_status(dictMessage)
                 MBirds[device_handle] = d
-        else:
-            if dictMessage['state'] != "deleted":
-                # Add the status message to the existing device (if not deleted). 
-                device.set_status(dictMessage)
 
     elif mqtt_topic_match(message.topic, dev_impl_topic):
         # impl message - find the devices if it's in the list and update it with the impl message
