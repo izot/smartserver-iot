@@ -336,7 +336,7 @@ def handle_LON_message(client, userdata, message):
         else:
             logging.debug("Meta response is not of interface type.")
     except:
-        logging.error("LON meta response message decoding failed.")
+        logging.debug(f"Decoding of LON meta response failed! | {message.payload} ")
     # Response is processed.
     meta_response = True
 
@@ -401,7 +401,7 @@ def handle_LON_channel(client, userdata, message):
         else:
             logging.debug("Meta response is not of channel type.")
     except:
-        logging.error("LON meta response message decoding failed.")
+        logging.debug(f"Decoding of LON meta response failed! | {message.payload}")
     
     channel_response = True
 
