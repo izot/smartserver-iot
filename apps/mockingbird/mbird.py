@@ -778,6 +778,7 @@ if __name__ == "__main__":
                 logging.info(f"Channel for the specified interface found!: Channel ID: {device_channel}")
             else:
                 logging.info("Channel for the interface couldn't be found!")
+                cool_exit()
         else:
             logging.info("Specified interface couldn't be found!")
             cool_exit()
