@@ -2,7 +2,7 @@
 Resources and examples for EnOcean's SmartServer IoT Edge Server and SmartServer Software.  Documentation is available at https://edgedocs.enocean.com.
 
 **apps** – SmartServer application and internal devices.
-localDev is used to create SmartServer internal devices, which can be used to customize the SmartServer, or used to help map LonWorks to BACnet and Modbus datapoints, or vice versa.
+**localDev** is used to create SmartServer internal devices, which can be used to customize the SmartServer, or used to help map LonWorks to BACnet and Modbus datapoints, or vice versa.
 To use localDev, you will need an XIF file with the datapoints you want to support. To use dynamic datapoints for IzoT CT, use the included NM_DynamicC.xif file.
 
 **connectors** – node.js examples that show how to connect to a cloud server.
