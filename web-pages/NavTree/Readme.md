@@ -1,5 +1,5 @@
 
-**SmartServer IoT NavTree (1.18)**
+**SmartServer IoT NavTree (1.22)**
 The SmartServer NavTree Web page allows you to create a custom Web page for the SmartServer IoT. It provides a navigation tree, and can optionally show schedules and logs per device. You can customize it to provide a floorplan showing datapoints. 
 
 The best way to use NavTree is to determine what datapoints you want to see for each device type. That is, even though a device may have 100+ datapoints for most applications you may only need an end user to see 4 datapoints. So what you want to do for each device type is create a list of datapoints that you want to see, an image and determine how you want to show them. If you want to show all devices that you use this device type the same way then you only need to do this once per device type.  If for the same device type you want to show different datapoints, you can do this by specifying the device name or using a different device type in the CMS device widget and specifying the datapoints and their use.  The datapoint and image information can be specified for specific one or more device names, one or more device types, or one or more program Ids.
@@ -428,36 +428,43 @@ When polling datapoints, the NavTree polls no faster than 10 datapoints every tw
 5. **Limit what a user can see** - Partially working, use CMS Planning tree and setup custom tags in the Campus or other context, or use the user.js file.
 
 # Versions
-1. 1.18 
+1.22 
+    a. Added Map support
+       i   Added Dynamicaly Creates site dashboard for known devices
+       ii. Alternative is to use Planning Widget Context custom tags or custom javascript in user.js
+    b. Added Dynamicaly Creates site dashboard for known devices
+       i. Alternative is to use Planning Widget Context custom tags or custom javascript in user.js
+    b. Fixed a number of issues
+1.18 
     a. Fixed a number of issues
     b. Added LED1, t1 graphics.
-2. 1.17
+1.17
     a. added support for region context
-3. 1.16
+1.16
     a. Supports EnOcean devices
     b. Fixed context issue for pre 4.0 (world context not included)
     c. Fix Deleting schedule event. Previously nothing happened when deleting schedule
-4. 1.15
+1.15
     a. Supports World context
     b. Many enhancements and fixes
     c. Supports demo mode - using context tags only shows dashboard 
-5. 1.12
+1.12
     a. Fixed Data log duration zoom chart
     b. Fixed Data log charts start.
-6. 1.09
+1.09
     a. Data log charts can now flip back and forth to No limit and any option. Prior when changing to 10 minutes all logs before the last 10 minutes was deleted.
     b. Added more custom tags.
-7. 1.04
+1.04
     a. Fixed Schdeule issue showing events that overlap days (eg., start sunrise and end sunset)
     b. Added image swapper support to Dashboard, campus and building contexts
-8. 1.03
+1.03
     a. Added Thermometer, and lightmeter (lightmeter can be used for any vertical meter usage like humidity)
     b. Added image swapper support to Dashboard, campus and building contexts
-9. 1.02
+1.02
     a. Added Guages, Guage with Chart, Meter, and sliders graphics
     b. You can now put datapoints on the Campus and building graphics.
     b. Added a Wait spinner 
-10. 1.01
+1.01
     a. Floorplan - Added field support for structured datapoints
     b. Global Tags - were previously only added by Planning Widget Campus CustomTags, now can be added by user.js file
     c. Added "precision" for for "devicetype_" custom tag/global tags 
@@ -465,7 +472,7 @@ When polling datapoints, the NavTree polls no faster than 10 datapoints every tw
     e. Fixed issue with Custom tags process order (check device names, next device types, followed by program Ids).
     f. Fixed issue with Device Logs Zoom not working
     g. Added roomoffsets to campus custom tags "roomOffsets: xoffset=50,yoffset=-50"
-11. 1.00 - Initial Release
+1.00 - Initial Release
 
 # Troubleshooting
 1. Datapoints don't show updates - This typically means that another Web page is open for this user login and both Web pages are interferring with each other

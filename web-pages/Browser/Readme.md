@@ -1,5 +1,5 @@
 
-**SmartServer IoT Browser (1.20)**
+**SmartServer IoT Browser (1.56)**
 
 The Smartserver IoT Browser Web page is a testing tool for the SmartServer IoT (3.1 or later) using the REST API and WebSockets. The Browser Web page uses views (for example, the Datapoint View is similar to the CMS Datapoint Browser), controlled by the sidebar menu buttons, to display common functions like devices and datapoints.  The browser Web page allows you to check SmartServer configuration and to monitor and control devices datapoints.
 
