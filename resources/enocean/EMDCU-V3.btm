@@ -6,5 +6,5 @@
 #description,EMDCU Motion and Light Level Sensor
 Block Name,Block Index,Datapoint Name,Address,IAP Type,IAP Field,BACnet Name,BACnet Units,Description
 Voltage,1,Voltage,AI:1,float,,Voltage,volts,EMDCU Voltage
-Luminance,2,Luminance,AI:2,float,,Luminance,luxes,EMDCU Luminance
+Illuminance,2,Illuminance,AI:2,float,,Illuminance,luxes,EMDCU Luminance
 Occupied,3,Occupied,AI:3,float,,Occupied,no-units,EMDCU Occupancy

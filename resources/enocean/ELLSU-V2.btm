@@ -6,4 +6,4 @@
 #description,ELLSU Light Level Sensor
 Block Name,Block Index,Datapoint Name,Address,IAP Type,IAP Field,BACnet Name,BACnet Units,Description
 Voltage,1,Voltage,AI:1,float,,Voltage,volts,ELLSU Voltage
-Luminance,2,Luminance,AI:2,float,,Luminance,luxes,ELLSU Luminance
+Illuminance,2,Illuminance,AI:2,float,,Illuminance,luxes,ELLSU Luminance

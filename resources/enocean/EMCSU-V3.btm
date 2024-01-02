@@ -5,4 +5,4 @@
 #manufacturer,EnOcean
 #description,EMCSU Magnetic Contact
 Block Name,Block Index,Datapoint Name,Address,IAP Type,IAP Field,BACnet Name,BACnet Units,Description
-Contact State,1,Contact State,BI:1,boolean,,Contact State,no-units,EMCSU Contact
+Contact State,1,Contact State,BI:1,bit,,Contact State,no-units,EMCSU Contact
