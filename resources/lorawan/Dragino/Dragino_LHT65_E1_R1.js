@@ -1,88 +1,102 @@
-// Chirpstack 4 wrapper
-function decodeUplink(input) {
-  var res = Decode (input.fPort,input.bytes);
-  if (res.error) {
-    return {
-      errors: [res.error],
-    };
+function str_pad(byte){
+    var zero = '00';
+    var hex= byte.toString(16);    
+    var tmp  = 2-hex.length;
+    return zero.substr(0,tmp) + hex + " ";
   }
-  return {
-    data: res,
-  };
-} 
-
-function Decode(fPort, bytes){
-var data = {  
-       //External sensor
-       Ext_sensor:
-       {
-         "0":"No external sensor",
-         "1":"Temperature Sensor",
-         "4":"Interrupt Sensor send",
-         "5":"Illumination Sensor",
-         "6":"ADC Sensor",
-         "7":"Interrupt Sensor count",
-       }[bytes[6]&0x7F],
-       
-       //Battery status
-       Bat_status:
-       {
-         "0":"Ultra Low",
-         "1":"Low",
-         "2":"OK",
-         "3":"Good",
-       }[bytes[0]>>6&0x03],
-
-       //Battery,units:V
-       BatV:((bytes[0]<<8 | bytes[1]) & 0x3FFF)/1000,
-       
-       //SHT20,temperature,units:
-       TempC_SHT:+((bytes[2]<<24>>16 | bytes[3])/100).toFixed(2),
-       
-       //SHT20,Humidity,units:%
-       Hum_SHT:+((bytes[4]<<8 | bytes[5])/10).toFixed(1),
-       
-       //DS18B20,temperature,units:
-       TempC_DS:
-       {
-         "1":+((bytes[7]<<24>>16 | bytes[8])/100).toFixed(2),
-       }[bytes[6]&0xFF],       
-       
-       //Exti pin level,PA4
-       Exti_pin_level:
-       {
-         "4":bytes[7] ? "High":"Low",
-       }[bytes[6]&0x7F], 
-       
-       //Exit pin status,PA4
-       Exti_status:
-       {
-         "4":bytes[8] ? "True":"False",
-       }[bytes[6]&0x7F],    
-       
-       //BH1750,illumination,units:lux
-       ILL_lux:
-       {
-         "5":bytes[7]<<8 | bytes[8],
-       }[bytes[6]&0x7F],  
-
-        //ADC,PA4,units:V
-        ADC_V:
-       {
-         "6":(bytes[7]<<8 | bytes[8])/1000,
-       }[bytes[6]&0x7F],  
-       
-        //Exti count,PA4,units:times
-        Exit_count:
-        {
-          "7":bytes[7]<<8 | bytes[8],
-        }[bytes[6]&0x7F],  
-        
-        //Applicable to working mode 4567,and working mode 467 requires short circuit PA9 and PA10
-        No_connect:
-        {
-          "1":"Sensor no connection",
-        }[(bytes[6]&0x80)>>7],  
-  };
-	return data;
-}
+  
+  function decodeUplink(input) {
+       var port = input.fPort;
+  var bytes = input.bytes;
+  var Ext= bytes[6]&0x0F;
+  var poll_message_status=(bytes[6]&0x40)>>6;
+  var Connect=(bytes[6]&0x80)>>7;
+  var data = {};
+  switch (input.fPort) {
+     case 2:
+  if(Ext==0x09)
+  {
+  data.TempC_DS=parseFloat(((bytes[0]<<24>>16 | bytes[1])/100).toFixed(2));
+  data.Bat_status=bytes[4]>>6;
+  }
+  else
+  {
+  data.BatV= ((bytes[0]<<8 | bytes[1]) & 0x3FFF)/1000;
+  data.Bat_status=bytes[0]>>6;
+  }
+  
+  if(Ext!=0x0f)
+  {
+  data.TempC_SHT=parseFloat(((bytes[2]<<24>>16 | bytes[3])/100).toFixed(2));
+  data.Hum_SHT=parseFloat((((bytes[4]<<8 | bytes[5])&0xFFF)/10).toFixed(1));
+  }
+  if(Connect=='1')
+  {
+  data.No_connect="Sensor no connection";
+  }
+  
+  if(Ext=='0')
+  {
+  data.Ext_sensor ="No external sensor";
+  }
+  else if(Ext=='1')
+  {
+  data.Ext_sensor ="Temperature Sensor";
+  data.TempC_DS=parseFloat(((bytes[7]<<24>>16 | bytes[8])/100).toFixed(2));
+  }
+  else if(Ext=='4')
+  {
+  data.Work_mode="Interrupt Sensor send";
+  data.Exti_pin_level=bytes[7] ? "High":"Low";  
+  data.Exti_status=bytes[8] ? "True":"False";
+  }
+  else if(Ext=='5')
+  {
+  data.Work_mode="Illumination Sensor";
+  data.ILL_lx=bytes[7]<<8 | bytes[8];
+  
+  }
+  else if(Ext=='6')
+  {
+  data.Work_mode="ADC Sensor";
+  data.ADC_V=(bytes[7]<<8 | bytes[8])/1000;
+  }
+  else if(Ext=='7')
+  {
+  data.Work_mode="Interrupt Sensor count";
+  data.Exit_count=bytes[7]<<8 | bytes[8];
+  }
+  else if(Ext=='8')
+  {
+  data.Work_mode="Interrupt Sensor count";
+  data.Exit_count=bytes[7]<<24 | bytes[8]<<16 | bytes[9]<<8 | bytes[10];
+  }
+  else if(Ext=='9')
+  {
+  data.Work_mode="DS18B20 & timestamp";
+  data.Systimestamp=(bytes[7]<<24 | bytes[8]<<16 | bytes[9]<<8 | bytes[10] );
+  }
+  else if(Ext=='15')
+  {
+  data.Work_mode="DS18B20ID";
+  data.ID=str_pad(bytes[2])+str_pad(bytes[3])+str_pad(bytes[4])+str_pad(bytes[5])+str_pad(bytes[7])+str_pad(bytes[8])+str_pad(bytes[9])+str_pad(bytes[10]);
+  }
+  
+  if(poll_message_status===0)
+  {
+  if(bytes.length==11)
+  {
+    return {
+    data:data,
+    }
+  }
+  }
+  break;
+  default:
+    return {
+      errors: ["unknown FPort"]
+    }
+  
+  }
+  
+  }
