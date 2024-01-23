@@ -1,35 +1,30 @@
 # localDev.exe
 ---
-## Dynamic Interface For Direct IzoT CT Integration
-In this use case, the integrator wants to define a device compatible inputs and outputs to interfaced to other Lon edge devices defined in an IzoT CT network using lon bindings.  This application can create a lon.attach:'local' internal device on the SmartServer IoT based on the file NM_DyanamcC.xif.  This file and the XML resources (ApolloDevXml_1_30.zip) need to be imported using the CMS.  You need to set your SmartServer to IMM mode.
+This application creates one or more internal LON devices on the SmartServer IoT.  Internal LON devices have datapoints that reside on the SmartServer itself.  So, the internal device’s input datapoints are writable from the LonTalk network and the output datapoints produce data on the LonTalk network.  An example use case for this type of device is to use IzoT CT to bind an output datapoint on an edge device to an input datapoint on the SmartServer.  That input datapoint can be used then for monitoring, logging, alarming, etc.  You can also implement custom services to process datapoints on an internal device such as reacting to changes to input values or modifying output values that are bound externally.
 
-The binary version of these resources (ApolloDev.zip) needs to be added to you Lonworks/types folder so IzoT Net Server has access to the type definitions.  
+To create an internal device, you must first import the corresponding XIF to the SmartServer using the Device Type widget, the CMS REST API or the DTP loader.  Furthermore, when using IzoT Net Server with the SmartServer, the binary version of the resources need to be added to your Lonworks/types folder.  It is also required that the SmartServer be put into IMM mode prior to instantiating internal devices with localDev.exe. It is also required that the MQTT ports (1883 and 8883) be opened via the Features Configuration page. Finally, the SmartServer needs to be a Quad Core (Serial number contains F or higher) and be running 3.64 or later.
 
-The application is written using node.js, but is packaged as as windows executable using the nexe NPM package.  The application requires 3 arguments:
+localDev.exe is written using node.js, but is packaged as a Windows executable using the nexe NPM package.  The application takes 5 arguments like so:
 
-1. PID of the XIF file.  For NM_Dynamic.xif, the PID is 9000010600828582.
-2. The IAP device handle.  Use an alpha prefix.   'dyn-1' is an example.
+1. PID of the XIF file.  
+2. The IAP device handle.  When creating one device, this is the full handle (e.g., ‘mydev’).  When creating multiple devices, this is the handle prefix which will be appended with “-<instance>”.  So, if you create 3 devices and this handle is ‘mydev’, you will end up with mydev-01, mydev-02 and mydev-03.
 3. The IP address of the target SmartServer IoT.
+4. The number of devices to create.
+5. The name of the device type that was created on the SmartServer IoT.
 
-Here is an example: ``` localdev  9000010600828582 dyn-1 192.168.10.201```
+Note that internal devices are created by specifying “lon.attach:'local'” in the IAP/MQ request to create the device.
 
-The result will show the device 'dyn-1' in the CMS device widget.  With the SmartServer set to IMM mode, you can add a device to your IzoT CT design based on the NM_DynamicC.XIF file.  You can determined the internal devices UID for commissioning in IzoT CT.  You can also by commission by pressing the physical service pin of the SmartServer, or pressing the Service/Connect button from the Lon tab of the Configuration Web UI.  
+The program creates a file called simDevices.csv that can be used to import the created devices into a SmartServer CMS.  It also creates a file called nuDevices.scr that can be used to import the devices into NodeUtil.  
 
-The interface of NM_DynamicC.xif has 64 empty web server functional blocks that are used to add dynamic network variables the can be used for peer connections.  
+NM_DynamicC Example
 
-## Multiple Device Create
-Release 1.00.003 localDev added support to create multiple internal devices.  Now you have two additional command line parameters.  $4 is the number of devices to create, $5 is the device template to apply to the CMS compatible device import file.  Here is an example:
+Creating a device with the type NM_DynamicC is an example use of localDev.exe.  The interface of NM_DynamicC.xif has 64 empty web server functional blocks that are used to add dynamic network variables that can be used for peer connections.  The file NM_DyanamcC.xif, and the XML resources (ApolloDevXml_1_30.zip) need to be imported before creating this device.
 
-```localdev 800001230E041005 LC 192.168.10.201 50 CPD_Sim```
+Here is an example invocation: 
 
-The command parameters above will create 50 lon.attach:local devices based on the XIF with PID `800001230E041005` and they will be assigned IAP device handles LC-01 to LC-50.  A CSV device import file will be created (`simDevices.csv`).  Prior to 3.60, you need to modify the `ownerMAC` field of each device to match the target SmartServer that you plan to import the file to.  
+localDev 9000010600828582 dyn-1 192.168.10.201 1 NM_DynamicC-1
 
-A nodeutil script file (`nuDevices.scr`) is also created by `localDev.exe` when you are doing a multiple device create.
+The result will be the device 'dyn-1' in the CMS device widget of the target SmartServer.  Once this is instantiated, you can create a device in IzoT CT based on the NM_DynamicC.XIF file, and provision it in CT by determining the UID from the Devices widget, or by pressing the service pin of the SmartServer, or by pressing the Service/Connect button in the LON tab of the Configuration pages.  
 
-Release 1.00.004: Fixed issue with the header of the devices file
 
-Release 1.00.005: Blocks of devices are created but not provisioned.  Creates better support for Lon device simulations.
 
-Release 1.00.006: In this release, the output files for multiple device creating us the handle prefix.  In the example above, localDev.exe will generate the files LC.csv (CMS Device files), and LC.scr (Nodeutil script)
-
-If you plane to used localDev.exe to create lon device simulations on a second SmartServer, make sure the segment controller is set to IMM Mode.
