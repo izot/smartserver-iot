@@ -4,6 +4,8 @@ This application provides time, sunrise, sunset, dusk, and dawn times to share w
 1.00.002 - Initial application release.  08/25/2021
 1.00.005 - Deployment package and setup script updated to support setup on systems that may have a newer ApolloDev resources.
 1.00.006 - Now using suncalc.js for astroevent calculations (same as the SmartServer scheduler).  Added astroEvent.js tool for cmd line testing.
+1.00.008 - Updated resource files 1.41 and created new setup script to support the 4.0 service environment. (setup4_0.sh)
+
 ## UFPTastroClock
 This UFPT provides data points intended to align with Lon devices that understand SNVT_time_stamp, and SNVT_switch for direct control.  This functional block provides the functionality of the UCPTrealtimeClock found in SmartServer 2. The resources defining this interface are part of ApolloDev.typ 1.31 or higher.
 
@@ -29,14 +31,14 @@ These configuration properties are used to manage operation of this functional p
 |cpTimeHb|SCPTmaxSendTime|Default: 300s, Time between updates to nvoLocalTime|
 |cpDuskDawnHb|UCPTmaxSendTime|Default: 300s, Time between updates to daytime switching times.  The nvoAfterDark also follows this rate.|
 
-Power line requires special consideration to control updates to the channel.  In systems requiring more than 3 hops, it is best practice to limit updates to every 300s.  This application will prevent offering channel updates for a configured throttle time when cpPowerLine is set to 1.  If you are not connecting the outputs of the UFPTastroClock to any devices on the power line, set to 0 to get un-throttled updates. 
+Power line requires special consideration to control updates to the channel.  In systems requiring more than 3 hops, it is best practice to limit updates to every 300s.  This application will prevent offering channel updates for a configured throttle time when cpPowerLine is set to 1.  If you are not connecting the outputs of the UFPTastroClock to any devices on the power line, set to 0 to get un-throttled updates. The instructions below are for SmartServer firmware 4.0 and higher.  The setup4_0.sh script is designed to support both pre-4.0 and 4.xx service environments.  The original setup.sh is included for completeness.
 
 ## Deployment Instructions
 1. Power up the SmartServer, and confirm the CMS has fully started up.
 2. Copy files is the folder `astroClockDeploy` to as USB flash drive.
 3. Insert the drive in an empty USB port on your SmartServer.  
 4. Type: `cd /media/usb0/astroClockDeploy`
-5. Type: `sudo ./setup.sh [pwd]` where [pwd] is your apollo password.
+5. Type: `sudo ./setup4_0.sh`
 Here is an example of the setup.sh output for successful installation. 
 ```
 apollo@smartserver-17q5t6a:/media/usb0/astroClock$ sudo ./setup.sh ea1
