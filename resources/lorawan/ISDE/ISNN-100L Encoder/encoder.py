@@ -1,29 +1,33 @@
-import sys
+# Description: Example external encoder for ISDE ISNN-100L OLC
+# Revision: 1.00.001
+# Date:03/03/2024
+# Author: Timofei Poremski
+# Copyright EnOcean Edge Ltd. 2024
 
+import sys
 
 def main():
     # Define the path for the output file
-    # Uncomment the following file output code when debugging is required.
-    # This code writes debug information to an output file for analysis.
-    # Ensure to comment it back when not needed to avoid unnecessary file operations.
-    # output_file = r"/var/apollo/data/lwd/res/out.txt"
+    # Uncomment the following file output code when debugging is required
+    # This code writes debug information to an output file for analysis
+    # Ensure to comment it back when not needed to avoid unnecessary file operations
+    # output_file = r"/var/apollo/data/lwd/res/output.txt"
 
     # Initialize variables
     inputStr = ""  # String to store input string
     prefixConst = "03027e"  # Prefix constant for outputValue
     postfixConst = "ff"  # Postfix constant for outputValue
-    inputValue = 0  # Variable to store the input value
+    inputValue = ""  # Variable to store the input value
     fPort = 0  # Variable to store the port number
     outputValue = ""  # String to store the hexadecimal output values
     blockName = ""  # Variable to store the block name
     blockIndex = 0  # Variable to store the block index
 
-    # Open the output file for writing (Uncomment the code below when debugging is required)
+    # Open the output file for writing (uncomment the code below when debugging is required)
     # open(output_file, "w")
 
     # Loop to process the input
     while input:
-
         if input:
             # Read the standard input
             input_text = input()
@@ -32,24 +36,23 @@ def main():
             if not input_text:
                 break
 
-            # Write the input text to the output file (Uncomment the code below when debugging is required)
+            # Write the input text to the output file (uncomment the code below when debugging is required)
             """
             with open(output_file, "a") as file:
                 file.write(input_text + "\n")
             """
-
             # Process the input value
             if "inputValue" in input_text:
                 # Clean up the input string and split it into a key-value pair
                 inputStr = input_text.lstrip().rstrip(",").replace('"', "")
                 key, value = map(str.strip, inputStr.split(":"))
-                inputValue = int(value)
+                inVal = int(int(value) * (254 / 100))
 
                 # Ensure the input value is within the range [0, 254]
-                inputValue = min(max(inputValue, 0), 254)
+                inVal = min(max(inVal, 0), 254)
 
                 # Convert the input value to a zero-padded hexadecimal string
-                inputValue = hex(inputValue)[2:].zfill(2)
+                inputValue = hex(inVal)[2:].zfill(2)
 
             # Process the port number
             if "fPort" in input_text:
@@ -93,7 +96,6 @@ def main():
     """
     # Return the output value as a string
     return str(outputValue)
-
 
 if __name__ == "__main__":
     # Call the main function and print the result
