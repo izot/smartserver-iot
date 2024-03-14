@@ -1,0 +1,8 @@
+#filetype,bacnet_type_map
+#version,v7.0.0
+#product_name,EKCSJ key card switch
+#program_id, 8A:00:0B:F6:04:02:E0:01
+#manufacturer,EnOcean
+#description,EKCSJ key card switch
+Block Name,Block Index,Datapoint Name,Address,IAP Type,IAP Field,BACnet Name,BACnet Units,Description
+Card Inserted,1,Card Inserted,AI:1,uint8,,Card Inserted,no-units,EKCSJ Card Status

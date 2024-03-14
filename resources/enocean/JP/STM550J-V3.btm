@@ -1,0 +1,15 @@
+#filetype,bacnet_type_map
+#version,v7.0.0
+#product_name,STM550U Multisensor
+#program_id, 8A:00:0B:D2:14:41:E0:01
+#manufacturer,EnOcean
+#description,STM550J Multisensor
+Block Name,Block Index,Datapoint Name,Address,IAP Type,IAP Field,BACnet Name,BACnet Units,Description
+Temperature,1,Temperature,AI:1,float,,Temperature,degrees-celsius,STM550J Temperature
+Humidity,2,Humidity,AI:2,float,,Humidity,percent-relative-humidity,STM550J Humidity
+Illuminance,3,Illuminance,AI:3,float,,Illuminance,luxes,STM550J Illuminance
+Acceleration,4,Acceleration Status,AI:4,float,,Acceleration Status,no-units,STM550J Acceleration Status
+Acceleration,4,Acceleration X,AI:5,float,,Acceleration X,no-units,STM550J Acceleration X
+Acceleration,4,Acceleration Y,AI:6,float,,Acceleration Y,no-units,STM550J Acceleration Y
+Acceleration,4,Acceleration Z,AI:7,float,,Acceleration Z,no-units,STM550J Acceleration Z
+Contact State,5,Contact State,BI:1,bit,,Contact State,no-units,STM550J Contact

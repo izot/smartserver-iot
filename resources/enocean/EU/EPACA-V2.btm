@@ -1,0 +1,9 @@
+#filetype,bacnet_type_map
+#version,v7.0.0
+#product_name,EPACU People Activity Counter
+#program_id, 8A:00:0B:D2:15:00:E0:01
+#manufacturer,EnOcean
+#description,EPACA People Activity Counter
+Block Name,Block Index,Datapoint Name,Address,IAP Type,IAP Field,BACnet Name,BACnet Units,Description
+Update Rate,1,Update Rate,AI:1,float,,Update Rate,seconds,EPACA Update Rate
+Count,2,Count,AI:2,float,,Count,no-units,EPACA Count

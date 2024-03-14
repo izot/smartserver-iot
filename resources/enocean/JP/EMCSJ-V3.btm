@@ -1,0 +1,8 @@
+#filetype,bacnet_type_map
+#version,v7.0.0
+#product_name,EMCSJ Magnetic Contact
+#program_id, 8A:00:0B:D5:00:01:E0:01
+#manufacturer,EnOcean
+#description,EMCSJ Magnetic Contact
+Block Name,Block Index,Datapoint Name,Address,IAP Type,IAP Field,BACnet Name,BACnet Units,Description
+Contact State,1,Contact State,BI:1,bit,,Contact State,no-units,EMCSJ Contact

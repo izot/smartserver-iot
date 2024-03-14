@@ -1,0 +1,9 @@
+#filetype,bacnet_type_map
+#version,v7.0.0
+#product_name,ELLSA Light Level Sensor
+#program_id, 8A:00:0B:A5:06:02:E0:01
+#manufacturer,EnOcean
+#description,ELLSA Light Level Sensor
+Block Name,Block Index,Datapoint Name,Address,IAP Type,IAP Field,BACnet Name,BACnet Units,Description
+Voltage,1,Voltage,AI:1,float,,Voltage,volts,ELLSA Voltage
+Illuminance,2,Illuminance,AI:2,float,,Illuminance,luxes,ELLSA Luminance

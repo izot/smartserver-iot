@@ -1,0 +1,8 @@
+#filetype,bacnet_type_map
+#version,v7.0.0
+#product_name,ESRPA Single Rocker Pad
+#program_id, 8A:00:0B:F6:02:04:E0:02
+#manufacturer,EnOcean
+#description,ESRPA Single Rocker Pad
+Block Name,Block Index,Datapoint Name,Address,IAP Type,IAP Field,BACnet Name,BACnet Units,Description
+Rocker B,1,Switch B,AI:1,scalar,,Switch B,no-units,ESRPA Rocker Switch B
