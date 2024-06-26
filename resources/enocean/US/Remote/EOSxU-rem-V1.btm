@@ -1,0 +1,10 @@
+#filetype,bacnet_type_map
+#version,v7.0.0
+#product_name,EOSxU Wall and Ceiling Occupancy Sensors
+#program_id, 8A:00:0B:A5:07:01:E0:01
+#manufacturer,EnOcean
+#description,EOSxU Occupancy Sensors
+Block Name,Block Index,Datapoint Name,Address,IAP Type,IAP Field,BACnet Name,BACnet Units,Description
+Voltage,1,Voltage,AI:1,float,,Voltage,volts,EOSxU Voltage
+Occupied,2,Occupied,AI:2,float,,Occupied,no-units,EOSxU Occupancy
+OperationalInfo,3,UplinkCount,AI:3,float,,UplinkCount,no-units,EOSxU Uplink Count

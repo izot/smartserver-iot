@@ -1,0 +1,11 @@
+#filetype,bacnet_type_map
+#version,v7.0.0
+#product_name,EMDCU Motion and Light Level Sensor
+#program_id, 8A:00:0B:A5:07:03:E0:01
+#manufacturer,EnOcean
+#description,EMDCU Motion and Light Level Sensor
+Block Name,Block Index,Datapoint Name,Address,IAP Type,IAP Field,BACnet Name,BACnet Units,Description
+Voltage,1,Voltage,AI:1,float,,Voltage,volts,EMDCU Voltage
+Illuminance,2,Illuminance,AI:2,float,,Illuminance,luxes,EMDCU Luminance
+Occupied,3,Occupied,AI:3,float,,Occupied,no-units,EMDCU Occupancy
+OperationalInfo,4,UplinkCount,AI:4,float,,UplinkCount,no-units,EMDCU Uplink Count

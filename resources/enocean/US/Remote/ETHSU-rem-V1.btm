@@ -1,0 +1,10 @@
+#filetype,bacnet_type_map
+#version,v7.0.0
+#product_name,ETHSU Temperature Humidity
+#program_id, 8A:00:0B:A5:04:03:E0:01
+#manufacturer,EnOcean
+#description,ETHSU Temperature Humidity
+Block Name,Block Index,Datapoint Name,Address,IAP Type,IAP Field,BACnet Name,BACnet Units,Description
+Humidity,1,Humidity,AI:1,float,,Humidity,percent-relative-humidity,ETHSU Humidity
+Temperature,2,Temperature,AI:2,float,,Temperature,degrees-fahrenheit,ETHSU Temperature
+OperationalInfo,3,UplinkCount,AI:3,float,,UplinkCount,no-units,ETHSU Uplink Count
