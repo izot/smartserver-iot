@@ -29,7 +29,7 @@ About this device type package file
 
 -   **File Name:** EKCSU-lcl-V2.dtp
 -   **EnOcean Equipment Profile (EEP):** F6-04-02
--   **Device Model Number:** EKCSU-W-EO, EKCSA-W-EO
+-   **Device Model Number:** EKCSU-W-EO
 -   **BACnet Type Mapping File Name:** EKCSU-lcl-V2.btm
 
 <a name="ELLSU"></a>
@@ -49,7 +49,7 @@ About this device type package file
 
 -   **File Name:** EMCSU-lcl-V3.dtp
 -   **EnOcean Equipment Profile (EEP):** D5-00-01
--   **Device Model Number:** EMCSU, EMCSA, EMCSJ
+-   **Device Model Number:** EMCSU
 -   **BACnet Type Mapping File Name:** EMCSU-lcl-V3.btm
 
 <a name="EMDCU"></a>
@@ -59,7 +59,7 @@ About this device type package file
 
 -   **File Name:** EMDCU-lcl-V3.dtp
 -   **EnOcean Equipment Profile (EEP):** A5-07-03
--   **Device Model Number:** EMDCU-W-EO, EMDCA-W-EO, EMDCJ-W-EO
+-   **Device Model Number:** EMDCU-W-EO
 -   **BACnet Type Mapping File Name:** EMDCU-lcl-V3.btm
 
 <a name="EMSIU"></a>
@@ -69,7 +69,7 @@ About this device type package file
 
 -   **File Name:** STM550-lcl-V4.dtp
 -   **EnOcean Equipment Profile (EEP):** D2-14-41 (default)
--   **Device Model Number:** STM550U, STM500, STM550J
+-   **Device Model Number:** STM550U
 -   **BACnet Type Mapping File Name:** STM550-lcl-V4.btm
 
 <a name="EOSxU"></a>
@@ -81,7 +81,7 @@ About this device type package file
 
 -   **File Name:** EOSxU-lcl-V2.dtp
 -   **EnOcean Equipment Profile (EEP):** A5-07-01
--   **Device Model Number:** EOSCU-W-EO, EOSCA-W-EO, EOSCJ-W-EO, EOSWU-W-EO, EOSWA-W-EO, EOSWJ-W-EO, EOSHU
+-   **Device Model Number:** EOSCU-W-EO, EOSWU-W-EO, EOSHU
 -   **BACnet Type Mapping File Name:** EOSxU-lcl-V2.btm
 
 <a name="EPACU"></a>
@@ -91,7 +91,7 @@ About this device type package file
 
 -   **File Name:** EPACU-lcl-V2.dtp
 -   **EnOcean Equipment Profile (EEP):** D2-15-00
--   **Device Model Number:** EPACU, EPACA
+-   **Device Model Number:** EPACU
 -   **BACnet Type Mapping File Name:** EPACU-lcl-V2.btm
 
 <a name="ETHSU"></a>
@@ -101,7 +101,7 @@ About this device type package file
 
 -   **File Name:** ETHSU-lcl-V4.dtp
 -   **EnOcean Equipment Profile (EEP):** A5-04-03
--   **Device Model Number:** ETHSU ETHSA
+-   **Device Model Number:** ETHSU
 -   **BACnet Type Mapping File Name:** ETHSU-lcl-V4.btm
 
 <a name="EDRPU"></a>
