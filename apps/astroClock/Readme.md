@@ -67,9 +67,9 @@ apollo@smartserver-17q5t6a:/media/usb0/astroClock$
 ![Installed AstroClock](images/AstroClockInstalled.png)
 
 5. Reboot your SmartServer.  
-6. Allow 3 minutes and verify operation of the astroClock application by connecting by SSH and typing: `tail -f /var/log/supervisor/astroClock.log` You should expect output similar to this:
+6. Allow 3 minutes and verify operation of the astroClock application by connecting by SSH and typing: `tail -f /var/log/syslog | grep smartserver-astroclock` You should expect output similar to this:
 ```
-root@smartserver-17qanut:~# tail -f /var/log/supervisor/astroClock.log
+root@smartserver-17qanut:~# tail -f /var/log/syslog | grep smartserver-astroclock
 astroClock.js - version: 1.00.002
 Sunrise: 6:23:25 AM, Sunset: 7:29:06 PM
 Dawn: 5:57:31 AM, Dusk: 7:54:56 PM
@@ -81,7 +81,7 @@ astro-1 - State: provisioned - Health: normal
 8/25/2021, 2:30:22 PM - delayToSchedule: 45877443ms.
 ```
 ## Notes on Operation
-The cpPowerline property defaults to 1.  When set to 1 a pacing delay is used when updating nvo points to avoid congestion on the power line channel.  The default is 20s, but the first command line parameter can override the pacing delay.  The installed `/etc/supervisor/conf.d/astroClock.conf`, is set to 30, which is generally a reasonable conservative value in a PL repeating environment.  
+The cpPowerline property defaults to 1.  When set to 1 a pacing delay is used when updating nvo points to avoid congestion on the power line channel.  The default is 20s, but the first command line parameter can override the pacing delay.  The installed `/lib/systemd/system/smartserver-astroclock.service`, is set to 30, which is generally a reasonable conservative value in a PL repeating environment.  
 
 The `nvoAfterDark` point (`SNVT_switch`) will fire at the calculated nvoDawn and nvoDusk times with relative to cpDawnAdjust and cpDuskAdjust offsets applied.  
 
