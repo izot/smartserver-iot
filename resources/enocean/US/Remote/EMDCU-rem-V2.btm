@@ -8,4 +8,4 @@ Block Name,Block Index,Datapoint Name,Address,IAP Type,IAP Field,BACnet Name,BAC
 Voltage,1,Voltage,AI:1,float,,Voltage,volts,EMDCU Voltage
 Illuminance,2,Illuminance,AI:2,float,,Illuminance,luxes,EMDCU Luminance
 Occupied,3,Occupied,AI:3,float,,Occupied,no-units,EMDCU Occupancy
-OperationalInfo,4,UplinkCount,AI:4,float,,UplinkCount,no-units,EMDCU Uplink Count
+OperationalInfo,4,Telegram Count,AI:4,float,,Telegram Count,no-units,EMDCU Telegram Count

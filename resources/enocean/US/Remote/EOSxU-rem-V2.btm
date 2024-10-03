@@ -7,4 +7,4 @@
 Block Name,Block Index,Datapoint Name,Address,IAP Type,IAP Field,BACnet Name,BACnet Units,Description
 Voltage,1,Voltage,AI:1,float,,Voltage,volts,EOSxU Voltage
 Occupied,2,Occupied,AI:2,float,,Occupied,no-units,EOSxU Occupancy
-OperationalInfo,3,UplinkCount,AI:3,float,,UplinkCount,no-units,EOSxU Uplink Count
+OperationalInfo,3,Telegram Count,AI:3,float,,Telegram Count,no-units,EOSxU Telegram Count

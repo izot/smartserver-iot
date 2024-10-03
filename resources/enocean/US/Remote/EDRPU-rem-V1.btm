@@ -1,0 +1,11 @@
+#filetype,bacnet_type_map
+#version,v7.0.0
+#product_name,EDRPU Double Rocker Pad
+#program_id, 8A:00:0B:F6:02:04:E0:01
+#manufacturer,EnOcean
+#description,EDRPU Double Rocker Pad
+Block Name,Block Index,Datapoint Name,Address,IAP Type,IAP Field,BACnet Name,BACnet Units,Description
+Rocker B,2,Switch B,AI:1,scalar,,Switch B,no-units,EDRPU Rocker Switch B
+Rocker A,1,Switch A,AI:2,scalar,,Switch A,no-units,EDRPU Rocker Switch A
+Switch State,3,Switch State,AI:3,scalar,,Switch State,no-units,ESRPU Switch State
+OperationalInfo,4,Telegram Count,AI:4,float,,TelegramCount,no-units,EDRPU Telegram Count

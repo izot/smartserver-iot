@@ -13,4 +13,4 @@ Acceleration,4,Acceleration X,AI:5,float,,Acceleration X,no-units,STM550 Acceler
 Acceleration,4,Acceleration Y,AI:6,float,,Acceleration Y,no-units,STM550 Acceleration Y
 Acceleration,4,Acceleration Z,AI:7,float,,Acceleration Z,no-units,STM550 Acceleration Z
 Contact State,5,Contact State,BI:1,bit,,Contact State,no-units,STM550 Contact
-OperationalInfo,6,UplinkCount,AI:8,float,,UplinkCount,no-units,STM550 Uplink Count
+OperationalInfo,6,Telegram Count,AI:8,float,,Telegram Count,no-units,STM550 Telegram Count
