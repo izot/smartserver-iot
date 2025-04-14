@@ -32,7 +32,7 @@ unzip -o ./astroClockPackage.zip
 rm ./astroClockPackage.zip
 echo "Resetting file ownership to apollo"
 chown -R apollo:apollo $APP_DIR
-mv $APP_DIR/$A_SETUP/astroClock.conf /etc/supervisor/conf.d
+mv $APP_DIR/$A_SETUP/smartserver-astroclock.service /lib/systemd/system/smartserver-astroclock.service
 echo "Moving astroClock package to $APOLLO_DATA/dtp-files.d"
 mv ./astroClock.dtp $APOLLO_DATA/dtp-files.d
 echo "Moving ApolloDev resources (1.31) to $APOLLO_DATA/dtp-files.d"
@@ -48,5 +48,7 @@ dtp-loader http://localhost:8181 apollo $PSW $APOLLO_DATA/dtp-files.d/astroClock
 echo "Creating astro-1 lon.attach:local device"
 mosquitto_pub -t glp/0/$APOLLO_INSTALL_CODE/rq/dev/lon/astro-1/do -m '{"action":"create","args":{"uid":"auto","type":"90000106000A8511","lon.attach":"local","provision":true}}'
 sleep 20s
-supervisorctl reload
+smartserverctl reload
+smartserverctl enable smartserver-astroclock
+smartserverctl start smartserver-astroclock
 cd .
