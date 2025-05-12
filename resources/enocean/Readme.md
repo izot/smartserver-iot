@@ -6,5 +6,6 @@ not "enocean" in the "Protocol" field.
 In addition, the .eno files will need an additional line after "#manufacturer, EnOcean" that specifies the device eep (in addition to the eep being part of the program ID) such as:
 
 #manufacturer,EnOcean
+
 #eep	a5-04-03
 
