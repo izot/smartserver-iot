@@ -1,11 +1,10 @@
-Readme - EnOcean Self-Powered Sensors, Device Type Package Files and BACnet Type Mapping Files for Remote Mode
+Readme - EnOcean Self-Powered Sensors, Device Type Package Files and BACnet Type Mapping Files for Remote Mode in the European Region.
 ===
 ---
 
 # Table of Contents
 
 -   [Overview](#Overview)
--   [ELLSA - EnOcean Light Level Sensor](#ELLSA)
 -   [EMCSA - EnOcean Magnet Contact Sensor](#EMCSA)
 -   [EMDCA - EnOcean Motion Detector With Illumination Sensor](#EMDCA)
 -   [EMSIA (STM 550) - EnOcean Multisensor](#EMSIA)
@@ -19,16 +18,6 @@ Readme - EnOcean Self-Powered Sensors, Device Type Package Files and BACnet Type
 # Overview
 
 These device type package (dtp) files for the SmartServer IoT support many of the EnOcean-branded sensors and switches classified as finished products or Easyfit devices.  These files are designed for use with the EnOcean driver operating in remote mode.  There are individual device type package files for each sensor type.  In addition, there are individual BACnet type mapping (btm) files for each of the sensor types to support applications where the SmartServer IoT is being used to publish EnOcean sensor data as BACnet IP data using the SmartServer IoT's integral BACnet IP server.  Note that these package files are based on the default EnOcean Equipment Profiles (EEP) used by these sensors.  Some sensors like the STM 550 support different EEPs selectable using NFC.
-
-<a name="ELLSA"></a>
-# ELLSA - EnOcean Light Level Sensor
-
-About this device type package file
-
--   **File Name:** ELLSA-rem-V1.dtp
--   **EnOcean Equipment Profile (EEP):** A5-06-02
--   **Device Model Number:** ELLSA-W-EO
--   **BACnet Type Mapping File Name:** ELLSA-rem-V1.btm
 
 <a name="EMCSA"></a>
 # EMCSA - EnOcean Magnet Contact Sensor
@@ -101,7 +90,7 @@ About this device type package file
 <a name="EDRPA"></a>
 # EDRPA - EnOcean Double Rocker Pad
 
-Note that since this package file is based on EEP F6-02-04, users may encounter issues using this package file with older USB 300U radios running an API version prior to 2.6.8.0 (Jan 2017).
+Note that since this package file is based on EEP F6-02-04, users may encounter issues using this package file with older USB 300U radios running an API version prior to 2.6.8.0 (Jan 2017).  This supports switches containing the PTM 215.
 
 About this device type package file
 
@@ -113,7 +102,7 @@ About this device type package file
 <a name="ESRPA"></a>
 # ESRPA - EnOcean Single Rocker Pad
 
-Note that since this package file is based on EEP F6-02-04, users may encounter issues using this package file with older USB 300U radios running an API version prior to 2.6.8.0 (Jan 2017).
+Note that since this package file is based on EEP F6-02-04, users may encounter issues using this package file with older USB 300U radios running an API version prior to 2.6.8.0 (Jan 2017).  This supports switches containing the PTM 215.
 
 About this device type package file
 
