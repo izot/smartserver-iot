@@ -9,7 +9,7 @@ Readme - EnOcean Self-Powered Sensors, Device Type Package Files and BACnet Type
 -   [ELLSU - EnOcean Light Level Sensor](#ELLSU)
 -   [EMCSU - EnOcean Magnet Contact Sensor](#EMCSU)
 -   [EMDCU - EnOcean Motion Detector With Illumination Sensor](#EMDCU)
--   [EMSIU (STM 550) - EnOcean Multisensor](#EMSIU)
+-   [EMSIU (STM 550U) - EnOcean Multisensor](#EMSIU)
 -   [EOSxU - EnOcean Ceiling, Wall Mounted, and High Bay Occupancy Sensors](#EOSxU)
 -   [EPACU - EnOcean People Activity Counter](#EPACU)
 -   [ETHSU - EnOcean Temperature and Humidity Sensor](#ETHSU)
@@ -63,14 +63,14 @@ About this device type package file
 -   **BACnet Type Mapping File Name:** EMDCU-lcl-V3.btm
 
 <a name="EMSIU"></a>
-# EMSIU (STM 550) - EnOcean Multisensor
+# EMSIU (STM 550U) - EnOcean Multisensor
 
 About this device type package file
 
--   **File Name:** STM550-lcl-V4.dtp
+-   **File Name:** STM550U-lcl-V5.dtp
 -   **EnOcean Equipment Profile (EEP):** D2-14-41 (default)
 -   **Device Model Number:** STM550U
--   **BACnet Type Mapping File Name:** STM550-lcl-V4.btm
+-   **BACnet Type Mapping File Name:** STM550U-lcl-V5.btm
 
 <a name="EOSxU"></a>
 # EOSxU - EnOcean Ceiling, Wall Mounted, and High Bay Occupancy Sensors
