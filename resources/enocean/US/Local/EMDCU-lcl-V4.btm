@@ -1,10 +1,10 @@
 #filetype,bacnet_type_map
 #version,v04
-#program_ID,8A00:0BA5:0703:E029
+#program_ID,8A00:0BA5:0703:E004
 #manufacturer,EnOcean
 #product_name,EnOcean EMDCU Motion and Lighting Level Sensor
 #description,EnOcean EMDCU motion; lighting level; and energy store voltage sensor
-Block Name,Block Index,Datapoint Name,Description,IAP Type,IAP Field,Address,BACnet Name,BACnet Units
-Voltage,0,Voltage,Voltage Level,float,,AI:1,Voltage,volts
-Lighting,0,Lighting Level,Lighting level (fc),float,,AI:2,Illuminance,foot-candles
-Occupancy,0,Occupancy State,Occupancy state,bit,,BI:1,Occupancy,no-units
+Block Name,Block Index,Datapoint Name,Description,IAP Type,IAP Field,Address,BACnet Name,BACnet Units,Trend Log
+Voltage,0,Voltage,Voltage Level,float,,AI:1,Voltage,volts,No
+Lighting,0,Lighting Level,Lighting level (fc),float,,AI:2,Illuminance,foot-candles,Yes
+Occupancy,0,Occupancy State,Occupancy state,bit,,BI:1,Occupancy,no-units,Yes
