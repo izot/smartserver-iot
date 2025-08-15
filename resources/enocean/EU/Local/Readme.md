@@ -56,10 +56,10 @@ About this device type package file
 
 About this device type package file
 
--   **File Name:** STM550-V3.dtp
+-   **File Name:** STM550-lcl-V4.dtp
 -   **EnOcean Equipment Profile (EEP):** D2-14-41 (default)
 -   **Device Model Number:** STM500
--   **BACnet Type Mapping File Name:** STM550-V3.btm
+-   **BACnet Type Mapping File Name:** STM550-lcl-V4.btm
 
 <a name="EOSxA"></a>
 # EOSxA - EnOcean Ceiling, Wall Mounted, and High Bay Occupancy Sensors
