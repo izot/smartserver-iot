@@ -7,7 +7,7 @@ Readme - EnOcean Self-Powered Sensors, Device Type Package Files and BACnet Type
 -   [Overview](#Overview)
 -   [EMCSJ - EnOcean Magnet Contact Sensor](#EMCSJ)
 -   [EMDCJ - EnOcean Motion Detector With Illumination Sensor](#EMDCJ)
--   [EMSIJ (STM 550) - EnOcean Multisensor](#EMSIJ)
+-   [EMSIJ (STM 550J) - EnOcean Multisensor](#EMSIJ)
 -   [EOSxJ - EnOcean Ceiling, Wall Mounted, and High Bay Occupancy Sensors](#EOSxJ)
 -   [EnOcean-JP-lcl-V5.dtp - Consolidated Device Type Package File](#Complete)
 
@@ -41,10 +41,10 @@ About this device type package file
 
 About this device type package file
 
--   **File Name:** STM550J-V3.dtp
+-   **File Name:** STM550J-lcl-V4.dtp
 -   **EnOcean Equipment Profile (EEP):** D2-14-41 (default)
 -   **Device Model Number:** STM550J
--   **BACnet Type Mapping File Name:** STM550J-V3.btm
+-   **BACnet Type Mapping File Name:** STM550J-lcl-V4.btm
 
 <a name="EOSxJ"></a>
 # EOSxJ - EnOcean Ceiling, Wall Mounted, and High Bay Occupancy Sensors

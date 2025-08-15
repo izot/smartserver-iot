@@ -1,0 +1,15 @@
+#filetype,bacnet_type_map
+#version,v04
+#program_id,8A00:0BD2:1441:E004
+#manufacturer,EnOcean
+#product_name,STM550J Multisensor
+#description,EnOcean STM550J temperature; humidity; lighting level; acceleration; and magnetic contact sensor
+Block Name,Block Index,Datapoint Name,Description,IAP Type,IAP Field,Address,BACnet Name,BACnet Units,Trend Log
+Acceleration,0,Acceleration Status,Acceleration status (0:still; 1:motion),sint8,,AI:4,Acceleration Status,no-units,Yes
+Acceleration,0,Acceleration X,X-axis acceleration (g),float,,AI:5,Acceleration X,no-units,No
+Acceleration,0,Acceleration Y,Y-axis acceleration (g),float,,AI:6,Acceleration Y,no-units,No
+Acceleration,0,Acceleration Z,Z-axis acceleration (g),float,,AI:7,Acceleration Z,no-units,No
+Environment,0,Humidity,Relative humidity (%),float,,AI:2,Humidity,percent-relative-humidity,Yes
+Environment,0,Lighting Level,Lighting level (fc),float,,AI:3,Illuminance,luxes,Yes
+Environment,0,Temperature,Temperature (ºC),float,,AI:1,Temperature,degrees-celsius,Yes
+Magnetic Sensor,0,Contact State,Magnetic contact state (0:open; 1:closed),bit,,BI:1,Contact State,no-units,No
