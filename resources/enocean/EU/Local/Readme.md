@@ -46,10 +46,10 @@ About this device type package file
 
 About this device type package file
 
--   **File Name:** EMDCA-V3.dtp
+-   **File Name:** EMDCA-lcl-V4.dtp
 -   **EnOcean Equipment Profile (EEP):** A5-07-03
 -   **Device Model Number:** EMDCA-W-EO
--   **BACnet Type Mapping File Name:** EMDCA-V3.btm
+-   **BACnet Type Mapping File Name:** EMDCA-lcl-V4.btm
 
 <a name="EMSIA"></a>
 # EMSIA (STM 550) - EnOcean Multisensor
@@ -58,7 +58,7 @@ About this device type package file
 
 -   **File Name:** STM550-lcl-V4.dtp
 -   **EnOcean Equipment Profile (EEP):** D2-14-41 (default)
--   **Device Model Number:** STM500
+-   **Device Model Number:** STM550
 -   **BACnet Type Mapping File Name:** STM550-lcl-V4.btm
 
 <a name="EOSxA"></a>
