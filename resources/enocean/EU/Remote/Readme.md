@@ -13,11 +13,13 @@ Readme - EnOcean Self-Powered Sensors, Device Type Package Files and BACnet Type
 -   [ETHSA - EnOcean Temperature and Humidity Sensor](#ETHSA)
 -   [EDRPA - EnOcean Double Rocker Pad](#EDRPA)
 -   [ESRPA - EnOcean Single Rocker Pad](#ESRPA)
+-   [CTV3 - Pressac One Channel Current Sensor](#CTV3)
+-   [SD-ENO-Co2 - Jumitech Air Quality Sensor](#SDENOC2)
 
 <a name="Overview"></a>
 # Overview
 
-These device type package (dtp) files for the SmartServer IoT support many of the EnOcean-branded sensors and switches classified as finished products or Easyfit devices.  These files are designed for use with the EnOcean driver operating in remote mode.  There are individual device type package files for each sensor type.  In addition, there are individual BACnet type mapping (btm) files for each of the sensor types to support applications where the SmartServer IoT is being used to publish EnOcean sensor data as BACnet IP data using the SmartServer IoT's integral BACnet IP server.  Note that these package files are based on the default EnOcean Equipment Profiles (EEP) used by these sensors.  Some sensors like the STM 550 support different EEPs selectable using NFC.
+These device type package (dtp) files for the SmartServer IoT support many of the EnOcean-branded sensors and switches classified as finished products or Easyfit devices.  In addition, there are a few package files included for 3rd party EnOcean protocol devices.  These files are designed for use with the EnOcean driver operating in remote mode.  There are individual device type package files for each sensor type.  In addition, there are individual BACnet type mapping (btm) files for each of the sensor types to support applications where the SmartServer IoT is being used to publish EnOcean sensor data as BACnet IP data using the SmartServer IoT's integral BACnet IP server.  Note that these package files are based on the default EnOcean Equipment Profiles (EEP) used by these sensors.  Some sensors like the STM 550 support different EEPs selectable using NFC.
 
 <a name="EMCSA"></a>
 # EMCSA - EnOcean Magnet Contact Sensor
@@ -110,3 +112,23 @@ About this device type package file
 -   **EnOcean Equipment Profile (EEP):** F6-02-04
 -   **Device Model Number:** ESRPA-W-EO
 -   **BACnet Type Mapping File Name:** ESRPA-rem-V1.btm
+
+<a name="CTV3"></a>
+# CTV3 - Pressac One Channel Current Sensor
+
+About this device type package file
+
+-   **File Name:** CT-Clamp-1CH-rem-V1.dtp
+-   **EnOcean Equipment Profile (EEP):** D2-32-00
+-   **Device Model Number:** CTV3_868_1CH_xxxA
+-   **BACnet Type Mapping File Name:** CT-Clamp-1CH-rem-V1.btm (included in the package file)
+
+<a name="SDENOC2"></a>
+# SD-ENO-Co2 - Jumitech Air Quality Sensor
+
+About this device type package file
+
+-   **File Name:** Jumitech-CO2-rem-V1.dtp
+-   **EnOcean Equipment Profile (EEP):** D2-14-59
+-   **Device Model Number:** SD-ENO-Co2-Sensor
+-   **BACnet Type Mapping File Name:** Jumitech-CO2-rem-V1.btm (included in the package file)
