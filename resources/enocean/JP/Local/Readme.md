@@ -53,10 +53,10 @@ Note that there are three different EnOcean occupancy sensor base models support
 
 About this device type package file
 
--   **File Name:** EOSxJ-V2.dtp
+-   **File Name:** EOSxJ-lcl-V3.dtp
 -   **EnOcean Equipment Profile (EEP):** A5-07-01
 -   **Device Model Number:** EOSCJ-W-EO,EOSWJ-W-EO
--   **BACnet Type Mapping File Name:** EOSxJ-V2.btm
+-   **BACnet Type Mapping File Name:** EOSxJ-lcl-V3.btm
 
 <a name="Complete"></a>
 # EnOcean-JP-lcl-V5.dtp - Consolidated Device Type Package File
