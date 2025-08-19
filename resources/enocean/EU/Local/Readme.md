@@ -36,10 +36,10 @@ About this device type package file
 
 About this device type package file
 
--   **File Name:** EMCSA-V3.dtp
+-   **File Name:** EMCSA-lcl-V4.dtp
 -   **EnOcean Equipment Profile (EEP):** D5-00-01
 -   **Device Model Number:** EMCSA
--   **BACnet Type Mapping File Name:** EMCSA-V3.btm
+-   **BACnet Type Mapping File Name:** EMCSA-lcl-V4.btm
 
 <a name="EMDCA"></a>
 # EMDCA - EnOcean Motion Detector With Illumination Sensor

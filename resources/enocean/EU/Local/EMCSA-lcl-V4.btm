@@ -1,0 +1,8 @@
+#filetype,bacnet_type_map
+#version,v04
+#product_name,EMCSA Magnetic Contact
+#program_id, 8A:00:0B:D5:00:01:E0:04
+#manufacturer,EnOcean
+#description,EMCSA Magnetic Contact
+Block Name,Block Index,Datapoint Name,Description,IAP Type,IAP Field,Address,BACnet Name,BACnet Units,Trend Log
+Magnetic Sensor,0,Contact State,Magnetic contact state (0:open; 1:closed),bit,,BI:1,Contact State,no-units,No
