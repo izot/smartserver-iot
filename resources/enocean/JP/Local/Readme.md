@@ -21,10 +21,10 @@ These device type package (dtp) files for the SmartServer IoT support many of th
 
 About this device type package file
 
--   **File Name:** EMCSJ-V3.dtp
+-   **File Name:** EMCSJ-lcl-V4.dtp
 -   **EnOcean Equipment Profile (EEP):** D5-00-01
 -   **Device Model Number:** EMCSJ
--   **BACnet Type Mapping File Name:** EMCSJ-V3.btm
+-   **BACnet Type Mapping File Name:** EMCSJ-lcl-V4.btm
 
 <a name="EMDCJ"></a>
 # EMDCJ - EnOcean Motion Detector With Illumination Sensor
