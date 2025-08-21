@@ -26,10 +26,10 @@ These device type package (dtp) files for the SmartServer IoT support many of th
 
 About this device type package file
 
--   **File Name:** EKCSA-V2.dtp
+-   **File Name:** EKCSA-lcl-V2.dtp
 -   **EnOcean Equipment Profile (EEP):** F6-04-02
 -   **Device Model Number:** EKCSA-W-EO, EKCSA-W-EO
--   **BACnet Type Mapping File Name:** EKCSA-V2.btm
+-   **BACnet Type Mapping File Name:** EKCSA-lcl-V2.btm
 
 <a name="EMCSA"></a>
 # EMCSA - EnOcean Magnet Contact Sensor

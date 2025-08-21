@@ -1,7 +1,7 @@
 #filetype,bacnet_type_map
-#version,v7.0.0
+#version,v02
 #product_name,EKCSA key card switch
-#program_id, 8A:00:0B:F6:04:02:E0:01
+#program_id, 8A:00:0B:F6:04:02:E0:02
 #manufacturer,EnOcean
 #description,EKCSA key card switch
 Block Name,Block Index,Datapoint Name,Address,IAP Type,IAP Field,BACnet Name,BACnet Units,Description
