@@ -1,7 +1,7 @@
 #filetype,bacnet_type_map
-#version,v7.0.0
+#version,v02
 #product_name,EDRPA Double Rocker Pad
-#program_id, 8A:00:0B:F6:02:04:E0:01
+#program_id, 8A:00:0B:F6:02:04:E0:02
 #manufacturer,EnOcean
 #description,EDRPA Double Rocker Pad
 Block Name,Block Index,Datapoint Name,Address,IAP Type,IAP Field,BACnet Name,BACnet Units,Description

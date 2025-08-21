@@ -100,10 +100,10 @@ Note that since this package file is based on EEP F6-02-04, users may encounter 
 
 About this device type package file
 
--   **File Name:** EDRPA-V2.dtp
+-   **File Name:** EDRPA-lcl-V2.dtp
 -   **EnOcean Equipment Profile (EEP):** F6-02-04
 -   **Device Model Number:** EDRPA-W-EO
--   **BACnet Type Mapping File Name:** EDRPA-V2.btm
+-   **BACnet Type Mapping File Name:** EDRPA-lcl-V2.btm
 
 <a name="ESRPA"></a>
 # ESRPA - EnOcean Single Rocker Pad
