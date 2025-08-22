@@ -89,10 +89,10 @@ About this device type package file
 
 About this device type package file
 
--   **File Name:** EPACU-lcl-V2.dtp
+-   **File Name:** EPACU-lcl-V3.dtp
 -   **EnOcean Equipment Profile (EEP):** D2-15-00
 -   **Device Model Number:** EPACU
--   **BACnet Type Mapping File Name:** EPACU-lcl-V2.btm
+-   **BACnet Type Mapping File Name:** EPACU-lcl-V3.btm
 
 <a name="ETHSU"></a>
 # EnOcean Temperature and Humidity Sensor
