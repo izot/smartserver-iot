@@ -14,7 +14,7 @@ Readme - EnOcean Self-Powered Sensors, Device Type Package Files and BACnet Type
 -   [ETHSA - EnOcean Temperature and Humidity Sensor](#ETHSA)
 -   [EDRPA - EnOcean Double Rocker Pad](#EDRPA)
 -   [ESRPA - EnOcean Single Rocker Pad](#ESRPA)
--   [EnOcean-EU-lcl-V5.dtp - Consolidated Device Type Package File](#Complete)
+-   [EnOcean-EU-lcl-V6.dtp - Consolidated Device Type Package File](#Complete)
 
 <a name="Overview"></a>
 # Overview
@@ -118,10 +118,10 @@ About this device type package file
 -   **BACnet Type Mapping File Name:** ESRPA-lcl-V18.btm
 
 <a name="Complete"></a>
-# EnOcean-EU-lcl-V5.dtp - Consolidated Device Type Package File
+# EnOcean-EU-lcl-V6.dtp - Consolidated Device Type Package File
 
-The EnOcean-EU-lcl-V5.dtp file is a consolidated device type package file that includes the device type contents for all of the individual EnOcean sensor and switch devices in this collection.  This consolidated package file also includes the btm files for the individual devices as well.
+The EnOcean-EU-lcl-V6.dtp file is a consolidated device type package file that includes the device type contents for all of the individual EnOcean sensor and switch devices in this collection.  This consolidated package file also includes the btm files for the individual devices as well.
 
 About this device type package file
 
--   **File Name:** EnOcean-EU-lcl-V5.dtp
+-   **File Name:** EnOcean-EU-lcl-V6.dtp
