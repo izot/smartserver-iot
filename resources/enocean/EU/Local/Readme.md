@@ -108,19 +108,19 @@ About this device type package file
 <a name="ESRPA"></a>
 # ESRPA - EnOcean Single Rocker Pad
 
-Note that since this package file is based on EEP F6-02-04, users may encounter issues using this package file with older USB 300U radios running an API version prior to 2.6.8.0 (Jan 2017).  This supports switches containing the PTM 215.
+Note that since this package file is based on EEP F6-02-04, users may encounter issues using this package file with older USB 300U radios running an API version prior to 2.6.8.0 (Jan 2017).  This supports switches containing the PTM 215.  The version number of this package file is 16 greater than the version number of the EDRPA package file (upper nibble in the device model in the program ID is set) in order to differentiate it from the EDRPA device and prevent errors when these are bundled together into a consolidated package file.
 
 About this device type package file
 
--   **File Name:** ESRPA-lcl-V2.dtp
+-   **File Name:** ESRPA-lcl-V18.dtp
 -   **EnOcean Equipment Profile (EEP):** F6-02-04
 -   **Device Model Number:** ESRPA-W-EO
--   **BACnet Type Mapping File Name:** ESRPA-lcl-V2.btm
+-   **BACnet Type Mapping File Name:** ESRPA-lcl-V18.btm
 
 <a name="Complete"></a>
 # EnOcean-EU-lcl-V5.dtp - Consolidated Device Type Package File
 
-The EnOcean-EU-lcl-V5.dtp file is a consolidated device type package file that includes the device type contents for all of the individual EnOcean sensor and switch devices in this collection.  Note that this does not include the btm files, which should be imported into the SmartServer IoT separately if desired for a given application.
+The EnOcean-EU-lcl-V5.dtp file is a consolidated device type package file that includes the device type contents for all of the individual EnOcean sensor and switch devices in this collection.  This consolidated package file also includes the btm files for the individual devices as well.
 
 About this device type package file
 
