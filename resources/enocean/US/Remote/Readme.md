@@ -25,10 +25,10 @@ These device type package (dtp) files for the SmartServer IoT support many of th
 
 About this device type package file
 
--   **File Name:** ELLSU-rem-V1.dtp
+-   **File Name:** ELLSU-rem-V2.dtp
 -   **EnOcean Equipment Profile (EEP):** A5-06-02
 -   **Device Model Number:** ELLSU-W-EO
--   **BACnet Type Mapping File Name:** ELLSU-rem-V1.btm
+-   **BACnet Type Mapping File Name:** ELLSU-rem-V2.btm
 
 <a name="EMCSU"></a>
 # EMCSU - EnOcean Magnet Contact Sensor
