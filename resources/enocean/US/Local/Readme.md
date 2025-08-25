@@ -128,7 +128,7 @@ About this device type package file
 -   **Device Model Number:** ESRPU-W-EO
 -   **BACnet Type Mapping File Name:** ESRPU-lcl-V2.btm
 
-<a name="#Complete"></a>
+<a name="Complete"></a>
 # EnOcean-US-lcl-V6.dtp - Consolidated Device Type Package File
 
 The EnOcean-US-lcl-V6.dtp file is a consolidated device type package file that includes the device type contents for all of the individual EnOcean sensor and switch devices in this collection.  This consolidated package file also includes the btm files for the individual devices as well.
