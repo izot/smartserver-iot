@@ -15,7 +15,7 @@ Readme - EnOcean Self-Powered Sensors, Device Type Package Files and BACnet Type
 -   [ETHSU - EnOcean Temperature and Humidity Sensor](#ETHSU)
 -   [EDRPU - EnOcean Double Rocker Pad](#EDRPU)
 -   [ESRPU - EnOcean Single Rocker Pad](#ESRPU)
--   [EnOcean-US-lcl-V5.dtp - Consolidated Device Type Package File](#Complete)
+-   [EnOcean-US-lcl-V6.dtp - Consolidated Device Type Package File](#Complete)
 
 <a name="Overview"></a>
 # Overview
@@ -129,10 +129,10 @@ About this device type package file
 -   **BACnet Type Mapping File Name:** ESRPU-lcl-V2.btm
 
 <a name="#Complete"></a>
-# EnOcean-US-lcl-V5.dtp - Consolidated Device Type Package File
+# EnOcean-US-lcl-V6.dtp - Consolidated Device Type Package File
 
-The EnOcean-US-lcl-V5.dtp file is a consolidated device type package file that includes the device type contents for all of the individual EnOcean sensor and switch devices in this collection.  Note that this does not include the btm files, which should be imported into the SmartServer IoT separately if desired for a given application.
+The EnOcean-US-lcl-V6.dtp file is a consolidated device type package file that includes the device type contents for all of the individual EnOcean sensor and switch devices in this collection.  This consolidated package file also includes the btm files for the individual devices as well.
 
 About this device type package file
 
--   **File Name:** EnOcean-US-lcl-V5.dtp
+-   **File Name:** EnOcean-US-lcl-V6.dtp
