@@ -47,10 +47,10 @@ Based on changes to the OperationalInfo data point names, this package file shou
 
 About this device type package file
 
--   **File Name:** EMDCU-rem-V2.dtp
+-   **File Name:** EMDCU-rem-V3.dtp
 -   **EnOcean Equipment Profile (EEP):** A5-07-03
 -   **Device Model Number:** EMDCU-W-EO
--   **BACnet Type Mapping File Name:** EMDCU-rem-V2.btm
+-   **BACnet Type Mapping File Name:** EMDCU-rem-V3.btm
 
 <a name="EMSIU"></a>
 # EMSIU (STM 550) - EnOcean Multisensor
