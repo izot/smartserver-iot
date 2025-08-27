@@ -59,10 +59,10 @@ Based on changes to the OperationalInfo data point names, this package file shou
 
 About this device type package file
 
--   **File Name:** STM550-rem-V2.dtp
+-   **File Name:** STM550U-rem-V3.dtp
 -   **EnOcean Equipment Profile (EEP):** D2-14-41 (default)
 -   **Device Model Number:** STM550U
--   **BACnet Type Mapping File Name:** STM550-rem-V2.btm
+-   **BACnet Type Mapping File Name:** STM550U-rem-V3.btm
 
 <a name="EOSxU"></a>
 # EOSxU - EnOcean Ceiling, Wall Mounted, and High Bay Occupancy Sensors
