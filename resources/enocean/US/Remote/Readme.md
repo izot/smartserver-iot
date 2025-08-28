@@ -93,10 +93,10 @@ Based on changes to the OperationalInfo data point names, this package file shou
 
 About this device type package file
 
--   **File Name:** ETHSU-rem-V2.dtp
+-   **File Name:** ETHSU-rem-V3.dtp
 -   **EnOcean Equipment Profile (EEP):** A5-04-03
 -   **Device Model Number:** ETHSU
--   **BACnet Type Mapping File Name:** ETHSU-rem-V2.btm
+-   **BACnet Type Mapping File Name:** ETHSU-rem-V3.btm
 
 <a name="EDRPU"></a>
 # EDRPU - EnOcean Double Rocker Pad
