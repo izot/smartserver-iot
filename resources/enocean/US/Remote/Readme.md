@@ -71,10 +71,10 @@ Note that there are three different EnOcean occupancy sensor base models support
 
 About this device type package file
 
--   **File Name:** EOSxU-rem-V2.dtp
+-   **File Name:** EOSxU-rem-V3.dtp
 -   **EnOcean Equipment Profile (EEP):** A5-07-01
 -   **Device Model Number:** EOSCU-W-EO, EOSWU-W-EO, EOSHU
--   **BACnet Type Mapping File Name:** EOSxU-rem-V2.btm
+-   **BACnet Type Mapping File Name:** EOSxU-rem-V3.btm
 
 <a name="EPACU"></a>
 # EPACU - EnOcean People Activity Counter
