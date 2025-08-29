@@ -26,10 +26,10 @@ These device type package (dtp) files for the SmartServer IoT support many of th
 
 About this device type package file
 
--   **File Name:** EMCSA-rem-V1.dtp
+-   **File Name:** EMCSA-rem-V2.dtp
 -   **EnOcean Equipment Profile (EEP):** D5-00-01
 -   **Device Model Number:** EMCSA
--   **BACnet Type Mapping File Name:** EMCSA-rem-V1.btm
+-   **BACnet Type Mapping File Name:** EMCSA-rem-V2.btm
 
 <a name="EMDCA"></a>
 # EMDCA - EnOcean Motion Detector With Illumination Sensor
