@@ -38,10 +38,10 @@ Based on changes to the OperationalInfo data point names, this package file shou
 
 About this device type package file
 
--   **File Name:** EMDCA-rem-V2.dtp
+-   **File Name:** EMDCA-rem-V3.dtp
 -   **EnOcean Equipment Profile (EEP):** A5-07-03
 -   **Device Model Number:** EMDCA-W-EO
--   **BACnet Type Mapping File Name:** EMDCA-rem-V2.btm
+-   **BACnet Type Mapping File Name:** EMDCA-rem-V3.btm
 
 <a name="EMSIA"></a>
 # EMSIA (STM 550) - EnOcean Multisensor
