@@ -74,7 +74,7 @@ About this device type package file
 -   **File Name:** EOSxU-rem-V3.dtp
 -   **EnOcean Equipment Profile (EEP):** A5-07-01
 -   **Device Model Number:** EOSCU-W-EO, EOSWU-W-EO, EOSHU
--   **BACnet Type Mapping File Name:** EOSxU-rem-V3.btm
+-   **BACnet Type Mapping File Name:** EOSxU-rem-V3.btm (bundled in the package file)
 
 <a name="EPACU"></a>
 # EPACU - EnOcean People Activity Counter
