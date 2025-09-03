@@ -84,10 +84,10 @@ Based on changes to the OperationalInfo data point names, this package file shou
 
 About this device type package file
 
--   **File Name:** ETHSA-rem-V2.dtp
+-   **File Name:** ETHSA-rem-V3.dtp
 -   **EnOcean Equipment Profile (EEP):** A5-04-03
 -   **Device Model Number:** ETHSA
--   **BACnet Type Mapping File Name:** ETHSA-rem-V2.btm
+-   **BACnet Type Mapping File Name:** ETHSA-rem-V3.btm
 
 <a name="EDRPA"></a>
 # EDRPA - EnOcean Double Rocker Pad
