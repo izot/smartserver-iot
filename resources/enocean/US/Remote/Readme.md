@@ -120,4 +120,4 @@ About this device type package file
 -   **File Name:** ESRPU-rem-V1.dtp
 -   **EnOcean Equipment Profile (EEP):** F6-02-04
 -   **Device Model Number:** ESRPU-W-EO
--   **BACnet Type Mapping File Name:** ESRPU-rem-V1.btm
+-   **BACnet Type Mapping File Name:** ESRPU-rem-V1.btm (bundled in the package file)
