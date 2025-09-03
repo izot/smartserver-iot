@@ -84,7 +84,7 @@ About this device type package file
 -   **File Name:** EPACU-rem-V2.dtp
 -   **EnOcean Equipment Profile (EEP):** D2-15-00
 -   **Device Model Number:** EPACU
--   **BACnet Type Mapping File Name:** EPACU-rem-V2.btm
+-   **BACnet Type Mapping File Name:** EPACU-rem-V2.btm (bundled in the package file)
 
 <a name="ETHSU"></a>
 # ETHSU - EnOcean Temperature and Humidity Sensor
