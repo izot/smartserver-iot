@@ -38,7 +38,7 @@ About this device type package file
 -   **File Name:** EMCSU-rem-V2.dtp
 -   **EnOcean Equipment Profile (EEP):** D5-00-01
 -   **Device Model Number:** EMCSU
--   **BACnet Type Mapping File Name:** EMCSU-rem-V2.btm
+-   **BACnet Type Mapping File Name:** EMCSU-rem-V2.btm (bundled in the package file)
 
 <a name="EMDCU"></a>
 # EMDCU - EnOcean Motion Detector With Illumination Sensor
