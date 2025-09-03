@@ -108,7 +108,7 @@ About this device type package file
 -   **File Name:** EDRPU-rem-V1.dtp
 -   **EnOcean Equipment Profile (EEP):** F6-02-04
 -   **Device Model Number:** EDRPU-W-EO
--   **BACnet Type Mapping File Name:** EDRPU-rem-V1.btm
+-   **BACnet Type Mapping File Name:** EDRPU-rem-V1.btm (bundled in the package file)
 
 <a name="ESRPU"></a>
 # ESRPU - EnOcean Single Rocker Pad
