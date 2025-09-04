@@ -75,7 +75,7 @@ About this device type package file
 -   **File Name:** EPACA-rem-V2.dtp
 -   **EnOcean Equipment Profile (EEP):** D2-15-00
 -   **Device Model Number:** EPACA
--   **BACnet Type Mapping File Name:** EPACA-rem-V2.btm
+-   **BACnet Type Mapping File Name:** EPACA-rem-V2.btm (bundled in the package file)
 
 <a name="ETHSA"></a>
 # ETHSA - EnOcean Temperature and Humidity Sensor
