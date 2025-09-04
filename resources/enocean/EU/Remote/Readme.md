@@ -53,7 +53,7 @@ About this device type package file
 -   **File Name:** STM550-rem-V3.dtp
 -   **EnOcean Equipment Profile (EEP):** D2-14-41 (default)
 -   **Device Model Number:** STM550
--   **BACnet Type Mapping File Name:** STM550-rem-V3.btm
+-   **BACnet Type Mapping File Name:** STM550-rem-V3.btm (bundled in the package file)
 
 <a name="EOSxA"></a>
 # EOSxA - EnOcean Ceiling, Wall Mounted, and High Bay Occupancy Sensors
