@@ -35,7 +35,7 @@ About this device type package file
 -   **File Name:** EMDCJ-rem-V2.dtp
 -   **EnOcean Equipment Profile (EEP):** A5-07-03
 -   **Device Model Number:** EMDCJ-W-EO
--   **BACnet Type Mapping File Name:** EMDCJ-rem-V2.btm
+-   **BACnet Type Mapping File Name:** EMDCJ-rem-V2.btm (bundled in the package file)
 
 <a name="EMSIJ"></a>
 # EMSIJ (STM 550) - EnOcean Multisensor
