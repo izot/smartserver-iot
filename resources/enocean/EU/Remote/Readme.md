@@ -65,7 +65,7 @@ About this device type package file
 -   **File Name:** EOSxA-rem-V3.dtp
 -   **EnOcean Equipment Profile (EEP):** A5-07-01
 -   **Device Model Number:** EOSCA-W-EO, EOSWA-W-EO, EOSHA
--   **BACnet Type Mapping File Name:** EOSxA-rem-V3.btm
+-   **BACnet Type Mapping File Name:** EOSxA-rem-V3.btm (bundled in the package file)
 
 <a name="EPACA"></a>
 # EPACA - EnOcean People Activity Counter
