@@ -111,7 +111,7 @@ About this device type package file
 -   **File Name:** ESRPA-rem-V1.dtp
 -   **EnOcean Equipment Profile (EEP):** F6-02-04
 -   **Device Model Number:** ESRPA-W-EO
--   **BACnet Type Mapping File Name:** ESRPA-rem-V1.btm
+-   **BACnet Type Mapping File Name:** ESRPA-rem-V1.btm (bundled in the package file)
 
 <a name="CTV3"></a>
 # CTV3 - Pressac One Channel Current Sensor
@@ -121,7 +121,7 @@ About this device type package file
 -   **File Name:** CT-Clamp-1CH-rem-V1.dtp
 -   **EnOcean Equipment Profile (EEP):** D2-32-00
 -   **Device Model Number:** CTV3_868_1CH_xxxA
--   **BACnet Type Mapping File Name:** CT-Clamp-1CH-rem-V1.btm (included in the package file)
+-   **BACnet Type Mapping File Name:** CT-Clamp-1CH-rem-V1.btm (bundled in the package file)
 
 <a name="SDENOC2"></a>
 # SD-ENO-Co2 - Jumitech Air Quality Sensor
@@ -131,4 +131,4 @@ About this device type package file
 -   **File Name:** Jumitech-CO2-rem-V1.dtp
 -   **EnOcean Equipment Profile (EEP):** D2-14-59
 -   **Device Model Number:** SD-ENO-Co2-Sensor
--   **BACnet Type Mapping File Name:** Jumitech-CO2-rem-V1.btm (included in the package file)
+-   **BACnet Type Mapping File Name:** Jumitech-CO2-rem-V1.btm (bundled in the package file)
