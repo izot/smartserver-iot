@@ -13,17 +13,17 @@ Readme - EnOcean Self-Powered Sensors, Device Type Package Files and BACnet Type
 <a name="Overview"></a>
 # Overview
 
-These device type package (dtp) files for the SmartServer IoT support many of the EnOcean-branded sensors and switches classified as finished products or Easyfit devices.  These files are designed for use with the EnOcean driver operating in remote mode.  There are individual device type package files for each sensor type.  In addition, there are individual BACnet type mapping (btm) files for each of the sensor types to support applications where the SmartServer IoT is being used to publish EnOcean sensor data as BACnet IP data using the SmartServer IoT's integral BACnet IP server.  Note that these package files are based on the default EnOcean Equipment Profiles (EEP) used by these sensors.  Some sensors like the STM 550 support different EEPs selectable using NFC.
+These device type package (dtp) files for the SmartServer IoT support many of the EnOcean-branded sensors and switches classified as finished products or Easyfit devices.  These files are designed for use with the EnOcean driver operating in remote mode.  There are individual device type package files for each sensor type. In addition, there are BACnet type mapping (btm) files for each of the sensor types bundled into the package files to support applications where the SmartServer IoT is being used to publish EnOcean sensor data as BACnet IP data using the SmartServer IoT's integral BACnet IP server.  Note that these package files are based on the default EnOcean Equipment Profiles (EEP) used by these sensors.  Some sensors like the STM 550 support different EEPs selectable using NFC.
 
 <a name="EMCSJ"></a>
 # EMCSJ - EnOcean Magnet Contact Sensor
 
 About this device type package file
 
--   **File Name:** EMCSJ-rem-V1.dtp
+-   **File Name:** EMCSJ-rem-V2.dtp
 -   **EnOcean Equipment Profile (EEP):** D5-00-01
 -   **Device Model Number:** EMCSJ
--   **BACnet Type Mapping File Name:** EMCSJ-rem-V1.btm
+-   **BACnet Type Mapping File Name:** EMCSJ-rem-V2.btm (bundled in the package file)
 
 <a name="EMDCJ"></a>
 # EMDCJ - EnOcean Motion Detector With Illumination Sensor
