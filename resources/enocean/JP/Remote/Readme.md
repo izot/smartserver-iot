@@ -7,7 +7,7 @@ Readme - EnOcean Self-Powered Sensors, Device Type Package Files and BACnet Type
 -   [Overview](#Overview)
 -   [EMCSJ - EnOcean Magnet Contact Sensor](#EMCSJ)
 -   [EMDCJ - EnOcean Motion Detector With Illumination Sensor](#EMDCJ)
--   [EMSIJ (STM 550) - EnOcean Multisensor](#EMSIJ)
+-   [EMSIJ (STM 550J) - EnOcean Multisensor](#EMSIJ)
 -   [EOSxJ - EnOcean Ceiling, Wall Mounted, and High Bay Occupancy Sensors](#EOSxJ)
 
 <a name="Overview"></a>
@@ -32,22 +32,22 @@ Based on changes to the OperationalInfo data point names, this package file shou
 
 About this device type package file
 
--   **File Name:** EMDCJ-rem-V2.dtp
+-   **File Name:** EMDCJ-rem-V3.dtp
 -   **EnOcean Equipment Profile (EEP):** A5-07-03
 -   **Device Model Number:** EMDCJ-W-EO
--   **BACnet Type Mapping File Name:** EMDCJ-rem-V2.btm (bundled in the package file)
+-   **BACnet Type Mapping File Name:** EMDCJ-rem-V3.btm (bundled in the package file)
 
 <a name="EMSIJ"></a>
-# EMSIJ (STM 550) - EnOcean Multisensor
+# EMSIJ (STM 550J) - EnOcean Multisensor
 
 Based on changes to the OperationalInfo data point names, this package file should be used with SmartServer 4.5x and later.
 
 About this device type package file
 
--   **File Name:** STM550-rem-V2.dtp
+-   **File Name:** STM550J-rem-V3.dtp
 -   **EnOcean Equipment Profile (EEP):** D2-14-41 (default)
 -   **Device Model Number:** STM550
--   **BACnet Type Mapping File Name:** STM550-rem-V2.btm
+-   **BACnet Type Mapping File Name:** STM550J-rem-V3.btm (bundled in the package file)
 
 <a name="EOSxJ"></a>
 # EOSxJ - EnOcean Ceiling, Wall Mounted, and High Bay Occupancy Sensors
