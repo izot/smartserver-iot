@@ -70,7 +70,7 @@ About this device type package file
 -   **File Name:** STM550U-lcl-V5.dtp
 -   **EnOcean Equipment Profile (EEP):** D2-14-41 (default)
 -   **Device Model Number:** STM550U
--   **BACnet Type Mapping File Name:** STM550U-lcl-V5.btm
+-   **BACnet Type Mapping File Name:** STM550U-lcl-V5.btm (bundled in the package file)
 
 <a name="EOSxU"></a>
 # EOSxU - EnOcean Ceiling, Wall Mounted, and High Bay Occupancy Sensors
