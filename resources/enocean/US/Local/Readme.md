@@ -102,7 +102,7 @@ About this device type package file
 -   **File Name:** ETHSU-lcl-V5.dtp
 -   **EnOcean Equipment Profile (EEP):** A5-04-03
 -   **Device Model Number:** ETHSU
--   **BACnet Type Mapping File Name:** ETHSU-lcl-V5.btm
+-   **BACnet Type Mapping File Name:** ETHSU-lcl-V5.btm (bundled in the package file)
 
 <a name="EDRPU"></a>
 # EDRPU - EnOcean Double Rocker Pad
