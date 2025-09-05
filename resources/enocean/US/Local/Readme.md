@@ -40,7 +40,7 @@ About this device type package file
 -   **File Name:** ELLSU-lcl-V3.dtp
 -   **EnOcean Equipment Profile (EEP):** A5-06-02
 -   **Device Model Number:** ELLSU-W-EO
--   **BACnet Type Mapping File Name:** ELLSU-lcl-V3.btm
+-   **BACnet Type Mapping File Name:** ELLSU-lcl-V3.btm (bundled in the package file)
 
 <a name="EMCSU"></a>
 # EMCSU - EnOcean Magnet Contact Sensor
