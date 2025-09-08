@@ -91,7 +91,7 @@ About this device type package file
 -   **File Name:** ETHSA-lcl-V4.dtp
 -   **EnOcean Equipment Profile (EEP):** A5-04-03
 -   **Device Model Number:** ETHSA
--   **BACnet Type Mapping File Name:** ETHSA-lcl-V4.btm
+-   **BACnet Type Mapping File Name:** ETHSA-lcl-V4.btm (bundled in the package file)
 
 <a name="EDRPA"></a>
 # EDRPA - EnOcean Double Rocker Pad
