@@ -115,7 +115,7 @@ About this device type package file
 -   **File Name:** ESRPA-lcl-V18.dtp
 -   **EnOcean Equipment Profile (EEP):** F6-02-04
 -   **Device Model Number:** ESRPA-W-EO
--   **BACnet Type Mapping File Name:** ESRPA-lcl-V18.btm
+-   **BACnet Type Mapping File Name:** ESRPA-lcl-V18.btm (bundled in the package file)
 
 <a name="Complete"></a>
 # EnOcean-EU-lcl-V6.dtp - Consolidated Device Type Package File
