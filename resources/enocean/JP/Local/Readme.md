@@ -44,7 +44,7 @@ About this device type package file
 -   **File Name:** STM550J-lcl-V4.dtp
 -   **EnOcean Equipment Profile (EEP):** D2-14-41 (default)
 -   **Device Model Number:** STM550J
--   **BACnet Type Mapping File Name:** STM550J-lcl-V4.btm
+-   **BACnet Type Mapping File Name:** STM550J-lcl-V4.btm (bundled in the package file)
 
 <a name="EOSxJ"></a>
 # EOSxJ - EnOcean Ceiling, Wall Mounted, and High Bay Occupancy Sensors
