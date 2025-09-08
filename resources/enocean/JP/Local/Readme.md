@@ -56,7 +56,7 @@ About this device type package file
 -   **File Name:** EOSxJ-lcl-V3.dtp
 -   **EnOcean Equipment Profile (EEP):** A5-07-01
 -   **Device Model Number:** EOSCJ-W-EO,EOSWJ-W-EO
--   **BACnet Type Mapping File Name:** EOSxJ-lcl-V3.btm
+-   **BACnet Type Mapping File Name:** EOSxJ-lcl-V3.btm (bundled in the package file)
 
 <a name="Complete"></a>
 # EnOcean-JP-lcl-V6.dtp - Consolidated Device Type Package File
