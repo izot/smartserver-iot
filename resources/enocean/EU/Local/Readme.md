@@ -12,7 +12,7 @@ Readme - EnOcean Self-Powered Sensors, Device Type Package Files and BACnet Type
 -   [EOSxA - EnOcean Ceiling, Wall Mounted, and High Bay Occupancy Sensors](#EOSxA)
 -   [EPACA - EnOcean People Activity Counter](#EPACA)
 -   [ETHSA - EnOcean Temperature and Humidity Sensor](#ETHSA)
--   [EDRPA - EnOcean Double Rocker Pad](#EDRPA)
+-   [EWSDA - EnOcean Double Rocker Pad](#EWSDA)
 -   [ESRPA - EnOcean Single Rocker Pad](#ESRPA)
 -   [EnOcean-EU-lcl-V6.dtp - Consolidated Device Type Package File](#Complete)
 
@@ -93,17 +93,17 @@ About this device type package file
 -   **Device Model Number:** ETHSA
 -   **BACnet Type Mapping File Name:** ETHSA-lcl-V4.btm (bundled in the package file)
 
-<a name="EDRPA"></a>
-# EDRPA - EnOcean Double Rocker Pad
+<a name="EWSDA"></a>
+# EWSDA - EnOcean Double Rocker Pad
 
 Note that since this package file is based on EEP F6-02-04, users may encounter issues using this package file with older USB 300U radios running an API version prior to 2.6.8.0 (Jan 2017).  This supports switches containing the PTM 215.
 
 About this device type package file
 
--   **File Name:** EDRPA-lcl-V2.dtp
+-   **File Name:** EWSDA-lcl-V2.dtp
 -   **EnOcean Equipment Profile (EEP):** F6-02-04
--   **Device Model Number:** EDRPA-W-EO
--   **BACnet Type Mapping File Name:** EDRPA-lcl-V2.btm (bundled in the package file)
+-   **Device Model Number:** EWSDA
+-   **BACnet Type Mapping File Name:** EWSDA-lcl-V2.btm (bundled in the package file)
 
 <a name="ESRPA"></a>
 # ESRPA - EnOcean Single Rocker Pad
