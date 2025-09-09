@@ -12,7 +12,7 @@ Readme - EnOcean Self-Powered Sensors, Device Type Package Files and BACnet Type
 -   [EPACA - EnOcean People Activity Counter](#EPACA)
 -   [ETHSA - EnOcean Temperature and Humidity Sensor](#ETHSA)
 -   [EWSDA - EnOcean Double Rocker Pad](#EWSDA)
--   [ESRPA - EnOcean Single Rocker Pad](#ESRPA)
+-   [EWSSA - EnOcean Single Rocker Pad](#EWSSA)
 -   [CTV3 - Pressac One Channel Current Sensor](#CTV3)
 -   [SD-ENO-Co2 - Jumitech Air Quality Sensor](#SDENOC2)
 
@@ -101,17 +101,17 @@ About this device type package file
 -   **Device Model Number:** EWSDA
 -   **BACnet Type Mapping File Name:** EWSDA-rem-V1.btm (bundled in the package file)
 
-<a name="ESRPA"></a>
-# ESRPA - EnOcean Single Rocker Pad
+<a name="EWSSA"></a>
+# EWSSA - EnOcean Single Rocker Pad
 
 Note that since this package file is based on EEP F6-02-04, users may encounter issues using this package file with older USB 300U radios running an API version prior to 2.6.8.0 (Jan 2017).  This supports switches containing the PTM 215.
 
 About this device type package file
 
--   **File Name:** ESRPA-rem-V1.dtp
+-   **File Name:** EWSSA-rem-V1.dtp
 -   **EnOcean Equipment Profile (EEP):** F6-02-04
--   **Device Model Number:** ESRPA-W-EO
--   **BACnet Type Mapping File Name:** ESRPA-rem-V1.btm (bundled in the package file)
+-   **Device Model Number:** EWSSA
+-   **BACnet Type Mapping File Name:** EWSSA-rem-V1.btm (bundled in the package file)
 
 <a name="CTV3"></a>
 # CTV3 - Pressac One Channel Current Sensor
