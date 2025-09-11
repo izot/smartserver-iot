@@ -96,10 +96,10 @@ Note that since this package file is based on EEP F6-02-04, users may encounter 
 
 About this device type package file
 
--   **File Name:** EWSDA-rem-V1.dtp
+-   **File Name:** EWSDA-rem-V2.dtp
 -   **EnOcean Equipment Profile (EEP):** F6-02-04
 -   **Device Model Number:** EWSDA
--   **BACnet Type Mapping File Name:** EWSDA-rem-V1.btm (bundled in the package file)
+-   **BACnet Type Mapping File Name:** EWSDA-rem-V2.btm (bundled in the package file)
 
 <a name="EWSSA"></a>
 # EWSSA - EnOcean Single Rocker Pad
