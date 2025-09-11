@@ -104,14 +104,14 @@ About this device type package file
 <a name="EWSSA"></a>
 # EWSSA - EnOcean Single Rocker Pad
 
-Note that since this package file is based on EEP F6-02-04, users may encounter issues using this package file with older USB 300U radios running an API version prior to 2.6.8.0 (Jan 2017).  This supports switches containing the PTM 215.
+Note that since this package file is based on EEP F6-02-04, users may encounter issues using this package file with older USB 300U radios running an API version prior to 2.6.8.0 (Jan 2017).  This supports switches containing the PTM 215.  The version number of this package file is 16 greater than the version number of the EWSDA package file (upper nibble in the device model in the program ID is set) in order to differentiate it from the EWSDA device and prevent errors when these are bundled together into a consolidated package file.
 
 About this device type package file
 
--   **File Name:** EWSSA-rem-V1.dtp
+-   **File Name:** EWSSA-rem-V18.dtp
 -   **EnOcean Equipment Profile (EEP):** F6-02-04
 -   **Device Model Number:** EWSSA
--   **BACnet Type Mapping File Name:** EWSSA-rem-V1.btm (bundled in the package file)
+-   **BACnet Type Mapping File Name:** EWSSA-rem-V18.btm (bundled in the package file)
 
 <a name="CTV3"></a>
 # CTV3 - Pressac One Channel Current Sensor
