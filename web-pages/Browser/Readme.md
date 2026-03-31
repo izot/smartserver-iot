@@ -27,9 +27,9 @@ Custom Web pages can be developed to not use WebSockets, but WebSockets provide 
 
 # Installation
 1. Unzip the Browser_xxx.zip file 
-2. Go into the Browser folder and copy the Browser folder to 
+2. Go into the Browser folder (with apollo user credentials) and copy the Browser folder to 
 /var/apollo/www/user
-3. In /var/apollo/www/user rename login1.html to login.html
+3. In /var/apollo/www/user rename login1.html to login.html (requires root user credentials)
 4.  Optional (but don't use on a production site) change the SmartServer landing Webpage (create a home.html) to add a Browser button to the Smartserver home page (you can use the provided home.html page) located in 
 /var/apollo/www/user
 
